@@ -12,6 +12,10 @@ plugins {
 }
 
 android {
+    val flavourDimensionEnvironment = "environment"
+    val productFlavorInternal = "internal"
+    val productFlavorProduction = "prod"
+
     namespace = "shum.oks.lab.anime"
     compileSdk {
         version = release(36) {
@@ -36,6 +40,20 @@ android {
             }
         }
     }
+
+    flavorDimensions += listOf(flavourDimensionEnvironment)
+    productFlavors {
+        create(productFlavorProduction) {
+            dimension = flavourDimensionEnvironment
+        }
+
+        create(productFlavorInternal) {
+            dimension = flavourDimensionEnvironment
+            applicationIdSuffix = ".$productFlavorInternal"
+            versionNameSuffix = "-$productFlavorInternal"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
