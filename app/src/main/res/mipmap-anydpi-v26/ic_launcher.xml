@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2026 Oksana Shumilova.
+  ~ All rights reserved.
+  ~
+  ~ This source code is provided for portfolio and evaluation purposes only.
+  ~ Unauthorized copying, modification, or distribution is prohibited.
+  -->
+
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@drawable/ic_launcher_background" />
     <foreground android:drawable="@drawable/ic_launcher_foreground" />

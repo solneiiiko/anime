@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2026 Oksana Shumilova.
+  ~ All rights reserved.
+  ~
+  ~ This source code is provided for portfolio and evaluation purposes only.
+  ~ Unauthorized copying, modification, or distribution is prohibited.
+  -->
+
+<!--
    Sample data extraction rules file; uncomment and customize as necessary.
    See https://developer.android.com/about/versions/12/backup-restore#xml-changes
    for details.
