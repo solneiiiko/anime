@@ -1,3 +1,11 @@
+/*
+ * Copyright © 2026 Oksana Shumilova.
+ * All rights reserved.
+ *
+ * This source code is provided for portfolio and evaluation purposes only.
+ * Unauthorized copying, modification, or distribution is prohibited.
+ */
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
