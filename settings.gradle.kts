@@ -33,3 +33,7 @@ dependencyResolutionManagement {
 rootProject.name = "anime"
 include(":app")
 include(":core:di")
+
+include(":common:database")
+
+include(":feature:anime:list:data:api")

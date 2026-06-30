@@ -8,9 +8,14 @@
 
 package shum.oks.lab.anime.di
 
+import shum.oks.lab.common.database.di.CommonDatabaseComponentHolder
+import shum.oks.lab.common.database.di.CommonDatabaseDependencies
 import javax.inject.Inject
+import javax.inject.Provider
 
-class ComponentHolderInitializer @Inject constructor() {
+class ComponentHolderInitializer @Inject constructor(
+    private val commonDatabaseDependenciesProvider: Provider<CommonDatabaseDependencies>,
+) {
 
     fun init() {
         initCommon()
@@ -18,7 +23,7 @@ class ComponentHolderInitializer @Inject constructor() {
     }
 
     private fun initCommon() {
-        // TODO
+        CommonDatabaseComponentHolder.init(commonDatabaseDependenciesProvider)
     }
 
     private fun initFeatures() {

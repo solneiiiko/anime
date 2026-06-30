@@ -9,6 +9,8 @@
 package shum.oks.lab.anime
 
 import android.app.Application
+import android.content.Context
+import shum.oks.lab.anime.di.AppDependencies
 import shum.oks.lab.anime.di.DaggerAppComponent
 
 class App : Application() {
@@ -17,6 +19,11 @@ class App : Application() {
         super.onCreate()
 
         DaggerAppComponent.builder()
+            .appDependencies(
+                object : AppDependencies {
+                    override val appContext: Context = this@App
+                }
+            )
             .build()
             .componentHolderInitializer.init()
     }

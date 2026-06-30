@@ -76,6 +76,7 @@ dependencies {
 
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
+    implementation(project(":common:database"))
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

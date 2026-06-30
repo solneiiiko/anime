@@ -6,20 +6,18 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di
+package shum.oks.lab.common.database.di
 
 import dagger.Component
-import shum.oks.lab.anime.di.modules.AppCommonModule
+import javax.inject.Singleton
 
+@Singleton
 @Component(
-    modules = [
-        AppCommonModule::class,
-    ],
     dependencies = [
-        AppDependencies::class,
+        CommonDatabaseDependencies::class
+    ],
+    modules = [
+        CommonDatabaseModule::class,
     ]
 )
-interface AppComponent {
-
-    val componentHolderInitializer: ComponentHolderInitializer
-}
+internal interface CommonDatabaseComponent : CommonDatabaseApi
