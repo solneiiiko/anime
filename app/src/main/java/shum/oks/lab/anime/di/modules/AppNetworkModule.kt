@@ -12,6 +12,8 @@ import dagger.Module
 import dagger.Provides
 import shum.oks.lab.anime.Environment
 import shum.oks.lab.common.network.NetworkConfig
+import shum.oks.lab.common.network.di.CommonNetworkApi
+import shum.oks.lab.common.network.di.CommonNetworkComponentHolder
 import shum.oks.lab.common.network.di.CommonNetworkDependencies
 
 @Module
@@ -30,6 +32,10 @@ class AppNetworkModule {
                         NetworkConfig.LoggingLevel.NONE
                 )
         }
+
+    @Provides
+    fun provideCommonNetworkApi(): CommonNetworkApi =
+        CommonNetworkComponentHolder.get()
 
     private companion object {
         const val BASE_URL = "https://api.jikan.moe/"

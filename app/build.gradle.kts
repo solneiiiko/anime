@@ -61,6 +61,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -76,7 +77,9 @@ dependencies {
 
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
+
     implementation(project(":common:database"))
+    implementation(project(":common:network"))
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
