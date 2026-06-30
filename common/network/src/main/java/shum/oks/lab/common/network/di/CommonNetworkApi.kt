@@ -6,14 +6,12 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di.modules
+package shum.oks.lab.common.network.di
 
-import dagger.Module
+import retrofit2.Retrofit
+import shum.oks.lab.core.di.BaseApi
 
-@Module(
-    includes = [
-        AppDatabaseModule::class,
-        AppNetworkModule::class,
-    ]
-)
-internal class AppCommonModule
+interface CommonNetworkApi : BaseApi {
+
+    fun getRetrofit(): Retrofit
+}

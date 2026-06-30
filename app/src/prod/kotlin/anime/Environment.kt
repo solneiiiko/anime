@@ -6,14 +6,9 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di.modules
+package shum.oks.lab.anime
 
-import dagger.Module
+object Environment {
 
-@Module(
-    includes = [
-        AppDatabaseModule::class,
-        AppNetworkModule::class,
-    ]
-)
-internal class AppCommonModule
+    val ENABLE_LOGGING = BuildConfig.DEBUG
+}
