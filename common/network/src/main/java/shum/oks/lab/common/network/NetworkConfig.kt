@@ -6,14 +6,15 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di.modules
+package shum.oks.lab.common.network
 
-import dagger.Module
+data class NetworkConfig(
+    val baseUrl: String,
+    val loggingLevel: LoggingLevel,
+) {
 
-@Module(
-    includes = [
-        AppDatabaseModule::class,
-        AppNetworkModule::class,
-    ]
-)
-internal class AppCommonModule
+    enum class LoggingLevel {
+        NONE,
+        BODY,
+    }
+}
