@@ -38,3 +38,4 @@ include(":common:database")
 include(":common:network")
 
 include(":feature:anime:list:data:api")
+include(":core:network")
