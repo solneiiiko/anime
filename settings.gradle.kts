@@ -35,5 +35,6 @@ include(":app")
 include(":core:di")
 
 include(":common:database")
+include(":common:network")
 
 include(":feature:anime:list:data:api")
