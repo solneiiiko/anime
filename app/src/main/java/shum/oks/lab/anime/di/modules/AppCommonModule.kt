@@ -16,4 +16,4 @@ import dagger.Module
         AppNetworkModule::class,
     ]
 )
-internal class AppCommonModule
+internal interface AppCommonModule

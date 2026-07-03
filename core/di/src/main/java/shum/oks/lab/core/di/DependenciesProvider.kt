@@ -8,4 +8,6 @@
 
 package shum.oks.lab.core.di
 
-interface BaseApi
+fun interface DependenciesProvider<T> {
+    operator fun invoke(): T
+}

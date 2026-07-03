@@ -26,11 +26,8 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
-
     api(project(":feature:anime:list:data:api"))
 }
