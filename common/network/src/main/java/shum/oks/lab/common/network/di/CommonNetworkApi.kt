@@ -13,5 +13,5 @@ import shum.oks.lab.core.di.BaseApi
 
 interface CommonNetworkApi : BaseApi {
 
-    fun getRetrofit(): Retrofit
+    val retrofit: Retrofit
 }

@@ -17,7 +17,7 @@ import shum.oks.lab.common.network.di.CommonNetworkComponentHolder
 import shum.oks.lab.common.network.di.CommonNetworkDependencies
 
 @Module
-class AppNetworkModule {
+internal class AppNetworkModule {
 
     @Provides
     fun provideCommonNetworkDependencies(): CommonNetworkDependencies =
