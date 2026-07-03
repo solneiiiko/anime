@@ -39,3 +39,4 @@ include(":common:network")
 
 include(":feature:anime:list:data:api")
 include(":core:network")
+include(":core:mvi")
