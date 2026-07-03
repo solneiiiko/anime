@@ -20,7 +20,9 @@ class ApiNetworkException(
     exception: IOException
 ) : ApiException(message, exception)
 
-class ApiServerException(message: String) : ApiException(message)
+class ApiServerException(
+    message: String
+) : ApiException(message)
 
 class ApiUnknownException(
     message: String,
