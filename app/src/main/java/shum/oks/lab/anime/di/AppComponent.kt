@@ -17,7 +17,7 @@ import shum.oks.lab.anime.di.modules.AppCommonModule
     ],
     dependencies = [
         AppDependencies::class,
-    ]
+    ],
 )
 interface AppComponent {
 

@@ -14,17 +14,19 @@ import dagger.Provides
 import shum.oks.lab.common.database.di.CommonDatabaseApi
 import shum.oks.lab.common.database.di.CommonDatabaseComponentHolder
 import shum.oks.lab.common.database.di.CommonDatabaseDependencies
+import shum.oks.lab.core.di.DependenciesProvider
 
 @Module
-internal class AppDatabaseModule {
+class AppDatabaseModule {
 
     @Provides
     fun provideCommonDatabaseDependencies(
         appContext: Context,
-    ): CommonDatabaseDependencies =
+    ): DependenciesProvider<CommonDatabaseDependencies> = {
         object : CommonDatabaseDependencies {
             override val appContext = appContext
         }
+    }
 
     @Provides
     fun provideCommonDatabaseApi(): CommonDatabaseApi =

@@ -1,28 +1,19 @@
 plugins {
-    alias(libs.plugins.android.library)
+    id("java-library")
+    alias(libs.plugins.jetbrains.kotlin.jvm)
     alias(libs.plugins.ksp)
 }
-
-android {
-    namespace = "shum.oks.lab.core.di"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
-
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
     api(libs.dagger)
     ksp(libs.dagger.compiler)
 }

@@ -15,12 +15,13 @@ import shum.oks.lab.common.network.NetworkConfig
 import shum.oks.lab.common.network.di.CommonNetworkApi
 import shum.oks.lab.common.network.di.CommonNetworkComponentHolder
 import shum.oks.lab.common.network.di.CommonNetworkDependencies
+import shum.oks.lab.core.di.DependenciesProvider
 
 @Module
 internal class AppNetworkModule {
 
     @Provides
-    fun provideCommonNetworkDependencies(): CommonNetworkDependencies =
+    fun provideCommonNetworkDependencies(): DependenciesProvider<CommonNetworkDependencies> = {
         object : CommonNetworkDependencies {
 
             override val networkConfig: NetworkConfig
@@ -32,6 +33,7 @@ internal class AppNetworkModule {
                         NetworkConfig.LoggingLevel.NONE
                 )
         }
+    }
 
     @Provides
     fun provideCommonNetworkApi(): CommonNetworkApi =
