@@ -22,17 +22,18 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<
     STATE : UiState,
     INTENT : UiIntent,
-    ACTION : UiAction,
+    EFFECT : UiEffect,
 >(
     initialState: STATE,
     initialIntent: INTENT? = null,
+    private val onClearedCallback: () -> Unit,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<STATE> = _state.asStateFlow()
 
-    private val _action = Channel<ACTION>(Channel.BUFFERED)
-    val action: Flow<ACTION> = _action.receiveAsFlow()
+    private val _effect = Channel<EFFECT>(Channel.BUFFERED)
+    val effect: Flow<EFFECT> = _effect.receiveAsFlow()
 
     init {
         initialIntent?.let {
@@ -46,7 +47,12 @@ abstract class BaseViewModel<
         _state.update { it.updater() }
     }
 
-    protected suspend fun sendAction(action: ACTION) {
-        _action.send(action)
+    protected suspend fun sendEffect(effect: EFFECT) {
+        _effect.send(effect)
+    }
+
+    override fun onCleared() {
+        onClearedCallback()
+        super.onCleared()
     }
 }

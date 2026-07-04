@@ -8,4 +8,4 @@
 
 package shum.oks.lab.core.mvi
 
-interface UiAction
+interface UiEffect
