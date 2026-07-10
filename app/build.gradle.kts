@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.material)
 
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
