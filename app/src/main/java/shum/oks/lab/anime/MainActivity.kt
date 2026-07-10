@@ -15,41 +15,46 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import shum.oks.lab.anime.di.AppComponentHolder
+import shum.oks.lab.anime.list.ui.screens.AnimeListScreen
+import shum.oks.lab.anime.mvi.AppUiState
+import shum.oks.lab.anime.mvi.AppViewModel
 import shum.oks.lab.anime.ui.theme.AnimeTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
-            AnimeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Anime",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            val appViewModel: AppViewModel = viewModel(factory = AppComponentHolder.get().appViewModelFactory)
+            val state by appViewModel.state.collectAsStateWithLifecycle()
+            splashScreen.setKeepOnScreenCondition { state is AppUiState.Loading }
+            when (val state = state) {
+                AppUiState.Loading -> {
+                    // ^_^__/
+                    // TODO write logs ?
+                }
+                is AppUiState.Success -> {
+                    AnimeTheme(
+                        themeMode = state.themeMode,
+                        contrastMode = state.contrastMode,
+                    ) {
+                        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                            AnimeListScreen(
+                                modifier = Modifier.padding(innerPadding)
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AnimeTheme {
-        Greeting("Anime")
     }
 }

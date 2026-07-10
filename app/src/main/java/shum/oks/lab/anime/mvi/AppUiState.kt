@@ -10,7 +10,7 @@ package shum.oks.lab.anime.mvi
 
 import androidx.compose.runtime.Immutable
 import shum.oks.lab.core.mvi.UiState
-import shum.oks.lab.core.theme.models.ContractMode
+import shum.oks.lab.core.theme.models.ContrastMode
 import shum.oks.lab.core.theme.models.ThemeMode
 
 @Immutable
@@ -20,6 +20,6 @@ internal sealed interface AppUiState : UiState {
 
     data class Success(
         val themeMode: ThemeMode,
-        val contractMode: ContractMode,
+        val contrastMode: ContrastMode,
     ) : AppUiState
 }

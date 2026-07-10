@@ -10,6 +10,7 @@ package shum.oks.lab.anime.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -19,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import shum.oks.lab.core.theme.models.ContrastMode
+import shum.oks.lab.core.theme.models.ThemeMode
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -262,24 +265,43 @@ val unspecified_scheme = ColorFamily(
 
 @Composable
 fun AnimeTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeMode: ThemeMode,
+    contrastMode: ContrastMode,
+    //TODO SettingsScreen https://github.com/solneiiiko/anime/issues/27
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-  val colorScheme = when {
+    val darkTheme: Boolean = when (themeMode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+    }
+
+    val colorScheme = when {
       dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
           val context = LocalContext.current
           if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
       }
+      darkTheme -> darkColorSchemeByContrast(contrastMode)
+      else -> lightColorSchemeByContrast(contrastMode)
+    }
 
-      darkTheme -> darkScheme
-      else -> lightScheme
-  }
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AppTypography,
+        content = content
+    )
+}
 
-  MaterialTheme(
-    colorScheme = colorScheme,
-    typography = AppTypography,
-    content = content
-  )
+private fun darkColorSchemeByContrast(contrastMode: ContrastMode): ColorScheme = when (contrastMode) {
+    ContrastMode.STANDARD -> darkScheme
+    ContrastMode.MEDIUM -> mediumContrastDarkColorScheme
+    ContrastMode.HIGH -> highContrastDarkColorScheme
+}
+
+private fun lightColorSchemeByContrast(contrastMode: ContrastMode): ColorScheme = when (contrastMode) {
+    ContrastMode.STANDARD -> lightScheme
+    ContrastMode.MEDIUM -> mediumContrastLightColorScheme
+    ContrastMode.HIGH -> highContrastLightColorScheme
 }
