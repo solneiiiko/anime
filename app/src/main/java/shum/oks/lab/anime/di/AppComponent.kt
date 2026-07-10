@@ -10,16 +10,15 @@ package shum.oks.lab.anime.di
 
 import dagger.Component
 import shum.oks.lab.anime.di.modules.AppCommonModule
+import shum.oks.lab.anime.di.modules.AppFeatureModule
 
 @Component(
     modules = [
         AppCommonModule::class,
+        AppFeatureModule::class,
     ],
     dependencies = [
         AppDependencies::class,
     ],
 )
-interface AppComponent {
-
-    val componentHolderInitializer: ComponentHolderInitializer
-}
+internal interface AppComponent : AppComponentInternalApi

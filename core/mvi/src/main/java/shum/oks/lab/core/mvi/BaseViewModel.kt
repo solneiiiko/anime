@@ -10,6 +10,7 @@ package shum.oks.lab.core.mvi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +27,7 @@ abstract class BaseViewModel<
 >(
     initialState: STATE,
     initialIntent: INTENT? = null,
-    private val onClearedCallback: () -> Unit,
+    private val onClearedCallback: (() -> Unit)?,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
@@ -37,7 +38,7 @@ abstract class BaseViewModel<
 
     init {
         initialIntent?.let {
-            viewModelScope.launch { handleIntent(it) }
+            viewModelScope.launch(Dispatchers.Main) { handleIntent(it) }
         }
     }
 
@@ -52,7 +53,7 @@ abstract class BaseViewModel<
     }
 
     override fun onCleared() {
-        onClearedCallback()
+        onClearedCallback?.invoke()
         super.onCleared()
     }
 }

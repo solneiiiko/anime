@@ -8,10 +8,12 @@
 
 package shum.oks.lab.anime.di
 
-import android.content.Context
-import shum.oks.lab.core.di.BaseDependencies
+import shum.oks.lab.anime.mvi.AppViewModel
+import shum.oks.lab.core.di.BaseApi
 
-interface AppDependencies : BaseDependencies {
+internal interface AppComponentInternalApi : BaseApi {
 
-    val appContext: Context
+    val componentHolderInitializer: ComponentHolderInitializer
+
+    val appViewModelFactory: AppViewModel.Factory
 }

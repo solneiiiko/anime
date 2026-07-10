@@ -6,12 +6,8 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di
+package shum.oks.lab.anime.mvi
 
-import android.content.Context
-import shum.oks.lab.core.di.BaseDependencies
+import shum.oks.lab.core.mvi.UiEffect
 
-interface AppDependencies : BaseDependencies {
-
-    val appContext: Context
-}
+internal sealed interface AppUiEffect : UiEffect

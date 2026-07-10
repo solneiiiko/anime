@@ -9,5 +9,11 @@
 
 <resources>
 
-    <style name="Theme.Anime" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Anime.SplashScreen" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.Anime.App</item>
+        <item name="windowSplashScreenBackground">@color/shum_oks_lab_splash_screen_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_anime_splash</item>
+    </style>
+
+    <style name="Theme.Anime.App" parent="Theme.Material3.DayNight.NoActionBar"/>
 </resources>

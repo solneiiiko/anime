@@ -14,6 +14,7 @@ import dagger.Module
     includes = [
         AppDatabaseModule::class,
         AppNetworkModule::class,
+        AppSettingsModule::class,
     ]
 )
 internal interface AppCommonModule
