@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -31,4 +31,5 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    api(libs.androidx.lifecycle.viewmodel.compose)
 }

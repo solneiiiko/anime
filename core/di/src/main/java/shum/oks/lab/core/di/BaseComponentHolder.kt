@@ -8,6 +8,8 @@
 
 package shum.oks.lab.core.di
 
+import androidx.annotation.CallSuper
+
 abstract class BaseComponentHolder<
     BASE_API: BaseApi,
     BASE_DEPENDENCIES: BaseDependencies,
@@ -21,6 +23,13 @@ abstract class BaseComponentHolder<
             throw IllegalArgumentException("ComponentHolder is already initialized... >_<")
         }
         this.dependenciesProvider = dependenciesProvider
+
+        afterInit()
+    }
+
+    @CallSuper
+    protected open fun afterInit() {
+        // ^_^__/
     }
 
     fun get(): BASE_API {
@@ -38,7 +47,6 @@ abstract class BaseComponentHolder<
     protected abstract fun buildComponent(dependencies: BASE_DEPENDENCIES): BASE_API
 
     fun clean() {
-        // TODO something before clean?? + check for UI!
         component = null
     }
 }

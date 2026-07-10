@@ -19,7 +19,4 @@ import shum.oks.lab.anime.di.modules.AppCommonModule
         AppDependencies::class,
     ],
 )
-interface AppComponent {
-
-    val componentHolderInitializer: ComponentHolderInitializer
-}
+internal interface AppComponent : AppComponentInternalApi

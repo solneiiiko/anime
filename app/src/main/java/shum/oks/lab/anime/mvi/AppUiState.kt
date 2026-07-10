@@ -1,0 +1,25 @@
+/*
+ * Copyright © 2026 Oksana Shumilova.
+ * All rights reserved.
+ *
+ * This source code is provided for portfolio and evaluation purposes only.
+ * Unauthorized copying, modification, or distribution is prohibited.
+ */
+
+package shum.oks.lab.anime.mvi
+
+import androidx.compose.runtime.Immutable
+import shum.oks.lab.core.mvi.UiState
+import shum.oks.lab.core.theme.models.ContrastMode
+import shum.oks.lab.core.theme.models.ThemeMode
+
+@Immutable
+internal sealed interface AppUiState : UiState {
+
+    object Loading : AppUiState
+
+    data class Success(
+        val themeMode: ThemeMode,
+        val contrastMode: ContrastMode,
+    ) : AppUiState
+}
