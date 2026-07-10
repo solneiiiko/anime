@@ -11,7 +11,7 @@ package shum.oks.lab.anime.di
 import android.content.Context
 import shum.oks.lab.core.di.BaseDependencies
 
-interface AppDependencies : BaseDependencies {
+internal interface AppDependencies : BaseDependencies {
 
     val appContext: Context
 }

@@ -25,7 +25,6 @@ internal object AppComponentHolder : BaseComponentHolder<
             )
             .build()
 
-
     override fun afterInit() {
         super.afterInit()
         get().componentHolderInitializer.init()
