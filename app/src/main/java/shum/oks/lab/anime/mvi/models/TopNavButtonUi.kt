@@ -8,9 +8,12 @@
 
 package shum.oks.lab.anime.mvi
 
-import shum.oks.lab.core.mvi.UiIntent
+import androidx.annotation.StringRes
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation3.runtime.NavKey
 
-internal sealed interface AppUiIntent : UiIntent {
-
-    data object LoadAppSettings : AppUiIntent
-}
+data class TopNavButtonUi(
+    val navKey: NavKey,
+    @StringRes val label: Int,
+    val icon: ImageVector,
+)

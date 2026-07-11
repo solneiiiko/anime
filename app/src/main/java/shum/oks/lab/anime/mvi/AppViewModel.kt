@@ -10,6 +10,7 @@ package shum.oks.lab.anime.mvi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import shum.oks.lab.anime.mvi.mappers.toTopNavButtonUiList
 import shum.oks.lab.anime.usecases.GetAppSettingUseCase
 import shum.oks.lab.core.mvi.BaseViewModel
 import javax.inject.Inject
@@ -36,12 +37,14 @@ internal class AppViewModel @Inject constructor(
     }
 
     private suspend fun loadAppSettings() {
-        val appSettings = getAppSettingsUseCase()
-        updateState {
-            AppUiState.Success(
-                themeMode = appSettings.themeMode,
-                contrastMode = appSettings.contrastMode
-            )
+        getAppSettingsUseCase().apply {
+            updateState {
+                AppUiState.Success(
+                    themeMode = themeMode,
+                    contrastMode = contrastMode,
+                    navigationButtons = topNavButtons.toTopNavButtonUiList(),
+                )
+            }
         }
     }
 

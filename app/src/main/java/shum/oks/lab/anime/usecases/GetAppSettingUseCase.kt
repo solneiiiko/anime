@@ -8,6 +8,7 @@
 
 package shum.oks.lab.anime.usecases
 
+import shum.oks.lab.anime.usecases.models.TopNavButton
 import shum.oks.lab.core.theme.models.ContrastMode
 import shum.oks.lab.core.theme.models.ThemeMode
 
@@ -21,4 +22,5 @@ interface GetAppSettingUseCase {
 data class AppSettings(
     val themeMode: ThemeMode,
     val contrastMode: ContrastMode,
+    val topNavButtons: List<TopNavButton>,
 )

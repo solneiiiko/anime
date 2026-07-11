@@ -7,5 +7,8 @@
   -->
 
 <resources>
-    <string name="app_name">anime</string>
+    <string name="shum_oks_lab_app_name">Anime</string>
+    <string name="shum_oks_lab_app_top_nav_button_catalog">Catalog</string>">
+    <string name="shum_oks_lab_app_top_nav_button_favourites">Favourites</string>">
+    <string name="shum_oks_lab_app_top_nav_button_more">More</string>">
 </resources>

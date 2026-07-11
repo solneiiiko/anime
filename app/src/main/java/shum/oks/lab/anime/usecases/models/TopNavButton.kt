@@ -6,11 +6,11 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.mvi
+package shum.oks.lab.anime.usecases.models
 
-import shum.oks.lab.core.mvi.UiIntent
-
-internal sealed interface AppUiIntent : UiIntent {
-
-    data object LoadAppSettings : AppUiIntent
+enum class TopNavButton {
+    CATALOG,
+    FAVOURITES,
+    MORE,
+    ;
 }
