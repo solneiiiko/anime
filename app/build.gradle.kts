@@ -78,6 +78,10 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.material)
 
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
