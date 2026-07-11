@@ -12,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import shum.oks.lab.anime.usecases.AppSettings
 import shum.oks.lab.anime.usecases.GetAppSettingUseCase
+import shum.oks.lab.anime.usecases.models.TopNavButton
 import shum.oks.lab.core.theme.models.ContrastMode
 import shum.oks.lab.core.theme.models.ThemeMode
 
@@ -24,7 +25,8 @@ internal class AppSettingsModule {
         override suspend fun invoke(): AppSettings =
             AppSettings(
                 themeMode = ThemeMode.SYSTEM,
-                contrastMode = ContrastMode.STANDARD
+                contrastMode = ContrastMode.STANDARD,
+                topNavButtons = TopNavButton.entries,
             )
     }
 }
