@@ -29,7 +29,7 @@ abstract class BaseComponentHolder<
 
     @CallSuper
     protected open fun afterInit() {
-        // ^_^__/
+        // Nothing to do. ^_^__/
     }
 
     fun get(): BASE_API {

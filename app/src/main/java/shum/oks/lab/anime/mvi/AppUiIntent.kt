@@ -12,5 +12,5 @@ import shum.oks.lab.core.mvi.UiIntent
 
 internal sealed interface AppUiIntent : UiIntent {
 
-    object LoadAppSettings : AppUiIntent
+    data object LoadAppSettings : AppUiIntent
 }

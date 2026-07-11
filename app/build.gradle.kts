@@ -9,6 +9,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
 }
 
@@ -18,11 +19,7 @@ android {
     val productFlavorProduction = "prod"
 
     namespace = "shum.oks.lab.anime"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "shum.oks.lab.anime"
@@ -73,10 +70,16 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.material)
+    implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.compose.material3.navigation.suite)
 
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
@@ -85,6 +88,12 @@ dependencies {
 
     implementation(project(":common:database"))
     implementation(project(":common:network"))
+
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:catalog"))
+    implementation(project(":feature:favourites"))
+    implementation(project(":feature:details:manga"))
+    implementation(project(":feature:details:anime"))
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

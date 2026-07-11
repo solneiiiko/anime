@@ -9,6 +9,7 @@
 package shum.oks.lab.anime.mvi
 
 import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
 import shum.oks.lab.core.mvi.UiState
 import shum.oks.lab.core.theme.models.ContrastMode
 import shum.oks.lab.core.theme.models.ThemeMode
@@ -16,10 +17,11 @@ import shum.oks.lab.core.theme.models.ThemeMode
 @Immutable
 internal sealed interface AppUiState : UiState {
 
-    object Loading : AppUiState
+    data object Loading : AppUiState
 
     data class Success(
         val themeMode: ThemeMode,
         val contrastMode: ContrastMode,
+        val navigationButtons: ImmutableList<TopNavButtonUi>
     ) : AppUiState
 }
