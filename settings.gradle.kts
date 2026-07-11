@@ -41,7 +41,6 @@ include(":feature:anime:list:data:api")
 include(":core:network")
 include(":core:mvi")
 include(":core:theme")
-include(":core:navigator")
 
 include(":feature:catalog")
 include(":feature:settings")

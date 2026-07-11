@@ -78,8 +78,6 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.compose.material3.navigation.suite)
 
@@ -87,7 +85,6 @@ dependencies {
     ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
     implementation(project(":core:theme"))
-    implementation(project(":core:navigator"))
 
     implementation(project(":common:database"))
     implementation(project(":common:network"))
