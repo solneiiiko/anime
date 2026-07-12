@@ -12,7 +12,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import kotlin.coroutines.cancellation.CancellationException
 
-abstract class BaseRepository {
+abstract class BaseRemoteRepository {
 
     // TODO -> to CallAdapter
     // TODO Interceptor for auth (try extra url! with token)

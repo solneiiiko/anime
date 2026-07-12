@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.list.data.api.entities
+package shum.oks.lab.entity.anime.data.api.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

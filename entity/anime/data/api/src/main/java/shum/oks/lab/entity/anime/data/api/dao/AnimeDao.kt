@@ -6,14 +6,14 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.list.data.api.dao
+package shum.oks.lab.entity.anime.data.api.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import shum.oks.lab.anime.list.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
 
 @Dao
 interface AnimeDao {

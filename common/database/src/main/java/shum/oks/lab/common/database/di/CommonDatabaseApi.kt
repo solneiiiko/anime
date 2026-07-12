@@ -8,10 +8,10 @@
 
 package shum.oks.lab.common.database.di
 
-import shum.oks.lab.anime.list.data.api.AnimeListDatabaseDelegate
+import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
 import shum.oks.lab.core.di.BaseApi
 
 interface CommonDatabaseApi : BaseApi {
 
-    val animeListDatabaseDelegate: AnimeListDatabaseDelegate
+    val animeDatabaseDelegate: AnimeDatabaseDelegate
 }

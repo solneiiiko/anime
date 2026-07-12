@@ -13,7 +13,7 @@ import androidx.room.Room
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import shum.oks.lab.anime.list.data.api.AnimeListDatabaseDelegate
+import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
 import shum.oks.lab.common.database.AppDatabase
 import javax.inject.Singleton
 
@@ -40,8 +40,8 @@ internal class CommonDatabaseModule {
     interface Internal {
 
         @Binds
-        fun bindAnimeListDatabaseDelegate(
+        fun bindAnimeDatabaseDelegate(
             appDatabase: AppDatabase,
-        ): AnimeListDatabaseDelegate
+        ): AnimeDatabaseDelegate
     }
 }

@@ -6,11 +6,11 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.list.data.api
+package shum.oks.lab.entity.anime.data.api
 
-import shum.oks.lab.anime.list.data.api.dao.AnimeDao
+import shum.oks.lab.entity.anime.data.api.dao.AnimeDao
 
-interface AnimeListDatabaseDelegate {
+interface AnimeDatabaseDelegate {
 
     val animeDao: AnimeDao
 }

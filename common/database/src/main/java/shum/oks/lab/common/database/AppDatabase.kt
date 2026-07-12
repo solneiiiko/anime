@@ -20,7 +20,7 @@ import shum.oks.lab.anime.list.data.api.entities.AnimeEntity
     version = AppDatabase.VERSION,
 )
 internal abstract class AppDatabase : RoomDatabase(),
-    AnimeListDatabaseDelegate
+    AnimeDatabaseDelegate
 {
 
     companion object {
