@@ -21,7 +21,7 @@ import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 abstract class AnimeDao {
 
     @Query("SELECT * FROM ${AnimeEntity.TABLE_NAME}")
-    abstract suspend fun pagingSource(): PagingSource<Int, AnimeEntity>
+    abstract fun pagingSource(): PagingSource<Int, AnimeEntity>
 
     @Query("SELECT * FROM ${AnimePaginationEntity.TABLE_NAME} WHERE ${AnimePaginationEntity.Column.ID} = :id LIMIT 1")
     abstract suspend fun getPaginationById(id: Int): AnimePaginationEntity?
