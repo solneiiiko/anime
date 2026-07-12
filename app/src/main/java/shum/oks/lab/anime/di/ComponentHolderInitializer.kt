@@ -13,11 +13,20 @@ import shum.oks.lab.common.database.di.CommonDatabaseDependencies
 import shum.oks.lab.common.network.di.CommonNetworkComponentHolder
 import shum.oks.lab.common.network.di.CommonNetworkDependencies
 import shum.oks.lab.core.di.DependenciesProvider
+import shum.oks.lab.entity.anime.data.impl.di.EntityAnimeDataImplComponentHolder
+import shum.oks.lab.entity.anime.data.impl.di.EntityAnimeDataImplDependencies
+import shum.oks.lab.entity.anime.domain.impl.di.EntityAnimeDomainImplComponentHolder
+import shum.oks.lab.entity.anime.domain.impl.di.EntityAnimeDomainImplDependencies
+import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
+import shum.oks.lab.feature.catalog.di.CatalogUiDependencies
 import javax.inject.Inject
 
 class ComponentHolderInitializer @Inject constructor(
     private val commonDatabaseDependenciesProvider: DependenciesProvider<CommonDatabaseDependencies>,
     private val commonNetworkDependenciesProvider: DependenciesProvider<CommonNetworkDependencies>,
+    private val entityAnimeDataImplDependenciesProvider: DependenciesProvider<EntityAnimeDataImplDependencies>,
+    private val entityAnimeDomainImplDependenciesProvider: DependenciesProvider<EntityAnimeDomainImplDependencies>,
+    private val catalogUiDependenciesProvider: DependenciesProvider<CatalogUiDependencies>,
 ) {
 
     fun init() {
@@ -31,6 +40,8 @@ class ComponentHolderInitializer @Inject constructor(
     }
 
     private fun initFeatures() {
-        // TODO
+        EntityAnimeDataImplComponentHolder.init(entityAnimeDataImplDependenciesProvider)
+        EntityAnimeDomainImplComponentHolder.init(entityAnimeDomainImplDependenciesProvider)
+        CatalogUiComponentHolder.init(catalogUiDependenciesProvider)
     }
 }
