@@ -1,3 +1,11 @@
+/*
+ * Copyright © 2026 Oksana Shumilova.
+ * All rights reserved.
+ *
+ * This source code is provided for portfolio and evaluation purposes only.
+ * Unauthorized copying, modification, or distribution is prohibited.
+ */
+
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
@@ -14,8 +22,7 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    api(libs.androidx.room.paging)
-    api(libs.androidx.paging.common)
+    api(project(":entity:anime:domain:api"))
+    api(project(":core:di"))
+    ksp(libs.dagger.compiler)
 }

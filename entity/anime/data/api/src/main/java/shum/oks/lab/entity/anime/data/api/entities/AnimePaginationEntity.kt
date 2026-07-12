@@ -13,22 +13,24 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = AnimeEntity.TABLE_NAME,
+    tableName = AnimePaginationEntity.TABLE_NAME,
 )
-data class AnimeEntity(
+data class AnimePaginationEntity(
     @PrimaryKey
     @ColumnInfo(name = Column.ID) val id: Int,
-    @ColumnInfo(name = Column.TITLE) val title: String,
+    @ColumnInfo(name = Column.PREV_PAGE) val prevPage: Int?,
+    @ColumnInfo(name = Column.NEXT_PAGE) val nextPage: Int?,
 ) {
 
     companion object {
-        const val TABLE_NAME = "anime"
+        const val TABLE_NAME = "anime_pagination"
     }
 
     interface Column {
         companion object {
             const val ID = "id"
-            const val TITLE = "title"
+            const val PREV_PAGE = "prev_page"
+            const val NEXT_PAGE = "next_page"
         }
     }
 }

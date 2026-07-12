@@ -1,7 +1,6 @@
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    alias(libs.plugins.ksp)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -14,8 +13,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    api(libs.androidx.room.paging)
+    api(libs.kotlinx.coroutines.core)
     api(libs.androidx.paging.common)
 }
