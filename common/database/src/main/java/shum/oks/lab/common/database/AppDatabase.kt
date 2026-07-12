@@ -10,8 +10,9 @@ package shum.oks.lab.common.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import shum.oks.lab.anime.list.data.api.AnimeListDatabaseDelegate
-import shum.oks.lab.anime.list.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
+import shum.oks.lab.entity.anime.data.api.dao.AnimeDao
+import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
 
 @Database(
     entities = [
@@ -23,8 +24,10 @@ internal abstract class AppDatabase : RoomDatabase(),
     AnimeDatabaseDelegate
 {
 
+    abstract override val animeDao: AnimeDao
+
     companion object {
         private const val VERSION = 1
-        const val NAME = "anime_database"
+        const val NAME = "application_anime_database"
     }
 }
