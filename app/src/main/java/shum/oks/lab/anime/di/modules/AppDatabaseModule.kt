@@ -11,8 +11,6 @@ package shum.oks.lab.anime.di.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import shum.oks.lab.common.database.di.CommonDatabaseApi
-import shum.oks.lab.common.database.di.CommonDatabaseComponentHolder
 import shum.oks.lab.common.database.di.CommonDatabaseDependencies
 import shum.oks.lab.core.di.DependenciesProvider
 
@@ -27,8 +25,4 @@ class AppDatabaseModule {
             override val appContext = appContext
         }
     }
-
-    @Provides
-    fun provideCommonDatabaseApi(): CommonDatabaseApi =
-        CommonDatabaseComponentHolder.get()
 }
