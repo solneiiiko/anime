@@ -29,5 +29,5 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
-    api(project(":feature:anime:list:data:api"))
+    api(project(":entity:anime:data:api"))
 }

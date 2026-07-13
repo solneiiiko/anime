@@ -89,6 +89,9 @@ dependencies {
     implementation(project(":common:database"))
     implementation(project(":common:network"))
 
+    implementation(project(":entity:anime:data:impl"))
+    implementation(project(":entity:anime:domain:impl"))
+
     implementation(project(":feature:settings"))
     implementation(project(":feature:catalog"))
     implementation(project(":feature:favourites"))
