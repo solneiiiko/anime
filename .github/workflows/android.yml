@@ -25,3 +25,13 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: Upload Gradle problems report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: gradle-reports
+        path: |
+          **/build/reports/problems/**
+          **/build/reports/tests/**
+        if-no-files-found: war
