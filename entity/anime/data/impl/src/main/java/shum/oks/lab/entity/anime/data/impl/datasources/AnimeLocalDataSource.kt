@@ -10,7 +10,7 @@ package shum.oks.lab.entity.anime.data.impl.datasources
 
 import androidx.paging.PagingSource
 import shum.oks.lab.entity.anime.data.api.dao.AnimeDao
-import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 import javax.inject.Inject
 
@@ -18,20 +18,21 @@ internal class AnimeLocalDataSource @Inject constructor(
     private val animeDao: AnimeDao,
 ) {
 
-    suspend fun pagingSource(): PagingSource<Int, AnimeEntity> =
+    fun pagingSource(): PagingSource<Int, AnimeSummaryEntity> =
         animeDao.pagingSource()
 
     suspend fun getPaginationById(animeId: Int) =
         animeDao.getPaginationById(animeId)
 
     suspend fun insertAllAnimeWithPagination(
-        items: List<AnimeEntity>,
+        items: List<AnimeSummaryEntity>,
         paginationInfo: List<AnimePaginationEntity>,
+        clearExisting: Boolean,
     ) {
-        animeDao.insertAllAnimeWithPaginationWithTransaction(items, paginationInfo)
-    }
-
-    suspend fun clearAllAnimeWithPagination() {
-        animeDao.clearAllAnimeWithPaginationWithTransaction()
+        animeDao.insertAllAnimeWithPaginationWithTransaction(
+            items,
+            paginationInfo,
+            clearExisting
+        )
     }
 }

@@ -14,8 +14,8 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.paging.RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH
 import shum.oks.lab.core.network.ApiResult
-import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeRemoteDataSource
 import shum.oks.lab.entity.anime.data.impl.mappers.toEntityModelList
@@ -26,72 +26,67 @@ import javax.inject.Inject
 internal class AnimeRemoteMediator @Inject constructor(
     private val remoteDataSource: AnimeRemoteDataSource,
     private val localDataSource: AnimeLocalDataSource,
-) : RemoteMediator<Int, AnimeEntity>() {
+) : RemoteMediator<Int, AnimeSummaryEntity>() {
 
     override suspend fun initialize(): InitializeAction {
-        return LAUNCH_INITIAL_REFRESH // TODO get from metadata
+        return LAUNCH_INITIAL_REFRESH  // TODO cacheMetadata from Config InitializeAction.SKIP_INITIAL_REFRESH
     }
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, AnimeEntity>
+        state: PagingState<Int, AnimeSummaryEntity>
     ): MediatorResult {
-        val page = getPageByLoadType(loadType, state)
-            ?: return MediatorResult.Success(endOfPaginationReached = true)
+        val page = when (loadType) {
+            LoadType.REFRESH -> INITIAL_PAGE
+            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+            LoadType.APPEND -> {
+                val lastItem = state.lastItemOrNull()
+                    ?: return MediatorResult.Success(endOfPaginationReached = false,)
+                localDataSource.getPaginationById(animeId = lastItem.id)?.nextPage
+                    ?: return MediatorResult.Success(
+                        endOfPaginationReached = true,
+                    )
+            }
+        }
 
         val animeListResponse = remoteDataSource
             .getAnimeListResponse(page = page, limit = state.config.pageSize)
-
         return when (animeListResponse) {
             is ApiResult.Failure<AnimeListResponse> -> {
                 MediatorResult.Error(animeListResponse.exception)
             }
             is ApiResult.Success<AnimeListResponse> -> {
-                val response = animeListResponse.data
-                val items = response.list
-                val endOfPaginationReached = !response.pagination.hasNextPage
+                appendAnimeSummary(
+                    animeListResponse.data,
+                    clearExisting = loadType == LoadType.REFRESH
+                )
 
-                if (loadType == LoadType.REFRESH) {
-                    localDataSource.clearAllAnimeWithPagination()
-                }
-
-                val prevKey = if (page == INITIAL_PAGE) null else page - PAGE_OFFSET
-                val nextKey = if (endOfPaginationReached) null else page + PAGE_OFFSET
-
-                val keys = items.map {
-                    AnimePaginationEntity(
-                        id = it.id,
-                        prevPage = prevKey,
-                        nextPage = nextKey,
-                    )
-                }
-                localDataSource.insertAllAnimeWithPagination(items.toEntityModelList(), keys)
-
-                MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+                MediatorResult.Success(
+                    endOfPaginationReached = !animeListResponse.data.pagination.hasNextPage
+                )
             }
         }
     }
 
-    private suspend fun getPageByLoadType(
-        loadType: LoadType,
-        state: PagingState<Int, AnimeEntity>,
-    ): Int? = when (loadType) {
-        LoadType.REFRESH -> {
-            val anchorPosition = state.anchorPosition ?: return INITIAL_PAGE
-            val closestItem = state.closestItemToPosition(anchorPosition) ?: return INITIAL_PAGE
-            val pagination = localDataSource.getPaginationById(animeId = closestItem.id)
-            pagination?.nextPage?.minus(PAGE_OFFSET) ?: INITIAL_PAGE
+    private suspend fun appendAnimeSummary(response: AnimeListResponse, clearExisting: Boolean) {
+        val items = response.list
+        val hasNextPage = response.pagination.hasNextPage
+        val currentPage = response.pagination.currentPage
+        val prevKey = if (currentPage == INITIAL_PAGE) null else currentPage - PAGE_OFFSET
+        val nextKey = if (hasNextPage) currentPage + PAGE_OFFSET else null
+
+        val keys = items.map {
+            AnimePaginationEntity(
+                id = it.id,
+                prevPage = prevKey,
+                nextPage = nextKey,
+            )
         }
-        LoadType.PREPEND -> {
-            val firstItem = state.firstItemOrNull() ?: return null
-            val pagination = localDataSource.getPaginationById(animeId = firstItem.id)
-            pagination?.prevPage
-        }
-        LoadType.APPEND -> {
-            val lastItem = state.lastItemOrNull() ?: return null
-            val pagination = localDataSource.getPaginationById(animeId = lastItem.id)
-            pagination?.nextPage
-        }
+        localDataSource.insertAllAnimeWithPagination(
+            items.toEntityModelList(),
+            keys,
+            clearExisting = clearExisting,
+        )
     }
 
     private companion object {

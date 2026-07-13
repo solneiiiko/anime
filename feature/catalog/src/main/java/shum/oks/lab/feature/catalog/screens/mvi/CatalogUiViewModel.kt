@@ -14,12 +14,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
-import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
 import shum.oks.lab.core.mvi.BaseViewModel
+import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
 import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
 import shum.oks.lab.feature.catalog.screens.mappers.toUiModel
 import shum.oks.lab.feature.catalog.screens.models.Anime

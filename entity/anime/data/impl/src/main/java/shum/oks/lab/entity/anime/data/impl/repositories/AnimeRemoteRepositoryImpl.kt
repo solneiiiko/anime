@@ -29,10 +29,9 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     override fun observeAnimePagingData(): Flow<PagingData<Anime>> =
-        Pager(
+        Pager(// TODO get from settings
             config = PagingConfig(
-                pageSize = 25, // TODO get from settings
-                enablePlaceholders = false,
+                pageSize = 25,
             ),
             remoteMediator = remoteMediatorProvider.get(),
             pagingSourceFactory = { localDataSource.pagingSource() }

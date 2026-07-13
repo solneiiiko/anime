@@ -14,32 +14,36 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 
 @Dao
 abstract class AnimeDao {
 
-    @Query("SELECT * FROM ${AnimeEntity.TABLE_NAME}")
-    abstract fun pagingSource(): PagingSource<Int, AnimeEntity>
+    @Query("SELECT * FROM ${AnimeSummaryEntity.TABLE_NAME} ORDER BY ${AnimeSummaryEntity.Column.ID} ASC")
+    abstract fun pagingSource(): PagingSource<Int, AnimeSummaryEntity>
 
     @Query("SELECT * FROM ${AnimePaginationEntity.TABLE_NAME} WHERE ${AnimePaginationEntity.Column.ID} = :id LIMIT 1")
     abstract suspend fun getPaginationById(id: Int): AnimePaginationEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertAllAnime(items: List<AnimeEntity>)
+    abstract suspend fun insertAllAnime(items: List<AnimeSummaryEntity>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAllPagination(keys: List<AnimePaginationEntity>)
     @Transaction
     open suspend fun insertAllAnimeWithPaginationWithTransaction(
-        items: List<AnimeEntity>,
+        items: List<AnimeSummaryEntity>,
         keys: List<AnimePaginationEntity>,
+        clearExisting: Boolean,
     ) {
+        if (clearExisting) {
+            clearAllAnimeWithPaginationWithTransaction()
+        }
         insertAllAnime(items)
         insertAllPagination(keys)
     }
 
-    @Query("DELETE FROM ${AnimeEntity.TABLE_NAME}")
+    @Query("DELETE FROM ${AnimeSummaryEntity.TABLE_NAME}")
     abstract suspend fun clearAllAnime()
     @Query("DELETE FROM ${AnimePaginationEntity.TABLE_NAME}")
     abstract suspend fun clearAllPagination()
@@ -48,5 +52,4 @@ abstract class AnimeDao {
         clearAllPagination()
         clearAllAnime()
     }
-
 }

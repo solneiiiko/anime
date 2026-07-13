@@ -13,16 +13,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = AnimeEntity.TABLE_NAME,
+    tableName = AnimeSummaryEntity.TABLE_NAME,
 )
-data class AnimeEntity(
+data class AnimeSummaryEntity(
     @PrimaryKey
     @ColumnInfo(name = Column.ID) val id: Int,
     @ColumnInfo(name = Column.TITLE) val title: String,
 ) {
 
     companion object {
-        const val TABLE_NAME = "anime"
+        const val TABLE_NAME = "anime_summary"
     }
 
     interface Column {

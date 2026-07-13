@@ -8,12 +8,12 @@
 
 package shum.oks.lab.entity.anime.data.impl.mappers
 
-import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.impl.models.AnimeResponse
 
-internal fun List<AnimeResponse>.toEntityModelList(): List<AnimeEntity> =
+internal fun List<AnimeResponse>.toEntityModelList(): List<AnimeSummaryEntity> =
     map {
-        AnimeEntity(
+        AnimeSummaryEntity(
             id = it.id,
             title = it.title,
         )

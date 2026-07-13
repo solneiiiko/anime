@@ -11,12 +11,12 @@ package shum.oks.lab.common.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
-import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 
 @Database(
     entities = [
-        AnimeEntity::class,
+        AnimeSummaryEntity::class,
         AnimePaginationEntity::class,
     ],
     version = AppDatabase.VERSION,

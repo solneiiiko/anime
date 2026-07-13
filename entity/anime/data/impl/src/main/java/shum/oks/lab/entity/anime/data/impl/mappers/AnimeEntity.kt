@@ -8,10 +8,10 @@
 
 package shum.oks.lab.entity.anime.data.impl.mappers
 
-import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.domain.api.models.Anime
 
-internal fun AnimeEntity.toDomainModel() =
+internal fun AnimeSummaryEntity.toDomainModel() =
     Anime(
         id = id,
         title = title,
