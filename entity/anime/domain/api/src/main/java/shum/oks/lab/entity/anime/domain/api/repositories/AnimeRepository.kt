@@ -14,5 +14,5 @@ import shum.oks.lab.entity.anime.domain.api.models.Anime
 
 interface AnimeRepository {
 
-    fun observeAnimePagingData(): Flow<PagingData<Anime>>
+    suspend fun observeAnimePagingData(): Flow<PagingData<Anime>>
 }

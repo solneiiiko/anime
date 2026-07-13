@@ -25,10 +25,8 @@ data class AnimeSummaryEntity(
         const val TABLE_NAME = "anime_summary"
     }
 
-    interface Column {
-        companion object {
-            const val ID = "id"
-            const val TITLE = "title"
-        }
+    object Column {
+        const val ID = "id"
+        const val TITLE = "title"
     }
 }

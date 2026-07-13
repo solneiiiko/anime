@@ -12,7 +12,9 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.paging.RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import shum.oks.lab.core.network.ApiResult
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
@@ -20,17 +22,17 @@ import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeRemoteDataSource
 import shum.oks.lab.entity.anime.data.impl.mappers.toEntityModelList
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-internal class AnimeRemoteMediator @Inject constructor(
+internal class AnimeRemoteMediator @AssistedInject constructor(
     private val remoteDataSource: AnimeRemoteDataSource,
     private val localDataSource: AnimeLocalDataSource,
+    @Assisted private val initializeAction: InitializeAction,
+    @Assisted private val afterRefresh: suspend () -> Unit,
 ) : RemoteMediator<Int, AnimeSummaryEntity>() {
 
-    override suspend fun initialize(): InitializeAction {
-        return LAUNCH_INITIAL_REFRESH  // TODO cacheMetadata from Config InitializeAction.SKIP_INITIAL_REFRESH
-    }
+    override suspend fun initialize(): InitializeAction =
+        initializeAction
 
     override suspend fun load(
         loadType: LoadType,
@@ -56,10 +58,14 @@ internal class AnimeRemoteMediator @Inject constructor(
                 MediatorResult.Error(animeListResponse.exception)
             }
             is ApiResult.Success<AnimeListResponse> -> {
-                appendAnimeSummary(
+                val isRefresh = loadType == LoadType.REFRESH
+                updateAnimeSummary(
                     animeListResponse.data,
-                    clearExisting = loadType == LoadType.REFRESH
+                    clearExisting = isRefresh
                 )
+                if (isRefresh) {
+                    afterRefresh()
+                }
 
                 MediatorResult.Success(
                     endOfPaginationReached = !animeListResponse.data.pagination.hasNextPage
@@ -68,7 +74,7 @@ internal class AnimeRemoteMediator @Inject constructor(
         }
     }
 
-    private suspend fun appendAnimeSummary(response: AnimeListResponse, clearExisting: Boolean) {
+    private suspend fun updateAnimeSummary(response: AnimeListResponse, clearExisting: Boolean) {
         val items = response.list
         val hasNextPage = response.pagination.hasNextPage
         val currentPage = response.pagination.currentPage
@@ -89,8 +95,16 @@ internal class AnimeRemoteMediator @Inject constructor(
         )
     }
 
-    private companion object {
-        const val PAGE_OFFSET = 1
-        const val INITIAL_PAGE = 1
+    companion object {
+        private const val PAGE_OFFSET = 1
+        private const val INITIAL_PAGE = 1
+    }
+
+    @AssistedFactory
+    internal interface Factory {
+        fun create(
+            initializeAction: InitializeAction,
+            afterRefresh: suspend () -> Unit,
+        ): AnimeRemoteMediator
     }
 }

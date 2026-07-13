@@ -26,11 +26,9 @@ data class AnimePaginationEntity(
         const val TABLE_NAME = "anime_pagination"
     }
 
-    interface Column {
-        companion object {
-            const val ID = "id"
-            const val PREV_PAGE = "prev_page"
-            const val NEXT_PAGE = "next_page"
-        }
+    object Column {
+        const val ID = "id"
+        const val PREV_PAGE = "prev_page"
+        const val NEXT_PAGE = "next_page"
     }
 }

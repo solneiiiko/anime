@@ -13,6 +13,7 @@ import shum.oks.lab.entity.anime.data.impl.models.AnimeResponse
 
 internal fun List<AnimeResponse>.toEntityModelList(): List<AnimeSummaryEntity> =
     map {
+        @Suppress("DEPRECATION")
         AnimeSummaryEntity(
             id = it.id,
             title = it.title,

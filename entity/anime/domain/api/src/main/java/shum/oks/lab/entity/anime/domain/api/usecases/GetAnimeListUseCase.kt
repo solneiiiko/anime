@@ -14,5 +14,5 @@ import shum.oks.lab.entity.anime.domain.api.models.Anime
 
 interface GetAnimeListUseCase {
 
-    operator fun invoke(): Flow<PagingData<Anime>>
+    suspend operator fun invoke(): Flow<PagingData<Anime>>
 }

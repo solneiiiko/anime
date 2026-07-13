@@ -8,13 +8,20 @@
 
 package shum.oks.lab.entity.anime.data.impl.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import retrofit2.Retrofit
 import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
 import shum.oks.lab.core.di.BaseDependencies
+import shum.oks.lab.entity.config.domain.api.AppConfigRepository
 
 interface EntityAnimeDataImplDependencies : BaseDependencies {
 
     val retrofit: Retrofit
 
     val animeDatabaseDelegate: AnimeDatabaseDelegate
+
+    val appConfigRepository: AppConfigRepository
+
+    val preferencesDataStore: DataStore<Preferences>
 }

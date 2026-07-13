@@ -15,6 +15,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import shum.oks.lab.core.mvi.BaseViewModel
 import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
@@ -37,14 +39,16 @@ internal class CatalogUiViewModel @Inject constructor(
 ) {
 
     val animePagingData: Flow<PagingData<Anime>> =
-        getAnimeListUseCase()
-            .map { it.map { anime -> anime.toUiModel() } }
-            .cachedIn(viewModelScope)
+        flow {
+            emitAll(getAnimeListUseCase())
+        }
+        .map { pagingData -> pagingData.map { it.toUiModel() } }
+        .cachedIn(viewModelScope)
 
     override suspend fun handleIntent(intent: CatalogUiIntent) {
         when (intent) {
             CatalogUiIntent.Init -> {
-                // TODO
+                // TODO to get tabs to show Manga & Anime https://github.com/solneiiiko/anime/issues/31
             }
         }
     }

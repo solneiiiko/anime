@@ -45,6 +45,7 @@ include(":entity:anime:data:api")
 include(":entity:anime:data:impl")
 include(":entity:anime:domain:api")
 include(":entity:anime:domain:impl")
+include(":entity:config:domain:api")
 
 include(":feature:catalog")
 include(":feature:settings")

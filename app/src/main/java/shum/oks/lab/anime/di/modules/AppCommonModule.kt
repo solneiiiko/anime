@@ -15,6 +15,7 @@ import dagger.Module
         AppDatabaseModule::class,
         AppNetworkModule::class,
         AppSettingsModule::class,
+        AppDataStoreModule::class,
     ]
 )
 internal interface AppCommonModule
