@@ -34,4 +34,4 @@ jobs:
         path: |
           **/build/reports/problems/**
           **/build/reports/tests/**
-        if-no-files-found: war
+        if-no-files-found: warn
