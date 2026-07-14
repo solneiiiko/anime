@@ -52,11 +52,14 @@ The application follows **Clean Architecture** with a **multi-module** structure
   <img src="https://github.com/user-attachments/assets/29f12843-0a6d-43f4-a3f7-f6915cf58f02" width="200" alt="Architecture diagram">
 </p>
 
-## 📱 UI Preview
+## 🎥 App Demo
 
 🚧 **Work in Progress**
 
 The current focus of this project is architecture, scalability, and production-ready engineering practices. The UI will continue to evolve alongside new features.
+
+<img width="180" height="400" alt="anime_demo_1" src="https://github.com/user-attachments/assets/9f716c4a-80b7-4e48-b581-c83ca00c3f83" />
+
 
 <!--
 | Catalog | Details | Settings |
