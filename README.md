@@ -101,3 +101,10 @@ The current focus of this project is architecture, scalability, and production-r
 ## 📄 License
 
 This project is licensed under the terms described in the [LICENSE](LICENSE) file.
+
+## 🙏 Acknowledgements
+
+Special thanks to:
+
+- **Jikan API** for the excellent public API.
+- **ChatGPT** for creating the project's artwork.
