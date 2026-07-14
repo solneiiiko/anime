@@ -107,4 +107,4 @@ This project is licensed under the terms described in the [LICENSE](LICENSE) fil
 Special thanks to:
 
 - **Jikan API** for the excellent public API.
-- **ChatGPT** for creating the project's artwork.
+- **Copilot** & **ChatGPT** for creating the project's artwork.
