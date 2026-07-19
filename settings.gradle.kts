@@ -40,6 +40,7 @@ include(":common:network")
 include(":core:network")
 include(":core:mvi")
 include(":core:theme")
+include(":core:ui")
 
 include(":entity:anime:data:api")
 include(":entity:anime:data:impl")
