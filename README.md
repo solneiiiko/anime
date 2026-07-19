@@ -58,14 +58,16 @@ The application follows **Clean Architecture** with a **multi-module** structure
 
 The current focus of this project is architecture, scalability, and production-ready engineering practices. The UI will continue to evolve alongside new features.
 
-<img width="180" height="400" alt="anime_demo_1" src="https://github.com/user-attachments/assets/9f716c4a-80b7-4e48-b581-c83ca00c3f83" />
+Placeholders are shown while images are loading
+
+<img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_errors.gif" />
 
 
-<!--
-| Catalog | Details | Settings |
-|---------|---------|--------|
-| <img src="docs/screenshots/catalog.png" width="220"> | <img src="docs/screenshots/details.png" width="220"> | <img src="docs/screenshots/settings.png" width="220"> |
--->
+| Theme | Catalog | Details | Settings |
+|---------|---------|---------|--------|
+| Light | <img src="docs/screenshots/catalog_light.png" width="220"> | ^_^__/ | ^_^__/ |
+| Dark | <img src="docs/screenshots/catalog_dark.png" width="220"> | ^_^__/ | ^_^__/ |
+
 
 ## 🗺 Roadmap
 
