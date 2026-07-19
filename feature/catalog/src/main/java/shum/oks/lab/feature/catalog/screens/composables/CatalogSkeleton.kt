@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 internal fun CatalogSkeleton(
     modifier: Modifier,
 ) {
+    println("OLOLO CatalogSkeleton")
     Text(
         modifier = modifier,
         text = "I'm SKELETON",

@@ -11,15 +11,46 @@ package shum.oks.lab.entity.anime.data.impl.models
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 internal data class AnimeResponse(
     @SerialName("mal_id") val id: Int,
-    @Deprecated("title is deprecated API")
     @SerialName("title") val title: String,
-    @SerialName("episodes") val episodes: Int?,
+    @SerialName("images") val imagesResponse: ImagesResponse,
     @SerialName("score") val score: Double?,
-    @SerialName("scored_by") val scoredBy: Double?,
-    @SerialName("synopsis") val synopsis: String?,
-    @SerialName("background") val background: String?,
+    @SerialName("type") val type: AnimeTypeResponse?,
+    @SerialName("episodes") val episodes: Int?,
+    @SerialName("members") val members: Int?,
 )
+
+@Serializable
+internal data class ImagesResponse(
+    @SerialName("jpg") val jpg: JpgResponse,
+)
+
+@Serializable
+internal data class JpgResponse(
+    @SerialName("image_url") val smallImageUrl: String?,
+)
+
+@Serializable
+internal enum class AnimeTypeResponse {
+    @SerialName("TV")
+    TV,
+    @SerialName("OVA")
+    OVA,
+    @SerialName("Movie")
+    MOVIE,
+    @SerialName("Special")
+    SPECIAL,
+    @SerialName("ONA")
+    ONA,
+    @SerialName("Music")
+    MUSIC,
+    @SerialName("CM")
+    CM,
+    @SerialName("PV")
+    PV,
+    @SerialName("TV Special")
+    TV_SPECIAL,
+    ;
+}

@@ -21,13 +21,15 @@ import kotlinx.coroutines.flow.map
 import shum.oks.lab.core.mvi.BaseViewModel
 import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
 import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
+import shum.oks.lab.feature.catalog.screens.mappers.CatalogNumberFormatter
 import shum.oks.lab.feature.catalog.screens.mappers.toUiModel
-import shum.oks.lab.feature.catalog.screens.models.Anime
+import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 import javax.inject.Inject
 import javax.inject.Provider
 
 internal class CatalogUiViewModel @Inject constructor(
     getAnimeListUseCase: GetAnimeListUseCase,
+    numberFormatter: CatalogNumberFormatter,
 ) : BaseViewModel<
         CatalogUiState,
         CatalogUiIntent,
@@ -38,11 +40,11 @@ internal class CatalogUiViewModel @Inject constructor(
     onClearedCallback = { CatalogUiComponentHolder.clean() }
 ) {
 
-    val animePagingData: Flow<PagingData<Anime>> =
+    val animePagingData: Flow<PagingData<CatalogElement>> =
         flow {
             emitAll(getAnimeListUseCase())
         }
-        .map { pagingData -> pagingData.map { it.toUiModel() } }
+        .map { pagingData -> pagingData.map { it.toUiModel(numberFormatter) } }
         .cachedIn(viewModelScope)
 
     override suspend fun handleIntent(intent: CatalogUiIntent) {

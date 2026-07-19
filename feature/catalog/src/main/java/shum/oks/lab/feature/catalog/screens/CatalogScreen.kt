@@ -14,7 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
-import shum.oks.lab.feature.catalog.screens.composables.AnimeListContent
+import shum.oks.lab.feature.catalog.screens.composables.CatalogListContent
 import shum.oks.lab.feature.catalog.screens.composables.CatalogSkeleton
 import shum.oks.lab.feature.catalog.screens.composables.FullScreenError
 import shum.oks.lab.feature.catalog.screens.mvi.CatalogUiViewModel
@@ -39,7 +39,7 @@ internal fun CatalogScreen(
             )
         }
         is LoadState.NotLoading -> {
-            AnimeListContent(
+            CatalogListContent(
                 modifier = modifier,
                 pagingItems = animePagingData
             )

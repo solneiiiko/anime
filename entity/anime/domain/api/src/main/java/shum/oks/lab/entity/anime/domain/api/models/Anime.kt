@@ -11,4 +11,23 @@ package shum.oks.lab.entity.anime.domain.api.models
 data class Anime(
     val id: Int,
     val title: String,
+    val imageUrl: String? = null,
+    val score: Double,
+    val type: AnimeType,
+    val episodes: Int? = null,
+    val members: Int? = null,
 )
+
+enum class AnimeType {
+    TV,
+    OVA,
+    MOVIE,
+    SPECIAL,
+    ONA,
+    MUSIC,
+    CM,
+    PV,
+    TV_SPECIAL,
+    UNKNOWN,
+    ;
+}

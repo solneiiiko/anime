@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
     api(libs.androidx.navigation3.runtime)
     api(libs.androidx.navigation3.ui)
 
@@ -50,11 +51,15 @@ dependencies {
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
 
+    implementation(project(":core:ui"))
     api(project(":entity:anime:domain:api"))
 
     testImplementation(libs.junit)

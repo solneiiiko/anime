@@ -8,7 +8,11 @@
 
 package shum.oks.lab.feature.catalog.screens.models
 
-internal data class Anime(
+import androidx.compose.ui.text.AnnotatedString
+
+internal data class CatalogElement(
     val id: Int,
     val title: String,
+    val imageUrl: String?,
+    val subtitle: AnnotatedString,
 )
