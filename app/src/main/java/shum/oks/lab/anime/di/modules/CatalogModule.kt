@@ -55,8 +55,8 @@ internal class CatalogModule {
         dataStoreProvider: Provider<DataStore<Preferences>>,
     ): DependenciesProvider<EntityAnimeDataImplDependencies> = {
         object : EntityAnimeDataImplDependencies {
-            override val retrofit: Retrofit
-                get() = CommonNetworkComponentHolder.get().retrofit
+            override val jikanRetrofit: Retrofit
+                get() = CommonNetworkComponentHolder.get().jikanRetrofit
 
             override val animeDatabaseDelegate: AnimeDatabaseDelegate
                 get() = CommonDatabaseComponentHolder.get().animeDatabaseDelegate

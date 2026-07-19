@@ -17,12 +17,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import shum.oks.lab.common.network.NetworkConfig
+import shum.oks.lab.common.network.qualifiers.JikanNetwork
 import javax.inject.Singleton
 
 @Module
 internal object CommonNetworkModule {
 
     @Singleton
+    @JikanNetwork
     @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient,

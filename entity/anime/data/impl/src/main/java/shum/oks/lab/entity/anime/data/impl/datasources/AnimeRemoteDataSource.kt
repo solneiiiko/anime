@@ -12,10 +12,11 @@ import shum.oks.lab.core.network.ApiResult
 import shum.oks.lab.core.network.BaseRemoteDataSource
 import shum.oks.lab.entity.anime.data.impl.api.AnimeApi
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
+import shum.oks.lab.entity.anime.data.impl.qualifiers.JikanNetwork
 import javax.inject.Inject
 
 internal class AnimeRemoteDataSource @Inject constructor(
-    private val api: AnimeApi,
+    @JikanNetwork private val api: AnimeApi,
 ) : BaseRemoteDataSource() {
 
     suspend fun getAnimeListResponse(
