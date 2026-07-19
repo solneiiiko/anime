@@ -11,14 +11,17 @@ package shum.oks.lab.feature.catalog.screens.composables
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
 internal fun AppendError(
     errorText: String,
     onRetry: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Button(
-        onClick = onRetry
+        onClick = onRetry,
+        modifier = modifier,
     ) {
         Text("Retry")
         Text(errorText)

@@ -8,10 +8,54 @@
 
 package shum.oks.lab.feature.catalog.screens.mappers
 
-import shum.oks.lab.feature.catalog.screens.models.Anime as AnimeUiModel
+import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import shum.oks.lab.entity.anime.domain.api.models.Anime
+import shum.oks.lab.entity.anime.domain.api.models.AnimeType
+import shum.oks.lab.feature.catalog.screens.inlinetextcontent.CatalogInlineContentType
+import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 
-internal fun Anime.toUiModel(): AnimeUiModel = AnimeUiModel(
+internal fun Anime.toUiModel(
+    numberFormatter: CatalogNumberFormatter,
+) = CatalogElement(
     id = id,
     title = title,
+    imageUrl = imageUrl,
+    subtitle = getSubtitle(numberFormatter)
 )
+
+private fun Anime.getSubtitle(
+    numberFormatter: CatalogNumberFormatter
+): AnnotatedString =
+    buildAnnotatedString {
+        if (type == AnimeType.UNKNOWN) {
+            episodes?.let { append("$it ") }
+        } else {
+            append("${type.title}(${episodes ?: UNKNOWN_EPISODES_COUNT}) ")
+        }
+        if (score >= 1) {
+            appendInlineContent(CatalogInlineContentType.STAR_RATE.id)
+            append(numberFormatter.formatScore(score))
+        }
+        members?.let {
+            appendInlineContent(CatalogInlineContentType.MEMBERS.id)
+            append(numberFormatter.formatCommon(it))
+        }
+    }
+
+private val AnimeType.title: String
+    get() = when (this) {
+        AnimeType.TV -> "TV"
+        AnimeType.OVA -> "OVA"
+        AnimeType.MOVIE -> "Movie"
+        AnimeType.SPECIAL -> "Special"
+        AnimeType.ONA -> "ONA"
+        AnimeType.MUSIC -> "Music"
+        AnimeType.CM -> "CM"
+        AnimeType.PV -> "PV"
+        AnimeType.TV_SPECIAL -> "TV Special"
+        AnimeType.UNKNOWN -> "Unknown"
+    }
+
+private const val UNKNOWN_EPISODES_COUNT = "?"
