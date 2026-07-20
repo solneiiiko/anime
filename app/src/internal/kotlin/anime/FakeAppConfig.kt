@@ -18,7 +18,7 @@ import kotlin.time.toDuration
 
 internal class FakeAppConfigRepository @Inject constructor() : AppConfigRepository {
 
-    override fun getAppConfig(): AppConfig =
+    override suspend fun getAppConfig(): AppConfig =
         AppConfig(
             pagingConfig = PagingConfig(
                 pageSize = 25
