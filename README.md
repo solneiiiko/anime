@@ -75,8 +75,8 @@ Placeholders are shown while images are loading
 
 - [x] Material 3 UI
 - [x] Anime catalog (first version)
-- [x] Anime catalog (production version)
-- [ ] Anime catalog filters
+- [ ] **Anime catalog (production version)**
+- [ ] **Anime catalog filters**
 - [ ] Manga catalog (production version)
 - [ ] Manga catalog filters
 - [ ] Details screen
