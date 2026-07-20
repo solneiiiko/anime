@@ -8,7 +8,6 @@
 
 package shum.oks.lab.entity.anime.data.impl.mappers
 
-import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeType
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
@@ -18,27 +17,6 @@ import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeResponse
 import shum.oks.lab.entity.anime.data.impl.models.MyAnimeListAnimeListResponse
 import shum.oks.lab.entity.anime.data.impl.models.MyAnimeListNodeResponse
 
-
-internal fun AnimeListResponse.toAnimePaginationEntityList(
-    prevPage: Int?,
-    nextPage: Int?,
-): List<AnimePaginationEntity> =
-    when (this) {
-        is JikanAnimeListResponse -> list.map {
-            AnimePaginationEntity(
-                id = it.id,
-                prevPage = prevPage,
-                nextPage = nextPage,
-            )
-        }
-        is MyAnimeListAnimeListResponse -> list.map {
-            AnimePaginationEntity(
-                id = it.anime.id,
-                prevPage = prevPage,
-                nextPage = nextPage,
-            )
-        }
-    }
 
 internal fun AnimeListResponse.toEntityModelList(): List<AnimeSummaryEntity> =
     when (this) {
