@@ -14,12 +14,16 @@ import retrofit2.Retrofit
 import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
 import shum.oks.lab.core.di.BaseDependencies
 import shum.oks.lab.entity.anime.data.impl.qualifiers.JikanNetwork
+import shum.oks.lab.entity.anime.data.impl.qualifiers.MyAnimeListNetwork
 import shum.oks.lab.entity.config.domain.api.AppConfigRepository
 
 interface EntityAnimeDataImplDependencies : BaseDependencies {
 
     @get:JikanNetwork
     val jikanRetrofit: Retrofit
+
+    @get:MyAnimeListNetwork
+    val myAnimeListRetrofit: Retrofit
 
     val animeDatabaseDelegate: AnimeDatabaseDelegate
 

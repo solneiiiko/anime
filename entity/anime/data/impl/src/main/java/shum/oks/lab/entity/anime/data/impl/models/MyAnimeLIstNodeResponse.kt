@@ -8,12 +8,10 @@
 
 package shum.oks.lab.entity.anime.data.impl.models
 
-internal sealed interface AnimeListResponse {
-    val list: List<Any>
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-    val pagination: AnimePaginationResponse
-}
-
-internal interface AnimePaginationResponse {
-    val hasNextPage: Boolean
-}
+@Serializable
+internal data class MyAnimeListNodeResponse(
+    @SerialName("node") val anime: MyAnimeListAnimeResponse
+)

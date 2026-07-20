@@ -58,6 +58,9 @@ internal class CatalogModule {
             override val jikanRetrofit: Retrofit
                 get() = CommonNetworkComponentHolder.get().jikanRetrofit
 
+            override val myAnimeListRetrofit: Retrofit
+                get() = CommonNetworkComponentHolder.get().myAnimeListRetrofit
+
             override val animeDatabaseDelegate: AnimeDatabaseDelegate
                 get() = CommonDatabaseComponentHolder.get().animeDatabaseDelegate
 

@@ -84,9 +84,13 @@ internal object CommonNetworkModule {
 
     @Provides
     fun provideJson(): Json =
-        Json { ignoreUnknownKeys = true }
+        Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+            explicitNulls = false
+        }
 
-    private const val JIKAN_BASE_URL = "https://api.jikan.moe/"
+    private const val JIKAN_BASE_URL = "https://api.jikan.moe/v4/"
     private const val MY_ANIME_LIST_BASE_URL = "https://api.myanimelist.net/v2/"
 }
 

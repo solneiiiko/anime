@@ -16,10 +16,10 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import shum.oks.lab.core.network.ApiResult
-import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeRemoteDataSource
+import shum.oks.lab.entity.anime.data.impl.mappers.toAnimePaginationEntityList
 import shum.oks.lab.entity.anime.data.impl.mappers.toEntityModelList
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
 
@@ -61,6 +61,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
                 val isRefresh = loadType == LoadType.REFRESH
                 updateAnimeSummary(
                     animeListResponse.data,
+                    currentPage = page,
                     clearExisting = isRefresh
                 )
                 if (isRefresh) {
@@ -74,22 +75,21 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
         }
     }
 
-    private suspend fun updateAnimeSummary(response: AnimeListResponse, clearExisting: Boolean) {
-        val items = response.list
+    private suspend fun updateAnimeSummary(
+        response: AnimeListResponse,
+        currentPage: Int,
+        clearExisting: Boolean
+    ) {
         val hasNextPage = response.pagination.hasNextPage
-        val currentPage = response.pagination.currentPage
         val prevKey = if (currentPage == INITIAL_PAGE) null else currentPage - PAGE_OFFSET
         val nextKey = if (hasNextPage) currentPage + PAGE_OFFSET else null
 
-        val keys = items.map {
-            AnimePaginationEntity(
-                id = it.id,
-                prevPage = prevKey,
-                nextPage = nextKey,
-            )
-        }
+        val keys = response.toAnimePaginationEntityList(
+            prevPage = prevKey,
+            nextPage = nextKey,
+        )
         localDataSource.insertAllAnimeWithPagination(
-            items.toEntityModelList(),
+            response.toEntityModelList(),
             keys,
             clearExisting = clearExisting,
         )

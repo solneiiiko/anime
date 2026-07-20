@@ -12,10 +12,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class AnimeResponse(
+internal data class JikanAnimeResponse(
     @SerialName("mal_id") val id: Int,
     @SerialName("title") val title: String,
-    @SerialName("images") val imagesResponse: ImagesResponse,
+    @SerialName("images") val jikanImagesResponse: JikanImagesResponse,
     @SerialName("score") val score: Double?,
     @SerialName("type") val type: AnimeTypeResponse?,
     @SerialName("episodes") val episodes: Int?,
@@ -23,34 +23,26 @@ internal data class AnimeResponse(
 )
 
 @Serializable
-internal data class ImagesResponse(
-    @SerialName("jpg") val jpg: JpgResponse,
+internal data class JikanImagesResponse(
+    @SerialName("jpg") val jpg: JikanJpgResponse,
 )
 
 @Serializable
-internal data class JpgResponse(
+internal data class JikanJpgResponse(
     @SerialName("image_url") val smallImageUrl: String?,
 )
 
-@Serializable
+@Serializable(with = AnimeTypeResponseSerializer::class)
 internal enum class AnimeTypeResponse {
-    @SerialName("TV")
     TV,
-    @SerialName("OVA")
     OVA,
-    @SerialName("Movie")
     MOVIE,
-    @SerialName("Special")
     SPECIAL,
-    @SerialName("ONA")
     ONA,
-    @SerialName("Music")
     MUSIC,
-    @SerialName("CM")
     CM,
-    @SerialName("PV")
     PV,
-    @SerialName("TV Special")
     TV_SPECIAL,
+
     ;
 }

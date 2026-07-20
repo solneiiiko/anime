@@ -28,6 +28,6 @@ internal class MyAnimeListHeaderInterceptor @Inject constructor(
     }
 
     private companion object {
-        const val CLIENT_ID_HEADER_NAME = "X-MAL-CLIENT"
+        const val CLIENT_ID_HEADER_NAME = "X-MAL-CLIENT-ID"
     }
 }

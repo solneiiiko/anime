@@ -11,4 +11,4 @@ package shum.oks.lab.entity.anime.data.impl.qualifiers
 import javax.inject.Qualifier
 
 @Qualifier
-internal annotation class JikanNetwork
+internal annotation class MyAnimeListNetwork
