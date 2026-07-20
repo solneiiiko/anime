@@ -10,6 +10,7 @@ package shum.oks.lab.entity.anime.data.impl.datasources
 
 import shum.oks.lab.core.network.ApiResult
 import shum.oks.lab.core.network.BaseRemoteDataSource
+import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.impl.api.JikanAnimeApi
 import shum.oks.lab.entity.anime.data.impl.api.MyAnimeListAnimeApi
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
@@ -25,12 +26,17 @@ internal class AnimeRemoteDataSource @Inject constructor(
     suspend fun getAnimeListResponse(
         page: Int,
         limit: Int,
+        catalog: AnimeCatalog,
     ): ApiResult<AnimeListResponse> = safeApiCall {
 //  TODO https://github.com/solneiiiko/anime/issues/31    jikanAnimeApi.getAnimeList(page = page, limit = limit)
         myAnimeListAnimeApi.getAnimeRanking(
-            rankingType = "all",
+            rankingType = catalog.toRankingType(),
             limit = limit,
             offset = (page - 1) * limit,
         )
     }
+}
+
+private fun AnimeCatalog.toRankingType(): String = when (this) {
+    AnimeCatalog.ALL -> "all"
 }

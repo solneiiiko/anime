@@ -16,10 +16,10 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import shum.oks.lab.core.network.ApiResult
+import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeRemoteDataSource
-import shum.oks.lab.entity.anime.data.impl.mappers.toAnimePaginationEntityList
 import shum.oks.lab.entity.anime.data.impl.mappers.toEntityModelList
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
 
@@ -28,6 +28,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
     private val remoteDataSource: AnimeRemoteDataSource,
     private val localDataSource: AnimeLocalDataSource,
     @Assisted private val initializeAction: InitializeAction,
+    @Assisted private val catalog: AnimeCatalog,
     @Assisted private val afterRefresh: suspend () -> Unit,
 ) : RemoteMediator<Int, AnimeSummaryEntity>() {
 
@@ -44,15 +45,15 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
             LoadType.APPEND -> {
                 val lastItem = state.lastItemOrNull()
                     ?: return MediatorResult.Success(endOfPaginationReached = false,)
-                localDataSource.getPaginationById(animeId = lastItem.id)?.nextPage
-                    ?: return MediatorResult.Success(
-                        endOfPaginationReached = true,
-                    )
+                localDataSource.getPaginationById(
+                    animeId = lastItem.id,
+                    catalog = catalog
+                )?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true,)
             }
         }
 
         val animeListResponse = remoteDataSource
-            .getAnimeListResponse(page = page, limit = state.config.pageSize)
+            .getAnimeListResponse(page = page, limit = state.config.pageSize, catalog = catalog)
         return when (animeListResponse) {
             is ApiResult.Failure<AnimeListResponse> -> {
                 MediatorResult.Error(animeListResponse.exception)
@@ -62,6 +63,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
                 updateAnimeSummary(
                     animeListResponse.data,
                     currentPage = page,
+                    pageSize = state.config.pageSize,
                     clearExisting = isRefresh
                 )
                 if (isRefresh) {
@@ -78,20 +80,23 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
     private suspend fun updateAnimeSummary(
         response: AnimeListResponse,
         currentPage: Int,
+        pageSize: Int,
         clearExisting: Boolean
     ) {
         val hasNextPage = response.pagination.hasNextPage
         val prevKey = if (currentPage == INITIAL_PAGE) null else currentPage - PAGE_OFFSET
         val nextKey = if (hasNextPage) currentPage + PAGE_OFFSET else null
 
-        val keys = response.toAnimePaginationEntityList(
-            prevPage = prevKey,
-            nextPage = nextKey,
-        )
         localDataSource.insertAllAnimeWithPagination(
             response.toEntityModelList(),
-            keys,
-            clearExisting = clearExisting,
+            paginationInfo = PaginationInfo(
+                currentPage = currentPage,
+                prevPage = prevKey,
+                nextPage = nextKey,
+                pageSize = pageSize,
+                catalog = catalog,
+            ),
+            clearExisting = clearExisting
         )
     }
 
@@ -104,6 +109,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
     internal interface Factory {
         fun create(
             initializeAction: InitializeAction,
+            catalog: AnimeCatalog,
             afterRefresh: suspend () -> Unit,
         ): AnimeRemoteMediator
     }

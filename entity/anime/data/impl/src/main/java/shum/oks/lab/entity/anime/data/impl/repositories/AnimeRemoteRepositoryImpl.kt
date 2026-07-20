@@ -16,6 +16,7 @@ import androidx.paging.RemoteMediator
 import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimePreferencesDataStore
 import shum.oks.lab.entity.anime.data.impl.mappers.toDomainModel
@@ -34,7 +35,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun observeAnimePagingData(): Flow<PagingData<Anime>> {
         val appPagingConfig = appConfigRepository.getAppConfig().pagingConfig
-
+        val catalog = AnimeCatalog.ALL // TODO get from UI
         return Pager(
             config = PagingConfig(
                 pageSize = appPagingConfig.pageSize,
@@ -45,6 +46,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
                 } else {
                     RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH
                 },
+                catalog = catalog,
                 afterRefresh = {
                     animePreferencesDataStore.apply {
                         setLastRefreshTime(System.currentTimeMillis())
@@ -52,7 +54,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
                     }
                 }
             ),
-            pagingSourceFactory = { localDataSource.pagingSource() }
+            pagingSourceFactory = { localDataSource.pagingSource(catalog = catalog) }
         ).flow.map { pagingData ->
             pagingData.map { it.toDomainModel() }
         }
