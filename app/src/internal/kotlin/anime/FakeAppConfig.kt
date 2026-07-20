@@ -24,7 +24,7 @@ internal class FakeAppConfigRepository @Inject constructor() : AppConfigReposito
                 pageSize = 25
             ),
             cacheConfig = CacheConfig(
-                ttl = 1.toDuration(DurationUnit.MINUTES)
+                ttl = 4.toDuration(DurationUnit.HOURS)
             )
         )
 }

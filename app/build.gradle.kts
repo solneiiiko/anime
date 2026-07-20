@@ -1,3 +1,5 @@
+import shum.oks.lab.anime.convention.getSecret
+
 /*
  * Copyright © 2026 Oksana Shumilova.
  * All rights reserved.
@@ -7,6 +9,7 @@
  */
 
 plugins {
+    id("shum.oks.lab.anime.secrets")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
@@ -27,8 +30,10 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val myAnimeListClientId = getSecret("MY_ANIME_LIST_CLIENT_ID") ?: ""
+        buildConfigField("String", "MY_ANIME_LIST_CLIENT_ID", "\"$myAnimeListClientId\"")
     }
 
     buildTypes {

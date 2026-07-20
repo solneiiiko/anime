@@ -6,15 +6,9 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.common.network
+package shum.oks.lab.common.network.qualifiers
 
-data class NetworkConfig(
-    val myAnimeListClientId: String?,
-    val loggingLevel: LoggingLevel,
-) {
+import javax.inject.Qualifier
 
-    enum class LoggingLevel {
-        NONE,
-        BODY,
-    }
-}
+@Qualifier
+annotation class JikanNetwork

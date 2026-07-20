@@ -10,13 +10,13 @@ package shum.oks.lab.entity.anime.data.impl.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
+import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeListResponse
 
-internal interface AnimeApi {
+internal interface JikanAnimeApi {
 
-    @GET("v4/anime")
+    @GET("anime")
     suspend fun getAnimeList(
         @Query("page") page: Int,
         @Query("limit") limit: Int,
-    ): AnimeListResponse
+    ): JikanAnimeListResponse
 }

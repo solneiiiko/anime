@@ -14,7 +14,10 @@ import dagger.Provides
 import retrofit2.Retrofit
 import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
 import shum.oks.lab.entity.anime.data.api.dao.AnimeDao
-import shum.oks.lab.entity.anime.data.impl.api.AnimeApi
+import shum.oks.lab.entity.anime.data.impl.api.JikanAnimeApi
+import shum.oks.lab.entity.anime.data.impl.api.MyAnimeListAnimeApi
+import shum.oks.lab.entity.anime.data.impl.qualifiers.JikanNetwork
+import shum.oks.lab.entity.anime.data.impl.qualifiers.MyAnimeListNetwork
 import shum.oks.lab.entity.anime.data.impl.repositories.AnimeRemoteRepositoryImpl
 import shum.oks.lab.entity.anime.domain.api.repositories.AnimeRepository
 
@@ -27,10 +30,18 @@ internal interface EntityAnimeDataImplModule {
     ): AnimeRepository
 
     companion object {
+
+        @JikanNetwork
         @Provides
-        fun provideAnimeApi(
-            retrofit: Retrofit,
-        ): AnimeApi = retrofit.create(AnimeApi::class.java)
+        fun provideJikanAnimeApi(
+            @JikanNetwork retrofit: Retrofit,
+        ): JikanAnimeApi = retrofit.create(JikanAnimeApi::class.java)
+
+        @MyAnimeListNetwork
+        @Provides
+        fun provideMyAnimeListAnimeApi(
+            @MyAnimeListNetwork retrofit: Retrofit,
+        ): MyAnimeListAnimeApi = retrofit.create(MyAnimeListAnimeApi::class.java)
 
         @Provides
         fun provideAnimeDao(
