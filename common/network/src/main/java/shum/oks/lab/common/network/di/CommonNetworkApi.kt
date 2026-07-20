@@ -10,10 +10,14 @@ package shum.oks.lab.common.network.di
 
 import retrofit2.Retrofit
 import shum.oks.lab.common.network.qualifiers.JikanNetwork
+import shum.oks.lab.common.network.qualifiers.MyAnimeListNetwork
 import shum.oks.lab.core.di.BaseApi
 
 interface CommonNetworkApi : BaseApi {
 
     @get:JikanNetwork
     val jikanRetrofit: Retrofit
+
+    @get:MyAnimeListNetwork
+    val myAnimeListRetrofit: Retrofit
 }

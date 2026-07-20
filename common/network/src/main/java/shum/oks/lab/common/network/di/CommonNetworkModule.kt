@@ -17,7 +17,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import shum.oks.lab.common.network.NetworkConfig
+import shum.oks.lab.common.network.interceptors.MyAnimeListHeaderInterceptor
 import shum.oks.lab.common.network.qualifiers.JikanNetwork
+import shum.oks.lab.common.network.qualifiers.MyAnimeListNetwork
 import javax.inject.Singleton
 
 @Module
@@ -26,31 +28,55 @@ internal object CommonNetworkModule {
     @Singleton
     @JikanNetwork
     @Provides
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient,
-        networkConfig: NetworkConfig,
+    fun provideJikanRetrofit(
+        @JikanNetwork okHttpClient: OkHttpClient,
         json: Json,
     ): Retrofit =
         Retrofit.Builder()
-            .baseUrl(networkConfig.baseUrl)
+            .baseUrl(JIKAN_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(MediaType.Json))
             .build()
 
+    @Singleton
+    @MyAnimeListNetwork
     @Provides
-    fun provideClient(
-        loggInterceptor: HttpLoggingInterceptor,
+    fun provideMyAnimeListRetrofit(
+        @MyAnimeListNetwork okHttpClient: OkHttpClient,
+        json: Json,
+    ) : Retrofit =
+        Retrofit.Builder()
+            .baseUrl(MY_ANIME_LIST_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(json.asConverterFactory(MediaType.Json))
+            .build()
+
+    @JikanNetwork
+    @Provides
+    fun provideJikanClient(
+        loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(loggInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+    @MyAnimeListNetwork
+    @Provides
+    fun provideMyAnimeListClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        headerInterceptor: MyAnimeListHeaderInterceptor,
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(headerInterceptor)
             .build()
 
     @Provides
     fun provideLoggingInterceptor(
-        netConfig: NetworkConfig,
+        networkConfig: NetworkConfig,
     ): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
-            level = when (netConfig.loggingLevel) {
+            level = when (networkConfig.loggingLevel) {
                 NetworkConfig.LoggingLevel.NONE -> HttpLoggingInterceptor.Level.NONE
                 NetworkConfig.LoggingLevel.BODY -> HttpLoggingInterceptor.Level.BODY
             }
@@ -59,6 +85,9 @@ internal object CommonNetworkModule {
     @Provides
     fun provideJson(): Json =
         Json { ignoreUnknownKeys = true }
+
+    private const val JIKAN_BASE_URL = "https://api.jikan.moe/"
+    private const val MY_ANIME_LIST_BASE_URL = "https://api.myanimelist.net/v2/"
 }
 
 private val MediaType.Companion.Json: MediaType

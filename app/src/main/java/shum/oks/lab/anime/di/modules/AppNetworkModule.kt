@@ -10,6 +10,7 @@ package shum.oks.lab.anime.di.modules
 
 import dagger.Module
 import dagger.Provides
+import shum.oks.lab.anime.BuildConfig
 import shum.oks.lab.anime.Environment
 import shum.oks.lab.common.network.NetworkConfig
 import shum.oks.lab.common.network.di.CommonNetworkDependencies
@@ -24,16 +25,12 @@ internal class AppNetworkModule {
 
             override val networkConfig: NetworkConfig
                 get() = NetworkConfig(
-                    baseUrl = BASE_URL,
+                    myAnimeListClientId = BuildConfig.MY_ANIME_LIST_CLIENT_ID,
                     loggingLevel = if (Environment.ENABLE_LOGGING)
                         NetworkConfig.LoggingLevel.BODY
                     else
                         NetworkConfig.LoggingLevel.NONE
                 )
         }
-    }
-
-    private companion object {
-        const val BASE_URL = "https://api.jikan.moe/"
     }
 }

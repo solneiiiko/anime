@@ -6,15 +6,4 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.common.network
-
-data class NetworkConfig(
-    val myAnimeListClientId: String?,
-    val loggingLevel: LoggingLevel,
-) {
-
-    enum class LoggingLevel {
-        NONE,
-        BODY,
-    }
-}
+include(":convention")
