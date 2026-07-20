@@ -14,8 +14,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 
 @Dao
 abstract class AnimeDao {
@@ -34,8 +34,17 @@ abstract class AnimeDao {
         catalog: String,
     ): PagingSource<Int, AnimeSummaryEntity>
 
-    @Query("SELECT * FROM ${AnimePaginationEntity.TABLE_NAME} WHERE ${AnimePaginationEntity.Column.ANIME_ID} = :id LIMIT 1")
-    abstract suspend fun getPaginationById(id: Int): AnimePaginationEntity?
+    @Query("""
+        SELECT * 
+        FROM ${AnimePaginationEntity.TABLE_NAME} 
+        WHERE ${AnimePaginationEntity.Column.ANIME_ID} = :animeId 
+            AND ${AnimePaginationEntity.Column.CATALOG} = :catalog 
+        LIMIT 1
+        """)
+    abstract suspend fun getPaginationById(
+        animeId: Int,
+        catalog: String,
+    ): AnimePaginationEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAllAnime(items: List<AnimeSummaryEntity>)

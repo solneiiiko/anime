@@ -45,10 +45,10 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
             LoadType.APPEND -> {
                 val lastItem = state.lastItemOrNull()
                     ?: return MediatorResult.Success(endOfPaginationReached = false,)
-                localDataSource.getPaginationById(animeId = lastItem.id)?.nextPage
-                    ?: return MediatorResult.Success(
-                        endOfPaginationReached = true,
-                    )
+                localDataSource.getPaginationById(
+                    animeId = lastItem.id,
+                    catalog = catalog
+                )?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true,)
             }
         }
 

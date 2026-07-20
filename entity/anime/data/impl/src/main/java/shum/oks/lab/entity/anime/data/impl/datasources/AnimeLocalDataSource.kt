@@ -25,8 +25,10 @@ internal class AnimeLocalDataSource @Inject constructor(
     ): PagingSource<Int, AnimeSummaryEntity> =
         animeDao.pagingSource(catalog.key)
 
-    suspend fun getPaginationById(animeId: Int) =
-        animeDao.getPaginationById(animeId)
+    suspend fun getPaginationById(
+        animeId: Int,
+        catalog: AnimeCatalog,
+    ) = animeDao.getPaginationById(animeId, catalog.key)
 
     suspend fun insertAllAnimeWithPagination(
         items: List<AnimeSummaryEntity>,
