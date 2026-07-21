@@ -10,6 +10,7 @@ package shum.oks.lab.feature.catalog.screens.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -23,14 +24,16 @@ import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 
 @Composable
 internal fun CatalogListContent(
-    modifier: Modifier,
     pagingItems: LazyPagingItems<CatalogElement>,
+    modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(200.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier.fillMaxSize(),
+        columns = GridCells.Adaptive(150.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxSize(),
     ) {
         items(
             count = pagingItems.itemCount,

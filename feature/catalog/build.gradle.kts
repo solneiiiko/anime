@@ -59,6 +59,7 @@ dependencies {
     ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
 
+    api(project(":common:theme"))
     implementation(project(":core:ui"))
     api(project(":entity:anime:domain:api"))
 

@@ -40,8 +40,8 @@ internal fun CatalogScreen(
         }
         is LoadState.NotLoading -> {
             CatalogListContent(
+                pagingItems = animePagingData,
                 modifier = modifier,
-                pagingItems = animePagingData
             )
         }
     }
