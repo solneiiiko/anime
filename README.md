@@ -27,6 +27,17 @@
 - Adaptive navigation for different screen sizes
 - Material 3 UI
 
+## 🔑 API Key
+
+This project requires a MyAnimeList API key to get data.
+
+You can obtain your API key here:
+- [API key help](https://help.myanimelist.net/hc/en-us/articles/900003108823-API)
+  
+and add your API key to `local.properties` as `MY_ANIME_LIST_CLIENT_ID=your_api_key` or gradle params as `-PMY_ANIME_LIST_CLIENT_ID=your_api_key` 
+  
+*The key is stored locally and is not included in the repository.*
+
 ## 🛠 Tech Stack
 
 | Category | Technologies |
@@ -110,5 +121,6 @@ This project is licensed under the terms described in the [LICENSE](LICENSE) fil
 
 Special thanks to:
 
+- **MyAnimeList API** for providing stable data and beautiful images.
 - **Jikan API** for the excellent public API.
 - **Copilot** & **ChatGPT** for creating the project's artwork.
