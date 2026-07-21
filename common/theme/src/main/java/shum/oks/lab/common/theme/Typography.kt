@@ -40,32 +40,16 @@ private val ebGaramondFontFamily by lazy {
         Font(R.font.eb_garamond_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
 
         Font(R.font.eb_garamond_medium, weight = FontWeight.Medium, style = FontStyle.Normal),
-        Font(
-            R.font.eb_garamond_medium_italic,
-            weight = FontWeight.Medium,
-            style = FontStyle.Italic
-        ),
+        Font(R.font.eb_garamond_medium_italic, weight = FontWeight.Medium, style = FontStyle.Italic),
 
         Font(R.font.eb_garamond_semi_bold, weight = FontWeight.SemiBold, style = FontStyle.Normal),
-        Font(
-            R.font.eb_garamond_semi_bold_italic,
-            weight = FontWeight.SemiBold,
-            style = FontStyle.Italic
-        ),
+        Font(R.font.eb_garamond_semi_bold_italic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
 
         Font(R.font.eb_garamond_bold, weight = FontWeight.Bold, style = FontStyle.Normal),
         Font(R.font.eb_garamond_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
 
-        Font(
-            R.font.eb_garamond_extra_bold,
-            weight = FontWeight.ExtraBold,
-            style = FontStyle.Normal
-        ),
-        Font(
-            R.font.eb_garamond_extra_bold_italic,
-            weight = FontWeight.ExtraBold,
-            style = FontStyle.Italic
-        ),
+        Font(R.font.eb_garamond_extra_bold, weight = FontWeight.ExtraBold, style = FontStyle.Normal),
+        Font(R.font.eb_garamond_extra_bold_italic, weight = FontWeight.ExtraBold, style = FontStyle.Italic),
     )
 }
 
