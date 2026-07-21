@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.catalog.screens.composables
 
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +18,7 @@ internal fun CatalogSkeleton(
     modifier: Modifier,
 ) {
     Text(
-        modifier = modifier,
         text = "I'm SKELETON",
+        modifier = modifier.statusBarsPadding(),
     )
 }

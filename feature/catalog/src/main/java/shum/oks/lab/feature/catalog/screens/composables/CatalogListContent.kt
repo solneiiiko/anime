@@ -9,8 +9,11 @@
 package shum.oks.lab.feature.catalog.screens.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -31,6 +34,7 @@ internal fun CatalogListContent(
         columns = GridCells.Adaptive(150.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = WindowInsets.statusBars.asPaddingValues(),
         modifier = modifier
             .padding(horizontal = 16.dp)
             .fillMaxSize(),
