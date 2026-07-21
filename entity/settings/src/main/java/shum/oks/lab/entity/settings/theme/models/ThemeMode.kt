@@ -6,11 +6,11 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.core.theme.models
+package shum.oks.lab.entity.settings.theme.models
 
-enum class ContrastMode {
-    STANDARD,
-    MEDIUM,
-    HIGH,
+enum class ThemeMode {
+    SYSTEM,
+    LIGHT,
+    DARK,
     ;
 }

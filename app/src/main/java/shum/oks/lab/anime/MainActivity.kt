@@ -24,7 +24,7 @@ import shum.oks.lab.anime.di.AppComponentHolder
 import shum.oks.lab.anime.mvi.AppUiState
 import shum.oks.lab.anime.mvi.AppViewModel
 import shum.oks.lab.anime.navigation.AppNavDisplay
-import shum.oks.lab.anime.ui.theme.AnimeTheme
+import shum.oks.lab.common.theme.AnimeTheme
 
 class MainActivity : ComponentActivity() {
 
