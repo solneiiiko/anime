@@ -18,13 +18,13 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import shum.oks.lab.entity.settings.theme.models.ContrastMode
+import shum.oks.lab.entity.settings.theme.models.ThemeContrast
 import shum.oks.lab.entity.settings.theme.models.ThemeMode
 
 @Composable
 fun AnimeTheme(
     themeMode: ThemeMode,
-    contrastMode: ContrastMode,
+    themeContrast: ThemeContrast,
     //TODO SettingsScreen https://github.com/solneiiiko/anime/issues/27
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
@@ -41,8 +41,8 @@ fun AnimeTheme(
           val context = LocalContext.current
           if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
       }
-      darkTheme -> darkColorSchemeByContrast(contrastMode)
-      else -> lightColorSchemeByContrast(contrastMode)
+      darkTheme -> darkColorSchemeByContrast(themeContrast)
+      else -> lightColorSchemeByContrast(themeContrast)
     }
 
     MaterialTheme(
@@ -52,16 +52,16 @@ fun AnimeTheme(
     )
 }
 
-private fun darkColorSchemeByContrast(contrastMode: ContrastMode): ColorScheme = when (contrastMode) {
-    ContrastMode.STANDARD -> darkScheme
-    ContrastMode.MEDIUM -> mediumContrastDarkColorScheme
-    ContrastMode.HIGH -> highContrastDarkColorScheme
+private fun darkColorSchemeByContrast(themeContrast: ThemeContrast): ColorScheme = when (themeContrast) {
+    ThemeContrast.STANDARD -> darkScheme
+    ThemeContrast.MEDIUM -> mediumContrastDarkColorScheme
+    ThemeContrast.HIGH -> highContrastDarkColorScheme
 }
 
-private fun lightColorSchemeByContrast(contrastMode: ContrastMode): ColorScheme = when (contrastMode) {
-    ContrastMode.STANDARD -> lightScheme
-    ContrastMode.MEDIUM -> mediumContrastLightColorScheme
-    ContrastMode.HIGH -> highContrastLightColorScheme
+private fun lightColorSchemeByContrast(themeContrast: ThemeContrast): ColorScheme = when (themeContrast) {
+    ThemeContrast.STANDARD -> lightScheme
+    ThemeContrast.MEDIUM -> mediumContrastLightColorScheme
+    ThemeContrast.HIGH -> highContrastLightColorScheme
 }
 
 private val lightScheme by lazy {

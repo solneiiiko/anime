@@ -9,7 +9,7 @@
 package shum.oks.lab.entity.settings.theme.repositories
 
 import kotlinx.coroutines.flow.Flow
-import shum.oks.lab.entity.settings.theme.models.ContrastMode
+import shum.oks.lab.entity.settings.theme.models.ThemeContrast
 import shum.oks.lab.entity.settings.theme.models.ThemeMode
 
 //TODO SettingsScreen https://github.com/solneiiiko/anime/issues/27
@@ -19,7 +19,7 @@ interface ThemeRepository {
 
     suspend fun setThemeMode(themeMode: ThemeMode)
 
-    val contrastMode: Flow<ContrastMode>
+    val themeContrast: Flow<ThemeContrast>
 
-    suspend fun setContrastMode(contrast: ContrastMode)
+    suspend fun setContrastMode(contrast: ThemeContrast)
 }

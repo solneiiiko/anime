@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 is AppUiState.Success -> {
                     AnimeTheme(
                         themeMode = state.themeMode,
-                        contrastMode = state.contrastMode,
+                        themeContrast = state.themeContrast,
                     ) {
                         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                             AppNavDisplay(

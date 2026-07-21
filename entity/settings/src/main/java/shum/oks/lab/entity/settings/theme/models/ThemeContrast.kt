@@ -8,7 +8,7 @@
 
 package shum.oks.lab.entity.settings.theme.models
 
-enum class ContrastMode {
+enum class ThemeContrast {
     STANDARD,
     MEDIUM,
     HIGH,

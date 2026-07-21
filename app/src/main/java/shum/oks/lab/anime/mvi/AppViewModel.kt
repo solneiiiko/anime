@@ -41,7 +41,7 @@ internal class AppViewModel @Inject constructor(
             updateState {
                 AppUiState.Success(
                     themeMode = themeMode,
-                    contrastMode = contrastMode,
+                    themeContrast = themeContrast,
                     navigationButtons = topNavButtons.toTopNavButtonUiList(),
                 )
             }
