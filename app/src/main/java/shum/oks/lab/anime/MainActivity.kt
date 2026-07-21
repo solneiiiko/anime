@@ -13,8 +13,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -24,7 +22,7 @@ import shum.oks.lab.anime.di.AppComponentHolder
 import shum.oks.lab.anime.mvi.AppUiState
 import shum.oks.lab.anime.mvi.AppViewModel
 import shum.oks.lab.anime.navigation.AppNavDisplay
-import shum.oks.lab.anime.ui.theme.AnimeTheme
+import shum.oks.lab.common.theme.AnimeTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -44,14 +42,12 @@ class MainActivity : ComponentActivity() {
                 is AppUiState.Success -> {
                     AnimeTheme(
                         themeMode = state.themeMode,
-                        contrastMode = state.contrastMode,
+                        themeContrast = state.themeContrast,
                     ) {
-                        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                            AppNavDisplay(
-                                navButtons = state.navigationButtons,
-                                modifier = Modifier.padding(top = innerPadding.calculateTopPadding())
-                            )
-                        }
+                        AppNavDisplay(
+                            navButtons = state.navigationButtons,
+                            modifier = Modifier.fillMaxSize()
+                        )
                     }
                 }
             }

@@ -28,10 +28,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import shum.oks.lab.core.ui.preview.AnimeThemePreview
+import shum.oks.lab.core.ui.preview.ThemePreviews
 
-fun Modifier.shimmerModifier(
+fun Modifier.diagonalShimmerModifier(
     alpha: Float = 0.6f,
 ): Modifier = composed {
     val transition = rememberInfiniteTransition()
@@ -60,21 +61,23 @@ fun Modifier.shimmerModifier(
     this.background(brush)
 }
 
-@Preview(name = "check animation not theme", showBackground = true)
+@ThemePreviews
 @Composable
 private fun ShimmerModifierPreview() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        repeat(3) {
-            Box(
-                modifier = Modifier
-                    .size(200.dp)
-                    .shimmerModifier(alpha = 0.7f)
-            )
+    AnimeThemePreview {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            repeat(3) {
+                Box(
+                    modifier = Modifier
+                        .size(200.dp)
+                        .diagonalShimmerModifier(alpha = 0.7f)
+                )
+            }
         }
     }
 }

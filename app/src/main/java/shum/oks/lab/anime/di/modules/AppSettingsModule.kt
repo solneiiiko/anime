@@ -13,8 +13,8 @@ import dagger.Provides
 import shum.oks.lab.anime.usecases.AppSettings
 import shum.oks.lab.anime.usecases.GetAppSettingUseCase
 import shum.oks.lab.anime.usecases.models.TopNavButton
-import shum.oks.lab.core.theme.models.ContrastMode
-import shum.oks.lab.core.theme.models.ThemeMode
+import shum.oks.lab.entity.settings.theme.models.ThemeContrast
+import shum.oks.lab.entity.settings.theme.models.ThemeMode
 
 //TODO SettingsScreen https://github.com/solneiiiko/anime/issues/27
 @Module
@@ -25,7 +25,7 @@ internal class AppSettingsModule {
         override suspend fun invoke(): AppSettings =
             AppSettings(
                 themeMode = ThemeMode.SYSTEM,
-                contrastMode = ContrastMode.STANDARD,
+                themeContrast = ThemeContrast.STANDARD,
                 topNavButtons = TopNavButton.entries,
             )
     }

@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.favourites.screens
 
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,5 +17,8 @@ import androidx.compose.ui.Modifier
 internal fun FavouritesScreen(
     modifier: Modifier = Modifier,
 ) {
-    Text("I'm FAVOURITES")
+    Text(
+        text = "I'm FAVOURITES",
+        modifier = modifier.statusBarsPadding(),
+    )
 }

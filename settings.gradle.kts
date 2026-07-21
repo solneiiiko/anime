@@ -33,21 +33,22 @@ dependencyResolutionManagement {
 
 rootProject.name = "anime"
 include(":app")
+
 include(":core:di")
+include(":core:network")
+include(":core:mvi")
+include(":core:ui")
 
 include(":common:database")
 include(":common:network")
-
-include(":core:network")
-include(":core:mvi")
-include(":core:theme")
-include(":core:ui")
+include(":common:theme")
 
 include(":entity:anime:data:api")
 include(":entity:anime:data:impl")
 include(":entity:anime:domain:api")
 include(":entity:anime:domain:impl")
 include(":entity:config:domain:api")
+include(":entity:settings")
 
 include(":feature:catalog")
 include(":feature:settings")

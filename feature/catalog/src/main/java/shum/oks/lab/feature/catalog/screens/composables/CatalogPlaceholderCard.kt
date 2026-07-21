@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import shum.oks.lab.core.ui.modifiers.shimmerModifier
+import shum.oks.lab.core.ui.modifiers.diagonalShimmerModifier
 
 @Composable
 internal fun CatalogPlaceholderCard() {
@@ -27,7 +27,7 @@ internal fun CatalogPlaceholderCard() {
             .fillMaxWidth()
             .height(300.dp)
             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-            .shimmerModifier(),
+            .diagonalShimmerModifier(),
         contentAlignment = Alignment.Center
     ) {
 

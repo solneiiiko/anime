@@ -89,8 +89,8 @@ dependencies {
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
-    implementation(project(":core:theme"))
 
+    implementation(project(":common:theme"))
     implementation(project(":common:database"))
     implementation(project(":common:network"))
 

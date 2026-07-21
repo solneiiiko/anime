@@ -60,7 +60,7 @@ The current focus of this project is architecture, scalability, and production-r
 
 Placeholders are shown while images are loading
 
-<img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_errors.gif" />
+<img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_slow_internet.gif" />
 
 
 | Theme | Catalog | Details | Settings |

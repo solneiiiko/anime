@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.settings.screens
 
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,6 +17,9 @@ import androidx.compose.ui.Modifier
 internal fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
-    Text("I'm SETTINGS")
+    Text(
+        text = "I'm SETTINGS",
+        modifier = modifier.statusBarsPadding(),
+    )
 }
 
