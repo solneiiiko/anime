@@ -29,10 +29,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
-import shum.oks.lab.core.ui.modifiers.diagonalShimmerModifier
+import shum.oks.lab.core.ui.modifiers.shimmer
 import shum.oks.lab.core.ui.preview.AnimeThemePreview
 import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.entity.settings.theme.models.ThemeContrast
@@ -43,12 +44,13 @@ import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 
 @Composable
 internal fun CatalogItem(
-    anime: CatalogElement
+    anime: CatalogElement,
+    itemHeight: Dp,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp),
+            .height(itemHeight),
     ) {
         SubcomposeAsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -110,7 +112,7 @@ private fun LoadingImagePlaceholder(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .diagonalShimmerModifier()
+                .shimmer()
         )
     }
 }
@@ -164,7 +166,8 @@ private fun CatalogItemPreviewByContrast(
                     append("72.0K")
                 },
                 imageUrl = "https://example.com/sample.jpg"
-            )
+            ),
+            itemHeight = 300.dp,
         )
     }
 }
