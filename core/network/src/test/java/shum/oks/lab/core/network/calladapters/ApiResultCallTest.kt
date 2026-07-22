@@ -100,7 +100,6 @@ class ApiResultCallTest {
             ErrorCase(404, "Not Found", ApiClientException.Code.NotFound),
             ErrorCase(409, "Conflict", ApiClientException.Code.Conflict),
             ErrorCase(429, "Too Many Requests", ApiClientException.Code.TooManyRequests),
-
             ErrorCase(402, "Payment Required", ApiClientException.Code.Unknown),
         )
     @Property
@@ -110,9 +109,7 @@ class ApiResultCallTest {
         server.enqueue(
             MockResponse()
                 .setResponseCode(errorCase.code)
-                .apply {
-                    setBody(errorCase.bodyMessage)
-                }
+                .setBody(errorCase.bodyMessage)
         )
 
         val result = service.getData()
@@ -132,7 +129,6 @@ class ApiResultCallTest {
         server.enqueue(MockResponse().setResponseCode(code).setBody(SERVER_ERROR_BODY_MESSAGE))
 
         val result = service.getData()
-
         assertTrue(result is ApiResult.Failure)
         assertTrue((result as ApiResult.Failure).exception is ApiServerException)
     }
@@ -142,7 +138,6 @@ class ApiResultCallTest {
         val unreachableServer = MockWebServer().apply { start() }
         val url = unreachableServer.url(TEST_PATH)
         unreachableServer.shutdown()
-
         val unreachableService = buildService(url)
 
         val result = unreachableService.getData()
@@ -151,12 +146,9 @@ class ApiResultCallTest {
     }
 
     companion object {
-
         private const val TEST_PATH = "/ololo/lalala/"
-
         private const val SUCCESS_RESPONSE_CODE = 200
         private const val SUCCESS_BODY_MESSAGE = "Success Body"
-
         private const val SERVER_ERROR_BODY_MESSAGE = "Server Error"
     }
 }

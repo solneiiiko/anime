@@ -38,7 +38,7 @@ internal class AnimeRemoteDataSource @Inject constructor(
             myAnimeListAnimeApi.getAnimeRanking(
                 rankingType = catalog.toRankingType(),
                 limit = limit,
-                offset = (page - 1) * limit,
+                offset = (page - PAGE_OFFSET) * limit,
             )
         }
     }
@@ -48,3 +48,5 @@ private fun AnimeCatalog.toRankingType(): String = when (this) {
     AnimeCatalog.ALL -> "all"
     AnimeCatalog.JIKAN -> "all" // TODO think >_<  + write in Analytics
 }
+
+private const val PAGE_OFFSET = 1
