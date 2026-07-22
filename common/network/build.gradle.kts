@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
 
+    implementation(project(":core:network"))
     api(libs.retrofit)
     implementation(libs.kotlinx.serialization.retrofit)
     implementation(libs.kotlinx.serialization.json)

@@ -10,6 +10,7 @@ package shum.oks.lab.entity.anime.data.impl.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
+import shum.oks.lab.core.network.ApiResult
 import shum.oks.lab.entity.anime.data.impl.models.MyAnimeListAnimeListResponse
 
 internal interface MyAnimeListAnimeApi {
@@ -20,7 +21,7 @@ internal interface MyAnimeListAnimeApi {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
         @Query("fields") fields: String = FIELDS,
-    ): MyAnimeListAnimeListResponse
+    ): ApiResult<MyAnimeListAnimeListResponse>
 
     companion object {
         private const val FIELDS = "id,title,main_picture,mean,num_list_users,media_type,num_episodes"

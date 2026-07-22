@@ -9,7 +9,6 @@
 package shum.oks.lab.entity.anime.data.impl.datasources
 
 import shum.oks.lab.core.network.ApiResult
-import shum.oks.lab.core.network.BaseRemoteDataSource
 import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.impl.api.JikanAnimeApi
 import shum.oks.lab.entity.anime.data.impl.api.MyAnimeListAnimeApi
@@ -21,22 +20,33 @@ import javax.inject.Inject
 internal class AnimeRemoteDataSource @Inject constructor(
     @JikanNetwork private val jikanAnimeApi: JikanAnimeApi,
     @MyAnimeListNetwork private val myAnimeListAnimeApi: MyAnimeListAnimeApi,
-) : BaseRemoteDataSource() {
+) {
 
     suspend fun getAnimeListResponse(
         page: Int,
         limit: Int,
         catalog: AnimeCatalog,
-    ): ApiResult<AnimeListResponse> = safeApiCall {
-//  TODO https://github.com/solneiiiko/anime/issues/31    jikanAnimeApi.getAnimeList(page = page, limit = limit)
-        myAnimeListAnimeApi.getAnimeRanking(
-            rankingType = catalog.toRankingType(),
-            limit = limit,
-            offset = (page - 1) * limit,
-        )
+    ): ApiResult<AnimeListResponse> = when (catalog) {
+        AnimeCatalog.JIKAN -> {
+            jikanAnimeApi
+                .getAnimeList(
+                    page = page,
+                    limit = limit
+                )
+        }
+        AnimeCatalog.ALL -> {
+            myAnimeListAnimeApi.getAnimeRanking(
+                rankingType = catalog.toRankingType(),
+                limit = limit,
+                offset = (page - PAGE_OFFSET) * limit,
+            )
+        }
     }
 }
 
 private fun AnimeCatalog.toRankingType(): String = when (this) {
     AnimeCatalog.ALL -> "all"
+    AnimeCatalog.JIKAN -> "all" // TODO think >_<  + write in Analytics
 }
+
+private const val PAGE_OFFSET = 1

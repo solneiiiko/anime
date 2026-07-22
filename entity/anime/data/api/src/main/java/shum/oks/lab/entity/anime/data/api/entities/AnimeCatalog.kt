@@ -12,5 +12,6 @@ enum class AnimeCatalog(
     val key: String,
 ) {
     ALL("all"),
+    JIKAN("JIKAN_ALL"),
     ;
 }
