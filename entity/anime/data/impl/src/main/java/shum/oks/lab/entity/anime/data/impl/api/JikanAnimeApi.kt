@@ -10,6 +10,7 @@ package shum.oks.lab.entity.anime.data.impl.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
+import shum.oks.lab.core.network.ApiResult
 import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeListResponse
 
 internal interface JikanAnimeApi {
@@ -18,5 +19,5 @@ internal interface JikanAnimeApi {
     suspend fun getAnimeList(
         @Query("page") page: Int,
         @Query("limit") limit: Int,
-    ): JikanAnimeListResponse
+    ): ApiResult<JikanAnimeListResponse>
 }

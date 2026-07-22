@@ -24,6 +24,23 @@ class ApiServerException(
     message: String
 ) : ApiException(message)
 
+class ApiClientException(
+    message: String,
+    val code: Code,
+) : ApiException(message) {
+
+    sealed interface Code {
+        object BadRequest : Code
+        object Unauthorized : Code
+        object Forbidden : Code
+        object NotFound : Code
+        object Conflict : Code
+        object TooManyRequests : Code
+        object Unknown : Code
+    }
+}
+
 class ApiUnknownException(
     message: String,
-) : ApiException(message)
+    throwable: Throwable? = null,
+) : ApiException(message, throwable)

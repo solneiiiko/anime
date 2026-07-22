@@ -26,10 +26,11 @@ jobs:
       - name: Internal checks
         run: |
           ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.parallel=false \
-            :app:assembleInternal \
-            :app:testInternalUnitTest \
-            :app:lintInternalDebug \
-            :app:lintInternalRelease
+            assembleInternal \
+            test \
+            testInternalUnitTest \
+            lintInternalDebug \
+            lintInternalRelease
 
       - name: Upload Gradle problems report
         if: always()
@@ -59,10 +60,10 @@ jobs:
       - name: Prod checks
         run: |
           ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.parallel=false \
-            :app:assembleProd \
-            :app:testProdDebugUnit \
-            :app:lintProdDebug \
-            :app:lintProdRelease
+            assembleProd \
+            testProdDebugUnitTest \
+            lintProdDebug \
+            lintProdRelease
 
       - name: Upload Gradle problems report
         if: always()

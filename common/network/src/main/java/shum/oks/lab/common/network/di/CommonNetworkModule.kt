@@ -20,6 +20,7 @@ import shum.oks.lab.common.network.NetworkConfig
 import shum.oks.lab.common.network.interceptors.MyAnimeListHeaderInterceptor
 import shum.oks.lab.common.network.qualifiers.JikanNetwork
 import shum.oks.lab.common.network.qualifiers.MyAnimeListNetwork
+import shum.oks.lab.core.network.calladapters.ApiResultCallAdapterFactory
 import javax.inject.Singleton
 
 @Module
@@ -36,6 +37,7 @@ internal object CommonNetworkModule {
             .baseUrl(JIKAN_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(MediaType.Json))
+            .addCallAdapterFactory(ApiResultCallAdapterFactory())
             .build()
 
     @Singleton
@@ -49,6 +51,7 @@ internal object CommonNetworkModule {
             .baseUrl(MY_ANIME_LIST_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(MediaType.Json))
+            .addCallAdapterFactory(ApiResultCallAdapterFactory())
             .build()
 
     @JikanNetwork

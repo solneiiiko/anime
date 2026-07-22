@@ -55,10 +55,10 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
         val animeListResponse = remoteDataSource
             .getAnimeListResponse(page = page, limit = state.config.pageSize, catalog = catalog)
         return when (animeListResponse) {
-            is ApiResult.Failure<AnimeListResponse> -> {
+            is ApiResult.Failure -> {
                 MediatorResult.Error(animeListResponse.exception)
             }
-            is ApiResult.Success<AnimeListResponse> -> {
+            is ApiResult.Success -> {
                 val isRefresh = loadType == LoadType.REFRESH
                 updateAnimeSummary(
                     animeListResponse.data,
