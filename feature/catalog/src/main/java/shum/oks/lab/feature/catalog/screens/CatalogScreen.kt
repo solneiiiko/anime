@@ -10,6 +10,7 @@ package shum.oks.lab.feature.catalog.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -30,7 +31,11 @@ internal fun CatalogScreen(
 
     when (val refreshState = animePagingData.loadState.refresh) {
         is LoadState.Loading -> {
-            CatalogSkeleton(modifier = modifier)
+            CatalogSkeleton(
+                minCellSize = MIN_CELL_SIZE,
+                itemHeight = ITEM_HEIGHT,
+                modifier = modifier,
+            )
         }
         is LoadState.Error -> {
             FullScreenError(
@@ -41,8 +46,13 @@ internal fun CatalogScreen(
         is LoadState.NotLoading -> {
             CatalogListContent(
                 pagingItems = animePagingData,
+                minCellSize = MIN_CELL_SIZE,
+                itemHeight = ITEM_HEIGHT,
                 modifier = modifier,
             )
         }
     }
 }
+
+private val MIN_CELL_SIZE = 150.dp
+private val ITEM_HEIGHT = 300.dp

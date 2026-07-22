@@ -8,16 +8,14 @@
 
 package shum.oks.lab.feature.catalog.screens.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import shum.oks.lab.core.ui.modifiers.diagonalShimmerModifier
+import shum.oks.lab.core.ui.modifiers.shimmer
 
 @Composable
 internal fun CatalogPlaceholderCard() {
@@ -26,8 +24,7 @@ internal fun CatalogPlaceholderCard() {
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-            .diagonalShimmerModifier(),
+            .shimmer(),
         contentAlignment = Alignment.Center
     ) {
 

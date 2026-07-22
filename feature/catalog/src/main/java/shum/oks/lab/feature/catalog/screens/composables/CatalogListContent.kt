@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -28,10 +29,12 @@ import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 @Composable
 internal fun CatalogListContent(
     pagingItems: LazyPagingItems<CatalogElement>,
+    minCellSize: Dp,
+    itemHeight: Dp,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
+        columns = GridCells.Adaptive(minCellSize),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = WindowInsets.statusBars.asPaddingValues(),
@@ -45,7 +48,7 @@ internal fun CatalogListContent(
             contentType = pagingItems.itemContentType { it.contentType }
         ) { index ->
             pagingItems[index]?.let { catalogElement ->
-                CatalogItem(anime = catalogElement)
+                CatalogItem(anime = catalogElement, itemHeight = itemHeight)
             }
         }
 

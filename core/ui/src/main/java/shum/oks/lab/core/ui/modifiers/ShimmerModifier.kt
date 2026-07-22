@@ -9,80 +9,72 @@
 package shum.oks.lab.core.ui.modifiers
 
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.unit.dp
-import shum.oks.lab.core.ui.preview.AnimeThemePreview
-import shum.oks.lab.core.ui.preview.ThemePreviews
+import androidx.compose.ui.graphics.Color
 
-fun Modifier.diagonalShimmerModifier(
+@Composable
+fun Modifier.shimmer(
+    baseColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    highlightColor: Color = MaterialTheme.colorScheme.surface,
     alpha: Float = 0.6f,
-): Modifier = composed {
+    widthFraction: Float = 0.3f,
+): Modifier {
     val transition = rememberInfiniteTransition()
 
-    val translateAnim by transition.animateFloat(
+    val progress by transition.animateFloat(
         initialValue = SHIMMER_START_VALUE,
         targetValue = SHIMMER_END_VALUE,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = ANIMATION_DURATION_MILLIS, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
+            animation = tween(
+                durationMillis = ANIMATION_DURATION_MILLIS,
+                easing = LinearEasing,
+            ),
         ),
     )
-
-    val shimmerColors = listOf(
-        MaterialTheme.colorScheme.surfaceDim.copy(alpha = alpha),
-        MaterialTheme.colorScheme.surfaceBright.copy(alpha = alpha),
-        MaterialTheme.colorScheme.surfaceDim.copy(alpha = alpha)
+    val colors = listOf(
+        baseColor.copy(alpha = alpha),
+        highlightColor.copy(alpha = alpha),
+        baseColor.copy(alpha = alpha),
     )
 
-    val brush = Brush.linearGradient(
-        colors = shimmerColors,
-        start = Offset(translateAnim - SHIMMER_OFFSET, translateAnim - SHIMMER_OFFSET),
-        end = Offset(translateAnim, translateAnim)
-    )
+    return this
+        .drawWithCache {
+            val shimmerWidth = size.width * widthFraction
+            val startX = size.width * progress
 
-    this.background(brush)
-}
+            val brush = Brush.linearGradient(
+                colors = colors,
+                start = Offset(
+                    x = startX - shimmerWidth,
+                    y = size.height,
+                ),
+                end = Offset(
+                    x = startX + shimmerWidth,
+                    y = size.height,
+                ),
+            )
 
-@ThemePreviews
-@Composable
-private fun ShimmerModifierPreview() {
-    AnimeThemePreview {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            repeat(3) {
-                Box(
-                    modifier = Modifier
-                        .size(200.dp)
-                        .diagonalShimmerModifier(alpha = 0.7f)
+            onDrawBehind {
+                drawRect(
+                    color = colors.first(),
+                )
+                drawRect(
+                    brush = brush,
                 )
             }
         }
-    }
 }
 
 private const val ANIMATION_DURATION_MILLIS = 1_200
-private const val SHIMMER_START_VALUE = 0f
-private const val SHIMMER_END_VALUE = 2_000f
-private const val SHIMMER_OFFSET = 500f
+private const val SHIMMER_START_VALUE = -1f
+private const val SHIMMER_END_VALUE = 2f
