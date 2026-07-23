@@ -6,14 +6,8 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di.modules
+package shum.oks.lab.feature.details.anime.di
 
-import dagger.Module
+import shum.oks.lab.core.di.BaseDependencies
 
-@Module(
-    includes = [
-        CatalogModule::class,
-        AnimeModule::class,
-    ]
-)
-interface AppFeatureModule
+interface AnimeDetailsUiDependencies : BaseDependencies

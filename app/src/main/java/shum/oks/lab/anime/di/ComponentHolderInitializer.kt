@@ -19,6 +19,8 @@ import shum.oks.lab.entity.anime.domain.impl.di.EntityAnimeDomainImplComponentHo
 import shum.oks.lab.entity.anime.domain.impl.di.EntityAnimeDomainImplDependencies
 import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
 import shum.oks.lab.feature.catalog.di.CatalogUiDependencies
+import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiComponentHolder
+import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiDependencies
 import javax.inject.Inject
 
 class ComponentHolderInitializer @Inject constructor(
@@ -27,6 +29,7 @@ class ComponentHolderInitializer @Inject constructor(
     private val entityAnimeDataImplDependenciesProvider: DependenciesProvider<EntityAnimeDataImplDependencies>,
     private val entityAnimeDomainImplDependenciesProvider: DependenciesProvider<EntityAnimeDomainImplDependencies>,
     private val catalogUiDependenciesProvider: DependenciesProvider<CatalogUiDependencies>,
+    private val animeDetailsUiDependenciesProvider: DependenciesProvider<AnimeDetailsUiDependencies>,
 ) {
 
     fun init() {
@@ -43,5 +46,6 @@ class ComponentHolderInitializer @Inject constructor(
         EntityAnimeDataImplComponentHolder.init(entityAnimeDataImplDependenciesProvider)
         EntityAnimeDomainImplComponentHolder.init(entityAnimeDomainImplDependenciesProvider)
         CatalogUiComponentHolder.init(catalogUiDependenciesProvider)
+        AnimeDetailsUiComponentHolder.init(animeDetailsUiDependenciesProvider)
     }
 }

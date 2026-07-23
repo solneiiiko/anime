@@ -12,14 +12,15 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsViewModel
 
 @Composable
 internal fun AnimeDetailScreen(
-    animeId: Int,
+    viewModel: AnimeDetailsViewModel,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = "I'm ANIME DETAIL $animeId",
+        text = "I'm ANIME DETAIL",
         modifier = modifier.statusBarsPadding()
     )
 }
