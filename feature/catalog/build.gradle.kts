@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
 }
 
@@ -58,9 +59,9 @@ dependencies {
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
+    implementation(project(":core:ui"))
 
     api(project(":common:theme"))
-    implementation(project(":core:ui"))
     api(project(":entity:anime:domain:api"))
 
     testImplementation(libs.junit)

@@ -9,50 +9,37 @@
 package shum.oks.lab.feature.catalog.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.LoadState
-import androidx.paging.compose.collectAsLazyPagingItems
-import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
-import shum.oks.lab.feature.catalog.screens.composables.CatalogListContent
-import shum.oks.lab.feature.catalog.screens.composables.CatalogSkeleton
-import shum.oks.lab.feature.catalog.screens.composables.FullScreenError
+import shum.oks.lab.feature.catalog.navigation.CatalogNavigator
+import shum.oks.lab.feature.catalog.screens.composables.CatalogScreenContent
+import shum.oks.lab.feature.catalog.screens.mvi.CatalogUiEffect
 import shum.oks.lab.feature.catalog.screens.mvi.CatalogUiViewModel
 
 @Composable
 internal fun CatalogScreen(
-    viewModel: CatalogUiViewModel = viewModel(
-        factory = CatalogUiComponentHolder.get().viewModelFactory
-    ),
-    modifier: Modifier = Modifier,
+    viewModel: CatalogUiViewModel,
+    catalogNavigator: CatalogNavigator,
 ) {
-    val animePagingData = viewModel.animePagingData.collectAsLazyPagingItems()
+    LaunchedEffect(viewModel, catalogNavigator) {
+        viewModel.effect.collect { effect ->
+            handleLaunchEffect(catalogNavigator, effect)
+        }
+    }
 
-    when (val refreshState = animePagingData.loadState.refresh) {
-        is LoadState.Loading -> {
-            CatalogSkeleton(
-                minCellSize = MIN_CELL_SIZE,
-                itemHeight = ITEM_HEIGHT,
-                modifier = modifier,
-            )
-        }
-        is LoadState.Error -> {
-            FullScreenError(
-                text = refreshState.error.toString(),
-                onRetry = animePagingData::retry,
-            )
-        }
-        is LoadState.NotLoading -> {
-            CatalogListContent(
-                pagingItems = animePagingData,
-                minCellSize = MIN_CELL_SIZE,
-                itemHeight = ITEM_HEIGHT,
-                modifier = modifier,
-            )
+    CatalogScreenContent(
+        viewModel = viewModel,
+        modifier = Modifier,
+    )
+}
+
+private fun handleLaunchEffect(
+    catalogNavigator: CatalogNavigator,
+    effect: CatalogUiEffect,
+) {
+    when (effect) {
+        is CatalogUiEffect.NavigateToDetails -> {
+            catalogNavigator.openDetails(effect.catalogItemKey)
         }
     }
 }
-
-private val MIN_CELL_SIZE = 150.dp
-private val ITEM_HEIGHT = 300.dp

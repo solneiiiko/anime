@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import shum.oks.lab.core.mvi.BaseViewModel
 import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
 import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
@@ -36,22 +37,34 @@ internal class CatalogUiViewModel @Inject constructor(
         CatalogUiEffect,
 >(
     initialState = CatalogUiState.Loading,
-    initialIntent = CatalogUiIntent.Init,
     onClearedCallback = { CatalogUiComponentHolder.clean() }
 ) {
 
-    val animePagingData: Flow<PagingData<CatalogElement>> =
+    init {
+        handleIntent(CatalogUiIntent.Init)
+    }
+
+    val animePagingData: Flow<PagingData<CatalogElement>> = // TODO + manga https://github.com/solneiiiko/anime/issues/43
         flow {
             emitAll(getAnimeListUseCase())
         }
         .map { pagingData -> pagingData.map { it.toUiModel(numberFormatter) } }
         .cachedIn(viewModelScope)
 
-    override suspend fun handleIntent(intent: CatalogUiIntent) {
+    override fun handleIntent(intent: CatalogUiIntent) {
         when (intent) {
-            CatalogUiIntent.Init -> {
-                // TODO to get tabs to show Manga & Anime https://github.com/solneiiiko/anime/issues/31
-            }
+            CatalogUiIntent.Init -> onInit()
+            is CatalogUiIntent.ItemClicked -> onItemClick(intent)
+        }
+    }
+
+    private fun onInit() {
+        // TODO to get tabs to show Manga & Anime https://github.com/solneiiiko/anime/issues/31
+    }
+
+    private fun onItemClick(intent: CatalogUiIntent.ItemClicked) {
+        viewModelScope.launch {
+            sendEffect(CatalogUiEffect.NavigateToDetails(intent.catalogItemKey))
         }
     }
 

@@ -38,6 +38,7 @@ import shum.oks.lab.core.ui.preview.AnimeThemePreview
 import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.entity.settings.theme.models.ThemeContrast
 import shum.oks.lab.feature.catalog.R
+import shum.oks.lab.feature.catalog.navigation.CatalogItemKey
 import shum.oks.lab.feature.catalog.screens.inlinetextcontent.CatalogInlineContentType
 import shum.oks.lab.feature.catalog.screens.inlinetextcontent.catalogInlineContent
 import shum.oks.lab.feature.catalog.screens.models.CatalogElement
@@ -46,9 +47,10 @@ import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 internal fun CatalogItem(
     anime: CatalogElement,
     itemHeight: Dp,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(itemHeight),
     ) {
@@ -156,7 +158,7 @@ private fun CatalogItemPreviewByContrast(
     ) {
         CatalogItem(
             anime = CatalogElement(
-                id = 1,
+                catalogItemKey = CatalogItemKey.AnimeKey(animeId = 1),
                 title = "Sample Anime Title",
                 subtitle = buildAnnotatedString {
                     append("TV(1,002) ")

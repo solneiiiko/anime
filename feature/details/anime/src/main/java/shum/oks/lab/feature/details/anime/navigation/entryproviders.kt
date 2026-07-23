@@ -15,10 +15,10 @@ import shum.oks.lab.feature.details.anime.screens.AnimeDetailScreen
 
 
 fun EntryProviderScope<NavKey>.animeDetailsProviders() {
-    entry<AnimeDetailsKey> { key -> AnimeDetailScreen(id = key.id) }
+    entry<AnimeDetailsKey> { key -> AnimeDetailScreen(animeId = key.animeId) }
 }
 
 @Serializable
 data class AnimeDetailsKey(
-    val id: Int,
+    val animeId: Int,
 ) : NavKey
