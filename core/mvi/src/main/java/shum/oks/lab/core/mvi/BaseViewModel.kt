@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<
     STATE : UiState,
@@ -26,7 +25,6 @@ abstract class BaseViewModel<
     EFFECT : UiEffect,
 >(
     initialState: STATE,
-    initialIntent: INTENT? = null,
     private val onClearedCallback: (() -> Unit)?,
 ) : ViewModel() {
 
@@ -36,13 +34,7 @@ abstract class BaseViewModel<
     private val _effect = Channel<EFFECT>(Channel.BUFFERED)
     val effect: Flow<EFFECT> = _effect.receiveAsFlow()
 
-    init {
-        initialIntent?.let {
-            viewModelScope.launch(Dispatchers.Main) { handleIntent(it) }
-        }
-    }
-
-    protected abstract suspend fun handleIntent(intent: INTENT)
+    abstract fun handleIntent(intent: INTENT)
 
     protected fun updateState(updater: STATE.() -> STATE) {
         _state.update { it.updater() }

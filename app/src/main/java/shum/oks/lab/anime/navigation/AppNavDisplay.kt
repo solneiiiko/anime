@@ -26,7 +26,6 @@ import androidx.window.core.layout.WindowSizeClass
 import shum.oks.lab.anime.mvi.TopNavButtonUi
 import shum.oks.lab.feature.catalog.navigation.CatalogScreenKey
 import shum.oks.lab.feature.catalog.navigation.catalogEntryProviders
-import shum.oks.lab.feature.details.anime.navigation.AnimeDetailsKey
 import shum.oks.lab.feature.details.anime.navigation.animeDetailsProviders
 import shum.oks.lab.feature.favourites.navigation.favouritesEntryProviders
 import shum.oks.lab.feature.settings.navigation.settingsEntryProviders
@@ -41,14 +40,17 @@ internal fun AppNavDisplay(
         topLevelRoutes = navButtons.map { it.navKey }.toSet()
     )
     val navigator = remember { Navigator(navigationState) }
+    val catalogNavigator = remember { createCatalogNavigator(navigator) }
 
-    val entryProvider = entryProvider {
-        settingsEntryProviders()
-        catalogEntryProviders(
-            onOpenDetails = { id -> navigator.navigateTo(AnimeDetailsKey(id)) }
-        )
-        favouritesEntryProviders()
-        animeDetailsProviders()
+    val entryProvider = remember {
+        entryProvider {
+            settingsEntryProviders()
+            catalogEntryProviders(
+                catalogNavigator = catalogNavigator,
+            )
+            favouritesEntryProviders()
+            animeDetailsProviders()
+        }
     }
     NavigationSuiteScaffold(
         layoutType = getNavigationSuiteTypeByWindowSize(),

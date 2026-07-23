@@ -10,6 +10,8 @@ package shum.oks.lab.anime.mvi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import shum.oks.lab.anime.mvi.mappers.toTopNavButtonUiList
 import shum.oks.lab.anime.usecases.GetAppSettingUseCase
 import shum.oks.lab.core.mvi.BaseViewModel
@@ -24,11 +26,14 @@ internal class AppViewModel @Inject constructor(
     AppUiEffect
 >(
     initialState = AppUiState.Loading,
-    initialIntent = AppUiIntent.LoadAppSettings,
     onClearedCallback = null,
 ) {
 
-    override suspend fun handleIntent(intent: AppUiIntent) {
+    init {
+        handleIntent(AppUiIntent.LoadAppSettings)
+    }
+
+    override fun handleIntent(intent: AppUiIntent) {
         when (intent) {
             AppUiIntent.LoadAppSettings -> {
                 loadAppSettings()
@@ -36,14 +41,16 @@ internal class AppViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadAppSettings() {
-        getAppSettingsUseCase().apply {
-            updateState {
-                AppUiState.Success(
-                    themeMode = themeMode,
-                    themeContrast = themeContrast,
-                    navigationButtons = topNavButtons.toTopNavButtonUiList(),
-                )
+    private fun loadAppSettings() {
+        viewModelScope.launch {
+            getAppSettingsUseCase().apply {
+                updateState {
+                    AppUiState.Success(
+                        themeMode = themeMode,
+                        themeContrast = themeContrast,
+                        navigationButtons = topNavButtons.toTopNavButtonUiList(),
+                    )
+                }
             }
         }
     }

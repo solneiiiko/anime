@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.catalog.screens.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -24,11 +25,13 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import shum.oks.lab.feature.catalog.navigation.CatalogItemKey
 import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 
 @Composable
 internal fun CatalogListContent(
     pagingItems: LazyPagingItems<CatalogElement>,
+    onItemClick: (CatalogItemKey) -> Unit,
     minCellSize: Dp,
     itemHeight: Dp,
     modifier: Modifier = Modifier,
@@ -44,11 +47,17 @@ internal fun CatalogListContent(
     ) {
         items(
             count = pagingItems.itemCount,
-            key = pagingItems.itemKey { it.id },
+            key = pagingItems.itemKey { it.catalogItemKey },
             contentType = pagingItems.itemContentType { it.contentType }
         ) { index ->
             pagingItems[index]?.let { catalogElement ->
-                CatalogItem(anime = catalogElement, itemHeight = itemHeight)
+                CatalogItem(
+                    anime = catalogElement,
+                    itemHeight = itemHeight,
+                    modifier = Modifier.clickable {
+                        onItemClick(catalogElement.catalogItemKey)
+                    }
+                )
             }
         }
 

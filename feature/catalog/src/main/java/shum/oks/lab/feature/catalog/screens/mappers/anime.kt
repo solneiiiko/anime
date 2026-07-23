@@ -13,13 +13,14 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import shum.oks.lab.entity.anime.domain.api.models.Anime
 import shum.oks.lab.entity.anime.domain.api.models.AnimeType
+import shum.oks.lab.feature.catalog.navigation.CatalogItemKey
 import shum.oks.lab.feature.catalog.screens.inlinetextcontent.CatalogInlineContentType
 import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 
 internal fun Anime.toUiModel(
     numberFormatter: CatalogNumberFormatter,
 ) = CatalogElement(
-    id = id,
+    catalogItemKey = CatalogItemKey.AnimeKey(animeId = id),
     title = title,
     imageUrl = imageUrl,
     subtitle = getSubtitle(numberFormatter)
