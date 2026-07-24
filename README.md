@@ -54,10 +54,18 @@ and add your API key to `local.properties` as `MY_ANIME_LIST_CLIENT_ID=your_api_
 | Build | Gradle, Version Catalog |
 | CI/CD | GitHub Actions |
 
+
 ## 🏗 Architecture
 🚧 **Description & diagram in Progress**
 
 The application follows **Clean Architecture** with a **multi-module** structure and **MVI** presentation layer.
+
+### Why Dagger 2?
+
+The project is intentionally split into feature and core modules to demonstrate explicit module boundaries, independent feature dependencies, and scalable navigation between features.
+
+**Dagger 2** is used instead of **Hilt** to keep dependency graphs explicit and avoid coupling feature modules to the application module.
+
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/29f12843-0a6d-43f4-a3f7-f6915cf58f02" width="200" alt="Architecture diagram">
