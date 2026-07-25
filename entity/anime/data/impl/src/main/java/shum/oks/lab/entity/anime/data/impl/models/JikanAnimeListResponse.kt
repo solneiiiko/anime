@@ -12,7 +12,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class JikanAnimeListResponse(
-    @SerialName("data") override val list: List<JikanAnimeResponse>,
+internal data class JikanAnimeSummaryListResponse(
+    @SerialName("data") override val list: List<JikanAnimeSummaryResponse>,
     @SerialName("pagination") override val pagination: JikanPaginationResponse,
 ) : AnimeListResponse

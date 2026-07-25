@@ -8,15 +8,14 @@
 
 package shum.oks.lab.feature.catalog.di
 
-import dagger.Component
+import dagger.Module
+import dagger.Provides
+import shum.oks.lab.core.ui.formatters.NumberFormatter
 
+@Module
+internal class CatalogUiModule {
 
-@Component(
-    dependencies = [
-        CatalogUiDependencies::class,
-    ],
-    modules = [
-        CatalogUiModule::class,
-    ]
-)
-internal abstract class CatalogUiComponent : CatalogUiApi()
+    @Provides
+    fun provideNumberFormatter(): NumberFormatter =
+        NumberFormatter()
+}

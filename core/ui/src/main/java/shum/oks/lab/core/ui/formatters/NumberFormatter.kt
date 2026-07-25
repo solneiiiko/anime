@@ -6,15 +6,14 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.feature.catalog.screens.mappers
+package shum.oks.lab.core.ui.formatters
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
-import javax.inject.Inject
 import kotlin.math.abs
 
-internal class CatalogNumberFormatter @Inject constructor() {
+class NumberFormatter {
 
     fun formatScore(score: Double): String =
         FormatType.SCORE.formatter.format(score)

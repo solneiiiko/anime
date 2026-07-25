@@ -8,38 +8,89 @@
 
 package shum.oks.lab.entity.anime.data.impl.mappers
 
-import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeRating
 import shum.oks.lab.entity.anime.data.api.entities.AnimeType
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
 import shum.oks.lab.entity.anime.data.impl.models.AnimeTypeResponse
-import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeListResponse
-import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeResponse
+import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeSummaryListResponse
+import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeSummaryResponse
 import shum.oks.lab.entity.anime.data.impl.models.MyAnimeListAnimeListResponse
 import shum.oks.lab.entity.anime.data.impl.models.MyAnimeListNodeResponse
 
 
-internal fun AnimeListResponse.toEntityModelList(): List<AnimeSummaryEntity> =
+internal fun AnimeListResponse.toAnimeEntityList(): List<AnimeEntity> =
     when (this) {
-        is JikanAnimeListResponse -> list.map { it.toAnimeSummaryEntity() }
-        is MyAnimeListAnimeListResponse -> list.map { it.toAnimeSummaryEntity() }
+        is JikanAnimeSummaryListResponse -> list.map { it.toAnimeEntity() }
+        is MyAnimeListAnimeListResponse -> list.map { it.toAnimeEntity() }
     }
 
-private fun JikanAnimeResponse.toAnimeSummaryEntity(): AnimeSummaryEntity =
-    AnimeSummaryEntity(
+internal fun AnimeListResponse.toProducerEntityList(): Pair<List<AnimeProducerEntity>, List<AnimeProducerCrossRef>> =
+    when (this) {
+        is JikanAnimeSummaryListResponse -> {
+            val producers = mutableMapOf<Int, AnimeProducerEntity>()
+            val producerCrossRefs = mutableListOf<AnimeProducerCrossRef>()
+
+            list.forEach { response ->
+                response.producers?.forEach { producer ->
+                    producerCrossRefs.add(
+                        AnimeProducerCrossRef(
+                            animeId = response.id,
+                            producerId = producer.id
+                        )
+                    )
+                    if (producers.contains(producer.id).not()) {
+                        producers[producer.id] = AnimeProducerEntity(
+                            id = producer.id,
+                            type = producer.type ?: "",
+                            name = producer.name,
+                            url = producer.url ?: "",
+                        )
+                    }
+                }
+            }
+            Pair(
+                producers.values.toList(),
+                producerCrossRefs
+            )
+        }
+        is MyAnimeListAnimeListResponse -> Pair(emptyList(), emptyList())
+    }
+
+private fun JikanAnimeSummaryResponse.toAnimeEntity(): AnimeEntity =
+    AnimeEntity(
         id = id,
         title = title,
-        imageUrl = jikanImagesResponse.jpg.smallImageUrl,
+        smallImageUrl = jikanImagesResponse.webp.smallImageUrl,
+        largeImageUrl = jikanImagesResponse.webp.largeImageUrl,
+        trailerEmbedUrl = jikanTrailerResponse?.embedUrl,
+        source = source,
+        duration = duration,
+        rating = rating?.toAnimeRating(),
         score = score ?: SCORE_DEFAULT_VALUE,
+        scoredBy = scoredBy,
+        rank = rank,
+        popularity = popularity,
+        favorites = favorites,
+        synopsis = synopsis,
+        background = background,
+        year = year,
         type = type?.toAnimeType(),
         episodes = episodes,
-        members = members
+        members = members,
     )
 
-private fun MyAnimeListNodeResponse.toAnimeSummaryEntity(): AnimeSummaryEntity =
-    AnimeSummaryEntity(
+private fun String.toAnimeRating(): AnimeRating =
+    AnimeRating.G
+    // TODO AnimeRating
+
+private fun MyAnimeListNodeResponse.toAnimeEntity(): AnimeEntity =
+    AnimeEntity(
         id = anime.id,
         title = anime.title,
-        imageUrl = anime.mainPicture?.medium,
+        smallImageUrl = anime.mainPicture?.medium,
         score = anime.score ?: SCORE_DEFAULT_VALUE,
         type = anime.mediaType?.toAnimeType(),
         episodes = anime.episodes,

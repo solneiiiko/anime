@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.entity.anime.data.api.entities.converters
+package shum.oks.lab.entity.anime.data.api.converters
 
 import androidx.room.TypeConverter
 import shum.oks.lab.entity.anime.data.api.entities.AnimeType

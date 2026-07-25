@@ -11,14 +11,15 @@ package shum.oks.lab.feature.catalog.screens.mappers
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
-import shum.oks.lab.entity.anime.domain.api.models.Anime
+import shum.oks.lab.core.ui.formatters.NumberFormatter
+import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
 import shum.oks.lab.entity.anime.domain.api.models.AnimeType
 import shum.oks.lab.feature.catalog.navigation.CatalogItemKey
 import shum.oks.lab.feature.catalog.screens.inlinetextcontent.CatalogInlineContentType
 import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 
-internal fun Anime.toUiModel(
-    numberFormatter: CatalogNumberFormatter,
+internal fun AnimeSummary.toUiModel(
+    numberFormatter: NumberFormatter,
 ) = CatalogElement(
     catalogItemKey = CatalogItemKey.AnimeKey(animeId = id),
     title = title,
@@ -26,8 +27,8 @@ internal fun Anime.toUiModel(
     subtitle = getSubtitle(numberFormatter)
 )
 
-private fun Anime.getSubtitle(
-    numberFormatter: CatalogNumberFormatter
+private fun AnimeSummary.getSubtitle(
+    numberFormatter: NumberFormatter
 ): AnnotatedString =
     buildAnnotatedString {
         if (type == AnimeType.UNKNOWN) {
@@ -35,10 +36,14 @@ private fun Anime.getSubtitle(
         } else {
             append("${type.title}(${episodes ?: UNKNOWN_EPISODES_COUNT}) ")
         }
-        if (score >= 1) {
-            appendInlineContent(CatalogInlineContentType.STAR_RATE.id)
-            append(numberFormatter.formatScore(score))
+
+        score?.let { score ->
+            if (score >= 1) {
+                appendInlineContent(CatalogInlineContentType.STAR_RATE.id)
+                append(numberFormatter.formatScore(score))
+            }
         }
+
         members?.let {
             appendInlineContent(CatalogInlineContentType.MEMBERS.id)
             append(numberFormatter.formatCommon(it))

@@ -32,4 +32,8 @@ dependencies {
     implementation(libs.androidx.compose.animation)
 
     api(project(":common:theme"))
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
 }

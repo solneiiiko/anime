@@ -6,18 +6,19 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.feature.catalog.screens.mappers
+package shum.oks.lab.core.ui.formatters
 
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import shum.oks.lab.core.ui.formatters.NumberFormatter
 import java.util.Locale
 
-class CatalogNumberFormatterTest {
+class NumberFormatterTest {
 
     private val originalLocale = Locale.getDefault()
-    private val formatter = CatalogNumberFormatter()
+    private val formatter = NumberFormatter()
 
     @Before
     fun before() {

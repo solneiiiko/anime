@@ -9,5 +9,9 @@
 package shum.oks.lab.feature.details.anime.di
 
 import shum.oks.lab.core.di.BaseDependencies
+import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeDetailsUseCase
 
-interface AnimeDetailsUiDependencies : BaseDependencies
+interface AnimeDetailsUiDependencies : BaseDependencies {
+
+    val getAnimeDetailsUseCase: GetAnimeDetailsUseCase
+}

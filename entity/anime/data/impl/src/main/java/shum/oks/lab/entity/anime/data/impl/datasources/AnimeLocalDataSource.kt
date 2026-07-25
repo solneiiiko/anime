@@ -10,9 +10,13 @@ package shum.oks.lab.entity.anime.data.impl.datasources
 
 import androidx.paging.PagingSource
 import shum.oks.lab.entity.anime.data.api.dao.AnimeDao
+import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeDetailsDbModel
+import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeSummaryDbModel
 import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
-import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerEntity
 import shum.oks.lab.entity.anime.data.impl.repositories.PaginationInfo
 import javax.inject.Inject
 
@@ -22,7 +26,7 @@ internal class AnimeLocalDataSource @Inject constructor(
 
     fun pagingSource(
         catalog: AnimeCatalog,
-    ): PagingSource<Int, AnimeSummaryEntity> =
+    ): PagingSource<Int, AnimeSummaryDbModel> =
         animeDao.pagingSource(catalog.key)
 
     suspend fun getPaginationById(
@@ -31,19 +35,26 @@ internal class AnimeLocalDataSource @Inject constructor(
     ) = animeDao.getPaginationById(animeId, catalog.key)
 
     suspend fun insertAllAnimeWithPagination(
-        items: List<AnimeSummaryEntity>,
+        items: List<AnimeEntity>,
         paginationInfo: PaginationInfo,
+        producers: List<AnimeProducerEntity>,
+        producerCrossRefs: List<AnimeProducerCrossRef>,
         clearExisting: Boolean,
     ) {
         animeDao.insertAllAnimeWithPaginationWithTransaction(
             items,
             items.toAnimePaginationEntityList(paginationInfo),
+            producers = producers,
+            producerCrossRefs = producerCrossRefs,
             clearExisting
         )
     }
+
+    suspend fun getAnimeDetailsById(animeId: Int): AnimeDetailsDbModel? =
+        animeDao.getAnimeDetailsById(animeId)
 }
 
-private fun List<AnimeSummaryEntity>.toAnimePaginationEntityList(
+private fun List<AnimeEntity>.toAnimePaginationEntityList(
     paginationInfo: PaginationInfo,
 ): List<AnimePaginationEntity> {
     val startPos =

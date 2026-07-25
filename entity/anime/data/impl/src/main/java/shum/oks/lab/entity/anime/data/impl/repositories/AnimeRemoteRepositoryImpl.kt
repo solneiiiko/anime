@@ -15,12 +15,17 @@ import androidx.paging.PagingData
 import androidx.paging.RemoteMediator
 import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import shum.oks.lab.domain.models.DataEvent
+import shum.oks.lab.domain.models.LoadState
 import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimePreferencesDataStore
-import shum.oks.lab.entity.anime.data.impl.mappers.toDomainModel
-import shum.oks.lab.entity.anime.domain.api.models.Anime
+import shum.oks.lab.entity.anime.data.impl.mappers.toAnimeDetailsModel
+import shum.oks.lab.entity.anime.data.impl.mappers.toAnimeModel
+import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
+import shum.oks.lab.entity.anime.domain.api.models.AnimeDetails
 import shum.oks.lab.entity.anime.domain.api.repositories.AnimeRepository
 import shum.oks.lab.entity.config.domain.api.AppConfigRepository
 import javax.inject.Inject
@@ -33,7 +38,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
 ) : AnimeRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun observeAnimePagingData(): Flow<PagingData<Anime>> {
+    override suspend fun observeAnimePagingData(): Flow<PagingData<AnimeSummary>> {
         val appPagingConfig = appConfigRepository.getAppConfig().pagingConfig
         val catalog = AnimeCatalog.ALL // TODO get from UI
         return Pager(
@@ -56,7 +61,24 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { localDataSource.pagingSource(catalog = catalog) }
         ).flow.map { pagingData ->
-            pagingData.map { it.toDomainModel() }
+            pagingData.map { it.toAnimeModel() }
+        }
+    }
+
+    override fun observeAnimeDetails(animeId: Int): Flow<DataEvent<AnimeDetails>> = flow {
+        localDataSource.getAnimeDetailsById(animeId)?.let { entity ->
+            // TODO get full from database -> Jikan
+            // get a little from database -> animeLib
+            // return from anime list (summary)
+            // get from Jikan -> save to database -> return
+            // get from animeLib -> save database -> return
+
+            emit(
+                DataEvent(
+                    loadState = LoadState.Success,
+                    data = entity.toAnimeDetailsModel()
+                )
+            )
         }
     }
 

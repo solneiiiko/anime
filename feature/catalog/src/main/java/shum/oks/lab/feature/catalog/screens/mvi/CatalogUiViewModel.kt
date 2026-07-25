@@ -20,9 +20,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import shum.oks.lab.core.mvi.BaseViewModel
+import shum.oks.lab.core.ui.formatters.NumberFormatter
 import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
 import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
-import shum.oks.lab.feature.catalog.screens.mappers.CatalogNumberFormatter
 import shum.oks.lab.feature.catalog.screens.mappers.toUiModel
 import shum.oks.lab.feature.catalog.screens.models.CatalogElement
 import javax.inject.Inject
@@ -30,11 +30,11 @@ import javax.inject.Provider
 
 internal class CatalogUiViewModel @Inject constructor(
     getAnimeListUseCase: GetAnimeListUseCase,
-    numberFormatter: CatalogNumberFormatter,
+    numberFormatter: NumberFormatter,
 ) : BaseViewModel<
-        CatalogUiState,
-        CatalogUiIntent,
-        CatalogUiEffect,
+    CatalogUiState,
+    CatalogUiIntent,
+    CatalogUiEffect,
 >(
     initialState = CatalogUiState.Loading,
     onClearedCallback = { CatalogUiComponentHolder.clean() }

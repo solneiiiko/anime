@@ -11,7 +11,7 @@ package shum.oks.lab.entity.anime.data.api.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.TypeConverters
-import shum.oks.lab.entity.anime.data.api.entities.converters.AnimeCatalogConverter
+import shum.oks.lab.entity.anime.data.api.converters.AnimeCatalogConverter
 
 @Entity(
     tableName = AnimePaginationEntity.TABLE_NAME,
