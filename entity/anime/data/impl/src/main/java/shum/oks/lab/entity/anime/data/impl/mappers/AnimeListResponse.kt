@@ -9,9 +9,17 @@
 package shum.oks.lab.entity.anime.data.impl.mappers
 
 import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeGenreCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeGenreEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeLicensorCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeLicensorEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerCrossRef
 import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeRating
+import shum.oks.lab.entity.anime.data.api.entities.AnimeStudioCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeStudioEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeType
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
 import shum.oks.lab.entity.anime.data.impl.models.AnimeTypeResponse
@@ -27,36 +35,79 @@ internal fun AnimeListResponse.toAnimeEntityList(): List<AnimeEntity> =
         is MyAnimeListAnimeListResponse -> list.map { it.toAnimeEntity() }
     }
 
-internal fun AnimeListResponse.toProducerEntityList(): Pair<List<AnimeProducerEntity>, List<AnimeProducerCrossRef>> =
+internal data class RelatedEntities(
+    val producers: List<AnimeProducerEntity> = emptyList(),
+    val producerCrossRefs: List<AnimeProducerCrossRef> = emptyList(),
+    val licensors: List<AnimeLicensorEntity> = emptyList(),
+    val licensorCrossRefs: List<AnimeLicensorCrossRef> = emptyList(),
+    val studios: List<AnimeStudioEntity> = emptyList(),
+    val studioCrossRefs: List<AnimeStudioCrossRef> = emptyList(),
+    val genres: List<AnimeGenreEntity> = emptyList(),
+    val genresCrossRefs: List<AnimeGenreCrossRef> = emptyList(),
+    val themes: List<AnimeThemeEntity> = emptyList(),
+    val themesCrossRefs: List<AnimeThemeCrossRef> = emptyList(),
+)
+
+internal fun AnimeListResponse.toRelatedEntities(): RelatedEntities =
     when (this) {
         is JikanAnimeSummaryListResponse -> {
             val producers = mutableMapOf<Int, AnimeProducerEntity>()
             val producerCrossRefs = mutableListOf<AnimeProducerCrossRef>()
+            val licensors = mutableMapOf<Int, AnimeLicensorEntity>()
+            val licensorCrossRefs = mutableListOf<AnimeLicensorCrossRef>()
+            val studios = mutableMapOf<Int, AnimeStudioEntity>()
+            val studioCrossRefs = mutableListOf<AnimeStudioCrossRef>()
+            val genres = mutableMapOf<Int, AnimeGenreEntity>()
+            val genresCrossRefs = mutableListOf<AnimeGenreCrossRef>()
+            val themes = mutableMapOf<Int, AnimeThemeEntity>()
+            val themesCrossRefs = mutableListOf<AnimeThemeCrossRef>()
 
             list.forEach { response ->
-                response.producers?.forEach { producer ->
-                    producerCrossRefs.add(
-                        AnimeProducerCrossRef(
-                            animeId = response.id,
-                            producerId = producer.id
-                        )
-                    )
-                    if (producers.contains(producer.id).not()) {
-                        producers[producer.id] = AnimeProducerEntity(
-                            id = producer.id,
-                            type = producer.type ?: "",
-                            name = producer.name,
-                            url = producer.url ?: "",
-                        )
+                response.producers?.forEach { item ->
+                    producerCrossRefs.add(AnimeProducerCrossRef(response.id, item.id))
+                    if (!producers.containsKey(item.id)) {
+                        producers[item.id] = AnimeProducerEntity(item.id, item.type ?: "", item.name, item.url ?: "")
+                    }
+                }
+                response.licensors?.forEach { item ->
+                    licensorCrossRefs.add(AnimeLicensorCrossRef(response.id, item.id))
+                    if (!licensors.containsKey(item.id)) {
+                        licensors[item.id] = AnimeLicensorEntity(item.id, item.type ?: "", item.name, item.url ?: "")
+                    }
+                }
+                response.studios?.forEach { item ->
+                    studioCrossRefs.add(AnimeStudioCrossRef(response.id, item.id))
+                    if (!studios.containsKey(item.id)) {
+                        studios[item.id] = AnimeStudioEntity(item.id, item.type ?: "", item.name, item.url ?: "")
+                    }
+                }
+                response.genres?.forEach { item ->
+                    genresCrossRefs.add(AnimeGenreCrossRef(response.id, item.id))
+                    if (!genres.containsKey(item.id)) {
+                        genres[item.id] = AnimeGenreEntity(item.id, item.type ?: "", item.name, item.url ?: "")
+                    }
+                }
+                response.themes?.forEach { item ->
+                    themesCrossRefs.add(AnimeThemeCrossRef(response.id, item.id))
+                    if (!themes.containsKey(item.id)) {
+                        themes[item.id] = AnimeThemeEntity(item.id, item.type ?: "", item.name, item.url ?: "")
                     }
                 }
             }
-            Pair(
-                producers.values.toList(),
-                producerCrossRefs
+            RelatedEntities(
+                producers = producers.values.toList(),
+                producerCrossRefs = producerCrossRefs,
+                licensors = licensors.values.toList(),
+                licensorCrossRefs = licensorCrossRefs,
+                studios = studios.values.toList(),
+                studioCrossRefs = studioCrossRefs,
+                genres = genres.values.toList(),
+                genresCrossRefs = genresCrossRefs,
+                themes = themes.values.toList(),
+                themesCrossRefs = themesCrossRefs,
             )
         }
-        is MyAnimeListAnimeListResponse -> Pair(emptyList(), emptyList())
+        is MyAnimeListAnimeListResponse -> RelatedEntities()
     }
 
 private fun JikanAnimeSummaryResponse.toAnimeEntity(): AnimeEntity =

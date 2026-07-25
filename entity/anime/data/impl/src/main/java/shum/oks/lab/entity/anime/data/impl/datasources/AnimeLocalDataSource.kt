@@ -13,10 +13,9 @@ import shum.oks.lab.entity.anime.data.api.dao.AnimeDao
 import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeDetailsDbModel
 import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeSummaryDbModel
 import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
-import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
-import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerCrossRef
-import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
+import shum.oks.lab.entity.anime.data.impl.mappers.RelatedEntities
 import shum.oks.lab.entity.anime.data.impl.repositories.PaginationInfo
 import javax.inject.Inject
 
@@ -37,16 +36,23 @@ internal class AnimeLocalDataSource @Inject constructor(
     suspend fun insertAllAnimeWithPagination(
         items: List<AnimeEntity>,
         paginationInfo: PaginationInfo,
-        producers: List<AnimeProducerEntity>,
-        producerCrossRefs: List<AnimeProducerCrossRef>,
+        relatedEntities: RelatedEntities,
         clearExisting: Boolean,
     ) {
         animeDao.insertAllAnimeWithPaginationWithTransaction(
-            items,
-            items.toAnimePaginationEntityList(paginationInfo),
-            producers = producers,
-            producerCrossRefs = producerCrossRefs,
-            clearExisting
+            items = items,
+            keys = items.toAnimePaginationEntityList(paginationInfo),
+            producers = relatedEntities.producers,
+            producerCrossRefs = relatedEntities.producerCrossRefs,
+            licensors = relatedEntities.licensors,
+            licensorCrossRefs = relatedEntities.licensorCrossRefs,
+            studios = relatedEntities.studios,
+            studioCrossRefs = relatedEntities.studioCrossRefs,
+            genres = relatedEntities.genres,
+            genreCrossRefs = relatedEntities.genresCrossRefs,
+            themes = relatedEntities.themes,
+            themeCrossRefs = relatedEntities.themesCrossRefs,
+            clearExisting = clearExisting,
         )
     }
 

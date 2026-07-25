@@ -10,10 +10,18 @@ package shum.oks.lab.entity.anime.data.impl.mappers
 
 import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeDetailsDbModel
 import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeSummaryDbModel
+import shum.oks.lab.entity.anime.data.api.entities.AnimeGenreEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeLicensorEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerEntity
-import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
+import shum.oks.lab.entity.anime.data.api.entities.AnimeStudioEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeEntity
 import shum.oks.lab.entity.anime.domain.api.models.AnimeDetails
+import shum.oks.lab.entity.anime.domain.api.models.AnimeGenre
+import shum.oks.lab.entity.anime.domain.api.models.AnimeLicensor
 import shum.oks.lab.entity.anime.domain.api.models.AnimeProducer
+import shum.oks.lab.entity.anime.domain.api.models.AnimeStudio
+import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
+import shum.oks.lab.entity.anime.domain.api.models.AnimeTheme
 import shum.oks.lab.entity.anime.domain.api.models.AnimeType
 import shum.oks.lab.entity.anime.data.api.entities.AnimeType as AnimeTypeEntity
 
@@ -48,7 +56,11 @@ internal fun AnimeDetailsDbModel.toAnimeDetailsModel() =
         type = anime.type.toAnimeModel(),
         episodes = anime.episodes,
         members = anime.members,
-        producers = producers.toAnimeProducerList()
+        producers = producers.toAnimeProducerList(),
+        licensors = licensors.toAnimeLicensorList(),
+        studios = studios.toAnimeStudioList(),
+        genres = genres.toAnimeGenreList(),
+        themes = themes.toAnimeThemeList()
     )
 
 private fun AnimeTypeEntity?.toAnimeModel(): AnimeType =
@@ -66,11 +78,51 @@ private fun AnimeTypeEntity?.toAnimeModel(): AnimeType =
     }
 
 private fun List<AnimeProducerEntity>.toAnimeProducerList(): List<AnimeProducer> =
-    map { producerEntity ->
+    map { item ->
         AnimeProducer(
-            id = producerEntity.id,
-            type = producerEntity.type,
-            name = producerEntity.name,
-            url = producerEntity.url,
+            id = item.id,
+            type = item.type,
+            name = item.name,
+            url = item.url,
+        )
+    }
+
+private fun List<AnimeLicensorEntity>.toAnimeLicensorList(): List<AnimeLicensor> =
+    map { item ->
+        AnimeLicensor(
+            id = item.id,
+            type = item.type,
+            name = item.name,
+            url = item.url,
+        )
+    }
+
+private fun List<AnimeStudioEntity>.toAnimeStudioList(): List<AnimeStudio> =
+    map { item ->
+        AnimeStudio(
+            id = item.id,
+            type = item.type,
+            name = item.name,
+            url = item.url,
+        )
+    }
+
+private fun List<AnimeGenreEntity>.toAnimeGenreList(): List<AnimeGenre> =
+    map { item ->
+        AnimeGenre(
+            id = item.id,
+            type = item.type,
+            name = item.name,
+            url = item.url,
+        )
+    }
+
+private fun List<AnimeThemeEntity>.toAnimeThemeList(): List<AnimeTheme> =
+    map { item ->
+        AnimeTheme(
+            id = item.id,
+            type = item.type,
+            name = item.name,
+            url = item.url,
         )
     }

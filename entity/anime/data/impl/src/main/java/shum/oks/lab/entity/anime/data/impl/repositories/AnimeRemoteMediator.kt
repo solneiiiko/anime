@@ -98,8 +98,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
                 pageSize = pageSize,
                 catalog = catalog,
             ),
-            producers = producerEntityList,
-            producerCrossRefs = producerCrossRefList,
+            relatedEntities = response.toRelatedEntities(),
             clearExisting = clearExisting
         )
     }

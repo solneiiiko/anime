@@ -32,6 +32,10 @@ internal data class JikanAnimeSummaryResponse(
     @SerialName("background") val background: String?,
     @SerialName("year") val year: Int?,
     @SerialName("producers") val producers: List<JikanProducerResponse>?,
+    @SerialName("licensors") val licensors: List<JikanLicensorResponse>?,
+    @SerialName("studios") val studios: List<JikanStudioResponse>?,
+    @SerialName("genres") val genres: List<JikanGenreResponse>?,
+    @SerialName("themes") val themes: List<JikanThemeResponse>?,
 )
 
 @Serializable
@@ -52,6 +56,38 @@ internal data class JikanTrailerResponse(
 
 @Serializable
 internal data class JikanProducerResponse(
+    @SerialName("mal_id") val id: Int,
+    @SerialName("type") val type: String?,
+    @SerialName("name") val name: String,
+    @SerialName("url") val url: String?,
+)
+
+@Serializable
+internal data class JikanLicensorResponse(
+    @SerialName("mal_id") val id: Int,
+    @SerialName("type") val type: String?,
+    @SerialName("name") val name: String,
+    @SerialName("url") val url: String?,
+)
+
+@Serializable
+internal data class JikanStudioResponse(
+    @SerialName("mal_id") val id: Int,
+    @SerialName("type") val type: String?,
+    @SerialName("name") val name: String,
+    @SerialName("url") val url: String?,
+)
+
+@Serializable
+internal data class JikanGenreResponse(
+    @SerialName("mal_id") val id: Int,
+    @SerialName("type") val type: String?,
+    @SerialName("name") val name: String,
+    @SerialName("url") val url: String?,
+)
+
+@Serializable
+internal data class JikanThemeResponse(
     @SerialName("mal_id") val id: Int,
     @SerialName("type") val type: String?,
     @SerialName("name") val name: String,
