@@ -21,7 +21,7 @@ import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeRemoteDataSource
 import shum.oks.lab.entity.anime.data.impl.mappers.toAnimeEntityList
-import shum.oks.lab.entity.anime.data.impl.mappers.toProducerEntityList
+import shum.oks.lab.entity.anime.data.impl.mappers.toRelatedEntities
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
 
 @OptIn(ExperimentalPagingApi::class)
@@ -88,7 +88,6 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
         val prevKey = if (currentPage == INITIAL_PAGE) null else currentPage - PAGE_OFFSET
         val nextKey = if (hasNextPage) currentPage + PAGE_OFFSET else null
 
-        val (producerEntityList, producerCrossRefList) = response.toProducerEntityList()
         localDataSource.insertAllAnimeWithPagination(
             response.toAnimeEntityList(),
             paginationInfo = PaginationInfo(

@@ -12,9 +12,17 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
 import shum.oks.lab.entity.anime.data.api.entities.AnimeEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeGenreCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeGenreEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeLicensorCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeLicensorEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimePaginationEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerCrossRef
 import shum.oks.lab.entity.anime.data.api.entities.AnimeProducerEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeStudioCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeStudioEntity
+import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeCrossRef
+import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeEntity
 
 @Database(
     entities = [

@@ -8,19 +8,18 @@
 
 package shum.oks.lab.feature.details.anime.screens
 
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsViewModel
+import shum.oks.lab.feature.details.anime.screens.composables.AnimeDetailsContent
 
 @Composable
 internal fun AnimeDetailScreen(
     viewModel: AnimeDetailsViewModel,
     modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = "I'm ANIME DETAIL",
-        modifier = modifier.statusBarsPadding()
+    AnimeDetailsContent(
+        viewModel = viewModel,
+        modifier = modifier
     )
 }

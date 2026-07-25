@@ -10,21 +10,41 @@ package shum.oks.lab.feature.details.anime.mvi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.launch
 import shum.oks.lab.core.mvi.BaseViewModel
+import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeDetailsUseCase
+import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiComponentHolder
+import shum.oks.lab.feature.details.anime.screens.mappers.toUiModel
 
 internal class AnimeDetailsViewModel @AssistedInject constructor(
-    @Assisted private val animeId: Int,
+    getAnimeDetailsUseCase: GetAnimeDetailsUseCase,
+    @Assisted val animeId: Int,
 ) : BaseViewModel<
     AnimeDetailsUiState,
     AnimeDetailsUiIntent,
     AnimeDetailsUiEffect,
 >(
     initialState = AnimeDetailsUiState.Loading,
-    onClearedCallback = {  } // TODO
+    onClearedCallback = {  AnimeDetailsUiComponentHolder.clean() } // TODO
 ) {
+
+    init {
+        viewModelScope.launch {
+            getAnimeDetailsUseCase(animeId)
+                .collect { dataEvent ->
+                    updateState {
+                        AnimeDetailsUiState.Content(
+                            loadingState = dataEvent.loadState.toUiModel(),
+                            animeDetailsUi = dataEvent.data.toUiModel(),
+                        )
+                    }
+                }
+        }
+    }
 
     override fun handleIntent(intent: AnimeDetailsUiIntent) {
         TODO("Not yet implemented")
