@@ -69,75 +69,7 @@ The project is intentionally split into feature and core modules to demonstrate 
 Solid arrows represent direct Gradle module dependencies.  
 Dashed arrows represent dependencies wired through Dagger 2 in the application composition root.
 
-```mermaid
-flowchart TB
-
-    APP[":app<br/>Application & composition root"]
-
-    subgraph FEATURES["Feature modules"]
-        CATALOG[":feature:catalog"]
-        ANIME_DETAILS[":feature:details:anime"]
-        MANGA_DETAILS[":feature:details:manga"]
-        FAVOURITES[":feature:favourites"]
-        SETTINGS[":feature:settings"]
-    end
-
-    subgraph ANIME["Anime modules"]
-        DOMAIN_API[":entity:anime:domain:api"]
-        DOMAIN_IMPL[":entity:anime:domain:impl"]
-        DATA_API[":entity:anime:data:api"]
-        DATA_IMPL[":entity:anime:data:impl"]
-    end
-
-    subgraph SHARED["Shared infrastructure"]
-        DATABASE[":common:database<br/>Room"]
-        NETWORK[":common:network<br/>Retrofit & OkHttp"]
-        THEME[":common:theme"]
-    end
-
-    subgraph CORE["Core modules"]
-        CORE_DI[":core:di"]
-        MVI[":core:mvi"]
-        UI[":core:ui"]
-        CORE_NETWORK[":core:network"]
-    end
-
-    APP --> CATALOG
-    APP --> ANIME_DETAILS
-    APP --> MANGA_DETAILS
-    APP --> FAVOURITES
-    APP --> SETTINGS
-
-    APP --> DOMAIN_IMPL
-    APP --> DATA_IMPL
-    APP --> DATABASE
-    APP --> NETWORK
-    APP --> THEME
-
-    CATALOG --> DOMAIN_API
-    CATALOG --> MVI
-    CATALOG --> UI
-    CATALOG --> CORE_DI
-
-    ANIME_DETAILS --> DOMAIN_API
-    ANIME_DETAILS --> MVI
-    ANIME_DETAILS --> UI
-    ANIME_DETAILS --> CORE_DI
-
-    DOMAIN_IMPL --> DOMAIN_API
-
-    DATA_IMPL --> DATA_API
-    DATA_IMPL --> DOMAIN_API
-    DATA_IMPL --> CORE_NETWORK
-
-    DATABASE --> DATA_API
-    NETWORK --> CORE_NETWORK
-
-    APP -. "wires with Dagger" .-> CATALOG
-    APP -. "wires with Dagger" .-> ANIME_DETAILS
-    APP -. "binds implementations" .-> DOMAIN_IMPL
-    APP -. "binds implementations" .-> DATA_IMPL
-```
+<img width="1085" height="567" alt="Screenshot 2026-07-26 at 7 15 21 pm" src="https://github.com/user-attachments/assets/e06713fd-a1ba-4428-a574-12f643839367" />
 
 
 ## 🎥 App Demo
