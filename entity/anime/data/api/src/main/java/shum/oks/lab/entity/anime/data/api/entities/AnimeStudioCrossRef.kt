@@ -11,6 +11,7 @@ package shum.oks.lab.entity.anime.data.api.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 
 @Entity(
     tableName = AnimeStudioCrossRef.TABLE_NAME,
@@ -31,6 +32,13 @@ import androidx.room.ForeignKey
             childColumns = [AnimeStudioCrossRef.Column.STUDIO_ID],
             onDelete = ForeignKey.CASCADE
         )
+    ],
+    indices = [
+        Index(
+            value = [
+                AnimeStudioCrossRef.Column.STUDIO_ID,
+            ],
+        ),
     ],
 )
 data class AnimeStudioCrossRef(
