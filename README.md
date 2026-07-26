@@ -56,7 +56,6 @@ and add your API key to `local.properties` as `MY_ANIME_LIST_CLIENT_ID=your_api_
 
 
 ## 🏗 Architecture
-🚧 **Description & diagram in Progress**
 
 The application follows **Clean Architecture** with a **multi-module** structure and **MVI** presentation layer.
 
