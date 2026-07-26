@@ -35,6 +35,7 @@ datastore = "1.2.1"
 coil3 = "3.5.0"
 animationCore = "1.11.4"
 uiToolingPreview = "1.11.4"
+foundation = "1.11.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -93,6 +94,7 @@ retrofit-converter-scalars = { module = "com.squareup.retrofit2:converter-scalar
 jqwik-api = { group = "net.jqwik", name = "jqwik-api", version.ref = "jqwik" }
 jqwik-kotlin = { group = "net.jqwik", name = "jqwik-kotlin", version.ref = "jqwik" }
 jqwik-engine = { group = "net.jqwik", name = "jqwik-engine", version.ref = "jqwik" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

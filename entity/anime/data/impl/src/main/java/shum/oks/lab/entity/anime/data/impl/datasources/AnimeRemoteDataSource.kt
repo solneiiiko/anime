@@ -29,7 +29,7 @@ internal class AnimeRemoteDataSource @Inject constructor(
     ): ApiResult<AnimeListResponse> = when (catalog) {
         AnimeCatalog.JIKAN -> {
             jikanAnimeApi
-                .getAnimeList(
+                .getAnimeSummaryList(
                     page = page,
                     limit = limit
                 )

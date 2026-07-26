@@ -13,7 +13,7 @@ plugins {
 android {
     namespace = "shum.oks.lab.core.mvi"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }

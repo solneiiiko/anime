@@ -8,7 +8,9 @@ plugins {
 android {
     namespace = "shum.oks.lab.feature.details.anime"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {
@@ -38,6 +40,7 @@ dependencies {
     api(libs.androidx.navigation3.ui)
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.foundation)
     implementation(libs.material)
     implementation(libs.kotlinx.serialization.json)
 
