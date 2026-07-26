@@ -68,10 +68,6 @@ The project is intentionally split into feature and core modules to demonstrate 
 
 
 Solid arrows represent direct Gradle module dependencies.  
-Dashed arrows represent dependency provisioning and graph composition through Dagger 2.
-
-
-Solid arrows represent direct Gradle module dependencies.  
 Dashed arrows represent dependencies wired through Dagger 2 in the application composition root.
 
 ```mermaid
