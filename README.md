@@ -67,7 +67,8 @@ The project is intentionally split into feature and core modules to demonstrate 
 
 
 Solid arrows represent direct Gradle module dependencies.  
-Dashed arrows represent dependencies wired through Dagger 2 in the application composition root.
+Dashed arrows represent feature-level Dagger component initialization performed by the application module.
+
 
 <img width="1085" height="567" alt="Screenshot 2026-07-26 at 7 15 21 pm" src="https://github.com/user-attachments/assets/e06713fd-a1ba-4428-a574-12f643839367" />
 
