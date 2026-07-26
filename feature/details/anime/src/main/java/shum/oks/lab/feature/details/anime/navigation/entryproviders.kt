@@ -21,7 +21,6 @@ fun EntryProviderScope<NavKey>.animeDetailsProviders(
     navigator: AnimeDetailsNavigator,
 ) {
     entry<AnimeDetailsKey> { key ->
-
         AnimeDetailScreen(
             viewModel = viewModel(
                 factory = AnimeDetailsViewModel.provideFactory(

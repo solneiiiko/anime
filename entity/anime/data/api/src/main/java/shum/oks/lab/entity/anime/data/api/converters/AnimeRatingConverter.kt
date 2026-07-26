@@ -11,7 +11,7 @@ package shum.oks.lab.entity.anime.data.api.converters
 import androidx.room.TypeConverter
 import shum.oks.lab.entity.anime.data.api.entities.AnimeRating
 
-class AnimeRatingConverter { // TODO
+class AnimeRatingConverter { // TODO https://github.com/solneiiiko/anime/issues/17
 
     @TypeConverter
     fun fromRating(rating: AnimeRating?): String? =

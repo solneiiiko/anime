@@ -135,7 +135,7 @@ private fun JikanAnimeSummaryResponse.toAnimeEntity(): AnimeEntity =
 
 private fun String.toAnimeRating(): AnimeRating =
     AnimeRating.G
-    // TODO AnimeRating
+    // TODO AnimeRating https://github.com/solneiiiko/anime/issues/17
 
 private fun MyAnimeListNodeResponse.toAnimeEntity(): AnimeEntity =
     AnimeEntity(

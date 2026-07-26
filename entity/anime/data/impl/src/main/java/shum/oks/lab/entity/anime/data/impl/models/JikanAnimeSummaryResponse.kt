@@ -21,7 +21,7 @@ internal data class JikanAnimeSummaryResponse(
     @SerialName("source") val source: String?,
     @SerialName("episodes") val episodes: Int?,
     @SerialName("duration") val duration: String?,
-    @SerialName("rating") val rating: String?, //TODO AnimeRatingResponse?,
+    @SerialName("rating") val rating: String?, //TODO AnimeRatingResponse? https://github.com/solneiiiko/anime/issues/17
     @SerialName("score") val score: Double?,
     @SerialName("scored_by") val scoredBy: Int?,
     @SerialName("rank") val rank: Int?,
@@ -105,6 +105,5 @@ internal enum class AnimeTypeResponse {
     CM,
     PV,
     TV_SPECIAL,
-
     ;
 }

@@ -67,7 +67,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
 
     override fun observeAnimeDetails(animeId: Int): Flow<DataEvent<AnimeDetails>> = flow {
         localDataSource.getAnimeDetailsById(animeId)?.let { entity ->
-            // TODO get full from database -> Jikan
+            // TODO get full from database -> Jikan https://github.com/solneiiiko/anime/issues/17
             // get a little from database -> animeLib
             // return from anime list (summary)
             // get from Jikan -> save to database -> return
