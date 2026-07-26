@@ -16,14 +16,14 @@ import shum.oks.lab.feature.catalog.di.CatalogUiComponentHolder
 import shum.oks.lab.feature.catalog.screens.CatalogScreen
 
 fun EntryProviderScope<NavKey>.catalogEntryProviders(
-    catalogNavigator: CatalogNavigator
+    navigator: CatalogNavigator
 ) {
     entry<CatalogScreenKey> {
         CatalogScreen(
             viewModel = viewModel(
                 factory = CatalogUiComponentHolder.get().viewModelFactory
             ),
-            catalogNavigator = catalogNavigator
+            navigator = navigator
         )
     }
 }

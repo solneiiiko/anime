@@ -47,7 +47,15 @@ internal class AnimeDetailsViewModel @AssistedInject constructor(
     }
 
     override fun handleIntent(intent: AnimeDetailsUiIntent) {
-        TODO("Not yet implemented")
+        when (intent) {
+            AnimeDetailsUiIntent.BackClicked -> onBackClicked()
+        }
+    }
+
+    private fun onBackClicked() {
+        viewModelScope.launch {
+            sendEffect(AnimeDetailsUiEffect.NavigateBack)
+        }
     }
 
     @AssistedFactory

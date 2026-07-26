@@ -17,7 +17,9 @@ import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsViewModel
 import shum.oks.lab.feature.details.anime.screens.AnimeDetailScreen
 
 
-fun EntryProviderScope<NavKey>.animeDetailsProviders() {
+fun EntryProviderScope<NavKey>.animeDetailsProviders(
+    navigator: AnimeDetailsNavigator,
+) {
     entry<AnimeDetailsKey> { key ->
 
         AnimeDetailScreen(
@@ -27,6 +29,7 @@ fun EntryProviderScope<NavKey>.animeDetailsProviders() {
                     animeId = key.animeId
                 )
             ),
+            navigator = navigator,
         )
     }
 }

@@ -10,4 +10,7 @@ package shum.oks.lab.feature.details.anime.mvi
 
 import shum.oks.lab.core.mvi.UiEffect
 
-internal sealed interface AnimeDetailsUiEffect : UiEffect
+internal sealed interface AnimeDetailsUiEffect : UiEffect {
+
+    data object NavigateBack : AnimeDetailsUiEffect
+}

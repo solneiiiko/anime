@@ -14,38 +14,25 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsUiState
-import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsViewModel
+import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AnimeDetailsContent(
-    viewModel: AnimeDetailsViewModel,
+    animeDetailsUi: AnimeDetailsUi,
+    onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    when (val state = state) {
-        AnimeDetailsUiState.Loading -> {
-            // TODO
-        }
-        is AnimeDetailsUiState.Content -> {
-            Column(modifier = modifier.fillMaxSize()) {
-                HeaderView(
-                    headerInfoUi = state.animeDetailsUi.headerInfo,
-                    modifier = modifier.fillMaxWidth()
-                )
-                Text(
-                    text = state.loadingState.toString(),
-                )
-                Text(
-                    text = state.animeDetailsUi.toString(),
-                )
-            }
-        }
+    Column(modifier = modifier.fillMaxSize()) {
+        ExpandedAnimeHeader(
+            headerInfoUi = animeDetailsUi.headerInfo,
+            onBackClicked = onBackClicked,
+            modifier = modifier.fillMaxWidth()
+        )
+        Text(
+            text = animeDetailsUi.toString(),
+        )
     }
 }

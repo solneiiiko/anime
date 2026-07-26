@@ -6,11 +6,9 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.feature.details.anime.mvi
+package shum.oks.lab.feature.details.anime.navigation
 
-import shum.oks.lab.core.mvi.UiIntent
+interface AnimeDetailsNavigator {
 
-internal sealed interface AnimeDetailsUiIntent : UiIntent {
-
-    data object BackClicked : AnimeDetailsUiIntent
+    fun back()
 }

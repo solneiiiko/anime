@@ -45,12 +45,13 @@ import shum.oks.lab.core.ui.composable.LoadingImagePlaceholder
 import shum.oks.lab.core.ui.preview.AnimeThemePreview
 import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.entity.anime.domain.api.models.AnimeType
-import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUi
 import shum.oks.lab.feature.details.anime.screens.models.HeaderInfoUi
 
+// TODO work in progress https://github.com/solneiiiko/anime/issues/17
 @Composable
-internal fun HeaderView(
+internal fun ExpandedAnimeHeader(
     headerInfoUi: HeaderInfoUi,
+    onBackClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -65,13 +66,14 @@ internal fun HeaderView(
         )
         HeaderContent(
             headerInfoUi = headerInfoUi,
+            onBackClicked = onBackClicked,
             modifier = Modifier.matchParentSize()
         )
     }
 }
 
 @Composable
-private fun HeaderBackground(
+fun HeaderBackground(
     title: String,
     imageUrl: String?,
     modifier: Modifier = Modifier,
@@ -114,6 +116,7 @@ private fun HeaderBackground(
 @Composable
 private fun HeaderContent(
     headerInfoUi: HeaderInfoUi,
+    onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -132,7 +135,7 @@ private fun HeaderContent(
                 )
             },
             navigationIcon = {
-                IconButton(onClick = {  }) {
+                IconButton(onClick = onBackClicked) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = "null",
@@ -175,6 +178,7 @@ private fun HeaderContent(
                         .weight(1f)
                         .padding(start = 8.dp, end = 16.dp, bottom = 24.dp)
             ) {
+                // TOODO https://github.com/solneiiiko/anime/issues/17
                 Text(
                     text = "Type: ${headerInfoUi.type.name}",
                     fontWeight = FontWeight.Bold,
@@ -202,9 +206,9 @@ private fun HeaderContent(
 
 @ThemePreviews
 @Composable
-private fun HeaderViewPreview() {
+private fun ExpandedAnimeHeaderPreview() {
     AnimeThemePreview {
-        HeaderView(
+        ExpandedAnimeHeader(
             headerInfoUi = HeaderInfoUi(
                 title = "Anime details very very very very very very very very very very very very",
                 imageUrl = null,
@@ -214,6 +218,7 @@ private fun HeaderViewPreview() {
                 members = 1000,
 
             ),
+            onBackClicked = { /* Nothing to do. All right. ^_^__/ */ },
             modifier = Modifier
         )
     }
