@@ -6,7 +6,9 @@ plugins {
 android {
     namespace = "shum.oks.lab.feature.details.manga"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {

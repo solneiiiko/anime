@@ -14,7 +14,9 @@ plugins {
 android {
     namespace = "shum.oks.lab.common.theme"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {

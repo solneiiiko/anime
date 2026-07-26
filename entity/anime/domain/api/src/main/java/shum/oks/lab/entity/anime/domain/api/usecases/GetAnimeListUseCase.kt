@@ -10,9 +10,9 @@ package shum.oks.lab.entity.anime.domain.api.usecases
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import shum.oks.lab.entity.anime.domain.api.models.Anime
+import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
 
 interface GetAnimeListUseCase {
 
-    suspend operator fun invoke(): Flow<PagingData<Anime>>
+    suspend operator fun invoke(): Flow<PagingData<AnimeSummary>>
 }

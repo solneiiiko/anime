@@ -41,15 +41,18 @@ internal fun AppNavDisplay(
     )
     val navigator = remember { Navigator(navigationState) }
     val catalogNavigator = remember { createCatalogNavigator(navigator) }
+    val animeDetailsNavigator = remember { createAnimeDetailsNavigator(navigator) }
 
     val entryProvider = remember {
         entryProvider {
             settingsEntryProviders()
             catalogEntryProviders(
-                catalogNavigator = catalogNavigator,
+                navigator = catalogNavigator,
             )
             favouritesEntryProviders()
-            animeDetailsProviders()
+            animeDetailsProviders(
+                navigator = animeDetailsNavigator
+            )
         }
     }
     NavigationSuiteScaffold(

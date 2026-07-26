@@ -15,4 +15,5 @@ kotlin {
 dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.androidx.paging.common)
+    api(project(":core:domain"))
 }

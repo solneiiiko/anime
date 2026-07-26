@@ -6,7 +6,9 @@ plugins {
 android {
     namespace = "shum.oks.lab.core.ui"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {
@@ -32,4 +34,8 @@ dependencies {
     implementation(libs.androidx.compose.animation)
 
     api(project(":common:theme"))
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
 }

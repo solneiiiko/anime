@@ -21,7 +21,9 @@ import androidx.navigation3.runtime.NavKey
 /**
  * Handles navigation events (forward and back) by updating the navigation state.
  */
-internal class Navigator(val state: NavigationState){
+internal class Navigator(
+    private val state: NavigationState
+){
 
     fun navigateTo(route: NavKey){
         if (route in state.backStacks.keys){

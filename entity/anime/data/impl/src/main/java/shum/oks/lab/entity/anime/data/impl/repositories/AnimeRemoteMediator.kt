@@ -16,11 +16,12 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import shum.oks.lab.core.network.ApiResult
+import shum.oks.lab.entity.anime.data.api.dbmodels.AnimeSummaryDbModel
 import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
-import shum.oks.lab.entity.anime.data.api.entities.AnimeSummaryEntity
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeLocalDataSource
 import shum.oks.lab.entity.anime.data.impl.datasources.AnimeRemoteDataSource
-import shum.oks.lab.entity.anime.data.impl.mappers.toEntityModelList
+import shum.oks.lab.entity.anime.data.impl.mappers.toAnimeEntityList
+import shum.oks.lab.entity.anime.data.impl.mappers.toRelatedEntities
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
 
 @OptIn(ExperimentalPagingApi::class)
@@ -30,14 +31,14 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
     @Assisted private val initializeAction: InitializeAction,
     @Assisted private val catalog: AnimeCatalog,
     @Assisted private val afterRefresh: suspend () -> Unit,
-) : RemoteMediator<Int, AnimeSummaryEntity>() {
+) : RemoteMediator<Int, AnimeSummaryDbModel>() {
 
     override suspend fun initialize(): InitializeAction =
         initializeAction
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, AnimeSummaryEntity>
+        state: PagingState<Int, AnimeSummaryDbModel>
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> INITIAL_PAGE
@@ -88,7 +89,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
         val nextKey = if (hasNextPage) currentPage + PAGE_OFFSET else null
 
         localDataSource.insertAllAnimeWithPagination(
-            response.toEntityModelList(),
+            response.toAnimeEntityList(),
             paginationInfo = PaginationInfo(
                 currentPage = currentPage,
                 prevPage = prevKey,
@@ -96,6 +97,7 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
                 pageSize = pageSize,
                 catalog = catalog,
             ),
+            relatedEntities = response.toRelatedEntities(),
             clearExisting = clearExisting
         )
     }

@@ -77,15 +77,20 @@ The project is intentionally split into feature and core modules to demonstrate 
 
 The current focus of this project is architecture, scalability, and production-ready engineering practices. The UI will continue to evolve alongside new features.
 
-Placeholders are shown while images are loading
 
-<img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_slow_internet.gif" />
+- Placeholders are shown while images are loading
+- Demo of the current state of AnimeDetailsScreen
+
+| Catalog | Details (current state)                                                                                 |
+|---------|---------------------------------------------------------------------------------------------------------|
+| <img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_slow_internet.gif" /> | <img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_anime_details_screen.gif" /> |
 
 
-| Theme | Catalog | Details | Settings |
-|---------|---------|---------|--------|
-| Light | <img src="docs/screenshots/catalog_light.png" width="220"> | ^_^__/ | ^_^__/ |
-| Dark | <img src="docs/screenshots/catalog_dark.png" width="220"> | ^_^__/ | ^_^__/ |
+
+| Theme | Catalog | Details                                                          | Settings |
+|---------|---------|------------------------------------------------------------------|--------|
+| Light | <img src="docs/screenshots/catalog_light.png" width="220"> | <img src="docs/screenshots/anime_details_light.png" width="220"> | ^_^__/ |
+| Dark | <img src="docs/screenshots/catalog_dark.png" width="220"> | <img src="docs/screenshots/anime_details_dark.png" width="220"> | ^_^__/ |
 
 
 ## 🗺 Roadmap

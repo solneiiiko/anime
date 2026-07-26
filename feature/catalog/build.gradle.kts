@@ -17,7 +17,9 @@ plugins {
 android {
     namespace = "shum.oks.lab.feature.catalog"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {

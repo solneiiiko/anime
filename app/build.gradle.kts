@@ -22,7 +22,11 @@ android {
     val productFlavorProduction = "prod"
 
     namespace = "shum.oks.lab.anime"
-    compileSdk = 37
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
 
     defaultConfig {
         applicationId = "shum.oks.lab.anime"

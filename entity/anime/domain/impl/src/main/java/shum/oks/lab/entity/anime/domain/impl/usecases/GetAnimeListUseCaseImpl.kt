@@ -10,7 +10,7 @@ package shum.oks.lab.entity.anime.domain.impl.usecases
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import shum.oks.lab.entity.anime.domain.api.models.Anime
+import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
 import shum.oks.lab.entity.anime.domain.api.repositories.AnimeRepository
 import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeListUseCase
 import javax.inject.Inject
@@ -19,6 +19,6 @@ internal class GetAnimeListUseCaseImpl @Inject constructor(
     private val animeRepository: AnimeRepository,
 ) : GetAnimeListUseCase {
 
-    override suspend fun invoke(): Flow<PagingData<Anime>> =
+    override suspend fun invoke(): Flow<PagingData<AnimeSummary>> =
         animeRepository.observeAnimePagingData()
 }

@@ -13,6 +13,7 @@ import dagger.Module
 @Module(
     includes = [
         CatalogModule::class,
+        AnimeModule::class,
     ]
 )
 interface AppFeatureModule

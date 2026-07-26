@@ -13,7 +13,10 @@ import dagger.Component
 
 @Component(
     dependencies = [
-        CatalogUiDependencies::class
+        CatalogUiDependencies::class,
+    ],
+    modules = [
+        CatalogUiModule::class,
     ]
 )
 internal abstract class CatalogUiComponent : CatalogUiApi()

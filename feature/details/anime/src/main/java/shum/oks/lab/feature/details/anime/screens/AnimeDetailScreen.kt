@@ -8,18 +8,61 @@
 
 package shum.oks.lab.feature.details.anime.screens
 
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsUiEffect
+import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsUiIntent
+import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsUiState
+import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsViewModel
+import shum.oks.lab.feature.details.anime.navigation.AnimeDetailsNavigator
+import shum.oks.lab.feature.details.anime.screens.composables.AnimeDetailsContent
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AnimeDetailScreen(
-    animeId: Int,
+    viewModel: AnimeDetailsViewModel,
+    navigator: AnimeDetailsNavigator,
     modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = "I'm ANIME DETAIL $animeId",
-        modifier = modifier.statusBarsPadding()
-    )
+
+    LaunchedEffect(viewModel, navigator) {
+        viewModel.effect.collect { effect ->
+            handleLaunchEffect(navigator, effect)
+        }
+    }
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    val onBackClicked = remember(viewModel) {
+        { viewModel.handleIntent(AnimeDetailsUiIntent.BackClicked) }
+    }
+
+    when (val state = state) {
+        AnimeDetailsUiState.Loading -> {
+            // TODO https://github.com/solneiiiko/anime/issues/17
+        }
+        is AnimeDetailsUiState.Content -> {
+             AnimeDetailsContent(
+                 animeDetailsUi = state.animeDetailsUi,
+                 onBackClicked = onBackClicked,
+                 modifier = modifier
+            )
+        }
+    }
+}
+
+private fun handleLaunchEffect(
+    navigator: AnimeDetailsNavigator,
+    effect: AnimeDetailsUiEffect
+) {
+    when (effect) {
+        is AnimeDetailsUiEffect.NavigateBack -> {
+            navigator.back()
+        }
+    }
 }

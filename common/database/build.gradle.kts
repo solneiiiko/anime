@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "shum.oks.lab.common.database"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }

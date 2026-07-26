@@ -10,9 +10,13 @@ package shum.oks.lab.entity.anime.domain.api.repositories
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import shum.oks.lab.entity.anime.domain.api.models.Anime
+import shum.oks.lab.domain.models.DataEvent
+import shum.oks.lab.entity.anime.domain.api.models.AnimeSummary
+import shum.oks.lab.entity.anime.domain.api.models.AnimeDetails
 
 interface AnimeRepository {
 
-    suspend fun observeAnimePagingData(): Flow<PagingData<Anime>>
+    suspend fun observeAnimePagingData(): Flow<PagingData<AnimeSummary>>
+
+    fun observeAnimeDetails(animeId: Int): Flow<DataEvent<AnimeDetails>>
 }

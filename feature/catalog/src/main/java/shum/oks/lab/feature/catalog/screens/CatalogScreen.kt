@@ -19,11 +19,11 @@ import shum.oks.lab.feature.catalog.screens.mvi.CatalogUiViewModel
 @Composable
 internal fun CatalogScreen(
     viewModel: CatalogUiViewModel,
-    catalogNavigator: CatalogNavigator,
+    navigator: CatalogNavigator,
 ) {
-    LaunchedEffect(viewModel, catalogNavigator) {
+    LaunchedEffect(viewModel, navigator) {
         viewModel.effect.collect { effect ->
-            handleLaunchEffect(catalogNavigator, effect)
+            handleLaunchEffect(navigator, effect)
         }
     }
 
@@ -34,12 +34,12 @@ internal fun CatalogScreen(
 }
 
 private fun handleLaunchEffect(
-    catalogNavigator: CatalogNavigator,
+    navigator: CatalogNavigator,
     effect: CatalogUiEffect,
 ) {
     when (effect) {
         is CatalogUiEffect.NavigateToDetails -> {
-            catalogNavigator.openDetails(effect.catalogItemKey)
+            navigator.openDetails(effect.catalogItemKey)
         }
     }
 }
