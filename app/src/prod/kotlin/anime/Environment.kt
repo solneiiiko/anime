@@ -8,7 +8,7 @@
 
 package shum.oks.lab.anime
 
-object Environment {
+internal object Environment {
 
     val ENABLE_LOGGING = BuildConfig.DEBUG
 }

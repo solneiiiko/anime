@@ -6,13 +6,13 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.mvi
+package shum.oks.lab.anime.mvi.models
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation3.runtime.NavKey
 
-data class TopNavButtonUi(
+internal data class TopNavButtonUi(
     val navKey: NavKey,
     @StringRes val label: Int,
     val icon: ImageVector,

@@ -18,5 +18,5 @@ internal fun LoadState.toUiModel(): AnimeDetailsUiState.Content.UiLoadState = wh
     LoadState.Success ->
         AnimeDetailsUiState.Content.UiLoadState.Success
     is LoadState.Error ->
-        AnimeDetailsUiState.Content.UiLoadState.Error(throwable.toString())
+        AnimeDetailsUiState.Content.UiLoadState.Error(apiException.toString())
 }

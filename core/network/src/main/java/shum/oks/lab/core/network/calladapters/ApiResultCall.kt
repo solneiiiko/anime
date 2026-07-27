@@ -98,6 +98,13 @@ private fun <T> Response<T>.toApiResult(): ApiResult<T> =
         )
     }
 
+/**
+ * Only standard HTTP status codes are handled here.
+ * Custom protocol-specific codes (e.g. SIP 600 Busy Everywhere or
+ * vendor-specific 600 Invalid Headers) are intentionally ignored,
+ * as their handling is defined by the client-server contract.
+ * These APIs do not use such custom status codes.
+ */
 private fun getApiExceptionByCode(code: Int, message: String): ApiException {
     return when (code) {
         in 400..499 -> ApiClientException(message, code.toApiClientExceptionCode())

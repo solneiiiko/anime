@@ -19,6 +19,8 @@ internal fun FullScreenError(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    // TODO UI is not ready https://github.com/solneiiiko/anime/issues/31
+
     Button(onClick = onRetry) {
         Text(text = text,)
     }

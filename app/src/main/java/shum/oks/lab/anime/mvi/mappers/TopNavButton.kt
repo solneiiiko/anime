@@ -16,7 +16,7 @@ import androidx.compose.material.icons.outlined.Menu
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import shum.oks.lab.anime.R
-import shum.oks.lab.anime.mvi.TopNavButtonUi
+import shum.oks.lab.anime.mvi.models.TopNavButtonUi
 import shum.oks.lab.anime.usecases.models.TopNavButton
 import shum.oks.lab.feature.catalog.navigation.CatalogScreenKey
 import shum.oks.lab.feature.favourites.navigation.FavouritesScreenKey

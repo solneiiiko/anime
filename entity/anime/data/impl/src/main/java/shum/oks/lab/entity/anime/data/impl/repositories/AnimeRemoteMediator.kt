@@ -42,7 +42,13 @@ internal class AnimeRemoteMediator @AssistedInject constructor(
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> INITIAL_PAGE
-            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+            LoadType.PREPEND -> {
+                /**
+                 * This case is intentionally not handled,
+                 * as it is outside the API contracts.
+                 */
+                return MediatorResult.Success(endOfPaginationReached = true)
+            }
             LoadType.APPEND -> {
                 val lastItem = state.lastItemOrNull()
                     ?: return MediatorResult.Success(endOfPaginationReached = false,)

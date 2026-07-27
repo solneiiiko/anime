@@ -29,7 +29,7 @@ internal class AnimeDetailsViewModel @AssistedInject constructor(
     AnimeDetailsUiEffect,
 >(
     initialState = AnimeDetailsUiState.Loading,
-    onClearedCallback = {  AnimeDetailsUiComponentHolder.clean() } // TODO
+    onClearedCallback = {  AnimeDetailsUiComponentHolder.clean() } // TODO https://github.com/solneiiiko/anime/issues/17
 ) {
 
     init {

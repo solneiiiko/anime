@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.toSize
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.window.core.layout.WindowSizeClass
-import shum.oks.lab.anime.mvi.TopNavButtonUi
+import shum.oks.lab.anime.mvi.models.TopNavButtonUi
 import shum.oks.lab.feature.catalog.navigation.CatalogScreenKey
 import shum.oks.lab.feature.catalog.navigation.catalogEntryProviders
 import shum.oks.lab.feature.details.anime.navigation.animeDetailsProviders

@@ -9,7 +9,7 @@
 package shum.oks.lab.anime
 
 
-object Environment {
+internal object Environment {
 
     const val ENABLE_LOGGING = true
 }

@@ -32,7 +32,7 @@ import shum.oks.lab.core.network.ApiResult
 import shum.oks.lab.core.network.ApiServerException
 import shum.oks.lab.core.network.ApiUnknownException
 
-class ApiResultCallTest {
+internal class ApiResultCallTest {
 
     private lateinit var server: MockWebServer
     private lateinit var service: TestService

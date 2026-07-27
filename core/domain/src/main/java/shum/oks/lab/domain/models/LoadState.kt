@@ -8,6 +8,8 @@
 
 package shum.oks.lab.domain.models
 
+import shum.oks.lab.core.network.ApiException
+
 sealed interface LoadState {
 
     data object Loading : LoadState
@@ -15,6 +17,6 @@ sealed interface LoadState {
     data object Success : LoadState
 
     data class Error(
-        val throwable: Throwable,
+        val apiException: ApiException,
     ) : LoadState
 }

@@ -18,6 +18,7 @@ package shum.oks.lab.anime.navigation
 
 import androidx.navigation3.runtime.NavKey
 
+// TODO https://github.com/solneiiiko/anime/issues/47
 /**
  * Handles navigation events (forward and back) by updating the navigation state.
  */

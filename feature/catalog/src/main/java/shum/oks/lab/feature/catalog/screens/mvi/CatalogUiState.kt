@@ -14,6 +14,6 @@ internal sealed interface CatalogUiState : UiState {
     data object Loading : CatalogUiState
 
     data class Content(
-        val tabs: String,// TODO Tabs
+        val tabs: String,// TODO Tabs https://github.com/solneiiiko/anime/issues/43
     ) : CatalogUiState
 }
