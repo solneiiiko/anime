@@ -8,24 +8,23 @@
 
 package shum.oks.lab.core.ui.formatters
 
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
-import shum.oks.lab.core.ui.formatters.NumberFormatter
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.util.Locale
 
-class NumberFormatterTest {
+internal class NumberFormatterTest {
 
     private val originalLocale = Locale.getDefault()
     private val formatter = NumberFormatter()
 
-    @Before
+    @BeforeEach
     fun before() {
         Locale.setDefault(Locale.US)
     }
 
-    @After
+    @AfterEach
     fun after() {
         Locale.setDefault(originalLocale)
     }
