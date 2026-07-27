@@ -24,7 +24,7 @@ internal fun AnimeDetailsContent(
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
+    // TODO UI is not ready https://github.com/solneiiiko/anime/issues/17
     Column(modifier = modifier.fillMaxSize()) {
         ExpandedAnimeHeader(
             headerInfoUi = animeDetailsUi.headerInfo,

@@ -33,6 +33,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 import androidx.savedstate.compose.serialization.serializers.MutableStateSerializer
 
+// TODO https://github.com/solneiiiko/anime/issues/47
 /**
  * Create a navigation state that persists config changes and process death.
  *
@@ -72,7 +73,7 @@ internal fun rememberNavigationState(
  * @param topLevelRoute - the state object that backs the top level route.
  * @param backStacks - the back stacks for each top level route.
  */
-class NavigationState(
+internal class NavigationState(
     val startRoute: NavKey,
     topLevelRoute: MutableState<NavKey>,
     val backStacks: Map<NavKey, NavBackStack<NavKey>>

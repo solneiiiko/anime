@@ -8,7 +8,7 @@
 
 package shum.oks.lab.anime.usecases.models
 
-enum class TopNavButton {
+internal enum class TopNavButton {
     CATALOG,
     FAVOURITES,
     MORE,

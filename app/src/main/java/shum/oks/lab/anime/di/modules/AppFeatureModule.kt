@@ -16,4 +16,4 @@ import dagger.Module
         AnimeModule::class,
     ]
 )
-interface AppFeatureModule
+internal interface AppFeatureModule

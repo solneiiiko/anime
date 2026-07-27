@@ -19,6 +19,6 @@ internal class GetAnimeListUseCaseImpl @Inject constructor(
     private val animeRepository: AnimeRepository,
 ) : GetAnimeListUseCase {
 
-    override suspend fun invoke(): Flow<PagingData<AnimeSummary>> =
+    override fun invoke(): Flow<PagingData<AnimeSummary>> =
         animeRepository.observeAnimePagingData()
 }

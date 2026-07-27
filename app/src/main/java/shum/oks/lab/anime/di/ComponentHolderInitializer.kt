@@ -23,7 +23,7 @@ import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiComponentHolder
 import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiDependencies
 import javax.inject.Inject
 
-class ComponentHolderInitializer @Inject constructor(
+internal class ComponentHolderInitializer @Inject constructor(
     private val commonDatabaseDependenciesProvider: DependenciesProvider<CommonDatabaseDependencies>,
     private val commonNetworkDependenciesProvider: DependenciesProvider<CommonNetworkDependencies>,
     private val entityAnimeDataImplDependenciesProvider: DependenciesProvider<EntityAnimeDataImplDependencies>,

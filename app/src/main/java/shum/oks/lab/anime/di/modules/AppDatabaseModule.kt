@@ -15,7 +15,7 @@ import shum.oks.lab.common.database.di.CommonDatabaseDependencies
 import shum.oks.lab.core.di.DependenciesProvider
 
 @Module
-class AppDatabaseModule {
+internal class AppDatabaseModule {
 
     @Provides
     fun provideCommonDatabaseDependencies(

@@ -15,6 +15,7 @@ import androidx.paging.PagingData
 import androidx.paging.RemoteMediator
 import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import shum.oks.lab.domain.models.DataEvent
@@ -38,31 +39,33 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
 ) : AnimeRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun observeAnimePagingData(): Flow<PagingData<AnimeSummary>> {
+    override fun observeAnimePagingData(): Flow<PagingData<AnimeSummary>> = flow {
         val appPagingConfig = appConfigRepository.getAppConfig().pagingConfig
         val catalog = AnimeCatalog.ALL // TODO get from UI
-        return Pager(
-            config = PagingConfig(
-                pageSize = appPagingConfig.pageSize,
-            ),
-            remoteMediator = animeRemoteMediatorFactory.create(
-                initializeAction = if (isCacheExpired()) {
-                    RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH
-                } else {
-                    RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH
-                },
-                catalog = catalog,
-                afterRefresh = {
-                    animePreferencesDataStore.apply {
-                        setLastRefreshTime(System.currentTimeMillis())
-                        setCurrentPageSize(appPagingConfig.pageSize)
+        emitAll(
+            Pager(
+                config = PagingConfig(
+                    pageSize = appPagingConfig.pageSize,
+                ),
+                remoteMediator = animeRemoteMediatorFactory.create(
+                    initializeAction = if (isCacheExpired()) {
+                        RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH
+                    } else {
+                        RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH
+                    },
+                    catalog = catalog,
+                    afterRefresh = {
+                        animePreferencesDataStore.apply {
+                            setLastRefreshTime(System.currentTimeMillis())
+                            setCurrentPageSize(appPagingConfig.pageSize)
+                        }
                     }
-                }
-            ),
-            pagingSourceFactory = { localDataSource.pagingSource(catalog = catalog) }
-        ).flow.map { pagingData ->
-            pagingData.map { it.toAnimeModel() }
-        }
+                ),
+                pagingSourceFactory = { localDataSource.pagingSource(catalog = catalog) }
+            ).flow.map { pagingData ->
+                pagingData.map { it.toAnimeModel() }
+            }
+        )
     }
 
     override fun observeAnimeDetails(animeId: Int): Flow<DataEvent<AnimeDetails>> = flow {

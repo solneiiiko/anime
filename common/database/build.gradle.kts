@@ -21,6 +21,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+
 }
 
 dependencies {
@@ -30,4 +36,8 @@ dependencies {
     implementation(project(":core:di"))
     ksp(libs.dagger.compiler)
     api(project(":entity:anime:data:api"))
+
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }

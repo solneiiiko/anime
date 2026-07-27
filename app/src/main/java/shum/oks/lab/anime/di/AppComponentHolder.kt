@@ -18,11 +18,7 @@ internal object AppComponentHolder : BaseComponentHolder<
 
     override fun buildComponent(dependencies: AppDependencies): AppComponentInternalApi =
         DaggerAppComponent.builder()
-            .appDependencies(
-                object : AppDependencies {
-                    override val appContext: Context = dependencies.appContext
-                }
-            )
+            .appDependencies(dependencies)
             .build()
 
     override fun afterInit() {

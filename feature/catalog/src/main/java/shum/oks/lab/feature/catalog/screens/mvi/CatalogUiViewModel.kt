@@ -15,8 +15,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import shum.oks.lab.core.mvi.BaseViewModel
@@ -44,10 +42,8 @@ internal class CatalogUiViewModel @Inject constructor(
         handleIntent(CatalogUiIntent.Init)
     }
 
-    val animePagingData: Flow<PagingData<CatalogElement>> = // TODO + manga https://github.com/solneiiiko/anime/issues/43
-        flow {
-            emitAll(getAnimeListUseCase())
-        }
+    // TODO + manga https://github.com/solneiiiko/anime/issues/43
+    val animePagingData: Flow<PagingData<CatalogElement>> = getAnimeListUseCase()
         .map { pagingData -> pagingData.map { it.toUiModel(numberFormatter) } }
         .cachedIn(viewModelScope)
 

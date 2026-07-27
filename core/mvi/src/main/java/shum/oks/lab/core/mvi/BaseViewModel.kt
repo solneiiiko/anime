@@ -29,6 +29,7 @@ abstract class BaseViewModel<
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<STATE> = _state.asStateFlow()
 
+    // TODO handle with double click! https://github.com/solneiiiko/anime/issues/45
     private val _effect = Channel<EFFECT>(Channel.BUFFERED)
     val effect: Flow<EFFECT> = _effect.receiveAsFlow()
 
