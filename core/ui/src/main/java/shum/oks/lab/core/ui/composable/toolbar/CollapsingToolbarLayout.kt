@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.lerp
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.util.lerp
@@ -44,7 +45,8 @@ internal fun CollapsingToolbarLayout(
         content = {
             Text(
                 modifier = Modifier
-                    .layoutId(CollapsedTitleLayoutId),
+                    .layoutId(CollapsedTitleLayoutId)
+                    .testTag(CollapsedTitleTestTag),
                 text = collapsedTitle.text,
                 style = collapsedTitle.textStyle,
                 maxLines = 1,
@@ -52,7 +54,8 @@ internal fun CollapsingToolbarLayout(
             )
             Text(
                 modifier = Modifier
-                    .layoutId(ExpandedTitleLayoutId),
+                    .layoutId(ExpandedTitleLayoutId)
+                    .testTag(ExpandedTitleTestTag),
                 text = expandedTitle.text,
                 style = expandedTitle.textStyle,
             )
@@ -62,6 +65,7 @@ internal fun CollapsingToolbarLayout(
                     modifier = Modifier
                         .wrapContentSize()
                         .layoutId(NavigationIconLayoutId)
+                        .testTag(NavigationIconTestTag)
                 ) {
                     navigationIcon()
                 }
@@ -71,6 +75,7 @@ internal fun CollapsingToolbarLayout(
                     modifier = Modifier
                         .wrapContentSize()
                         .layoutId(ExpandedContentLayoutId)
+                        .testTag(ExpandedContentTestTag)
                         .graphicsLayer {
                             alpha = expandedContentAlpha(progress = collapsedProgress)
                         }
@@ -186,22 +191,23 @@ internal fun CollapsingToolbarLayout(
     }
 }
 
-private fun expandedContentAlpha(
+internal fun expandedContentAlpha(
     progress: Float,
 ): Float {
     return (1f - progress / ExpandedContentFadeEnd).coerceIn(0f, 1f)
 }
-private const val ExpandedContentFadeEnd = 0.75f
 
-private fun MeasureScope.calculateTitlePaddingsPx(
+internal const val ExpandedContentFadeEnd = 0.75f
+
+internal fun MeasureScope.calculateTitlePaddingsPx(
     titlePlacement: TitlePlacement,
 ): TitlePaddingPx {
     val titlePaddingValues = when (titlePlacement) {
         is TitlePlacement.CenterVertically -> titlePlacement.run {
-                PaddingValues(
-                    start = start,
-                    end = end,
-                )
+            PaddingValues(
+                start = start,
+                end = end,
+            )
         }
         is TitlePlacement.Padded -> titlePlacement.paddingValues
     }
@@ -213,7 +219,7 @@ private fun MeasureScope.calculateTitlePaddingsPx(
     )
 }
 
-private data class TitlePaddingPx(
+internal data class TitlePaddingPx(
     val left: Int,
     val right: Int,
     val top: Int,
@@ -223,7 +229,12 @@ private data class TitlePaddingPx(
     val verticalPaddingPx = top + bottom
 }
 
-private const val CollapsedTitleLayoutId = "HeroHeaderCollapsedTitleLayoutId"
-private const val ExpandedTitleLayoutId = "HeroHeaderExpandedTitleLayoutId"
-private const val NavigationIconLayoutId = "HeroHeaderNavigationIconLayoutId"
-private const val ExpandedContentLayoutId = "HeroHeaderExpandedContentLayoutId"
+private const val CollapsedTitleLayoutId = "CollapsedTitleLayoutId"
+private const val ExpandedTitleLayoutId = "ExpandedTitleLayoutId"
+private const val NavigationIconLayoutId = "NavigationIconLayoutId"
+private const val ExpandedContentLayoutId = "ExpandedContentLayoutId"
+
+internal const val CollapsedTitleTestTag = "CollapsedTitleTestTag"
+internal const val ExpandedTitleTestTag = "ExpandedTitleTestTag"
+internal const val NavigationIconTestTag = "NavigationIconTestTag"
+internal const val ExpandedContentTestTag = "ExpandedContentTestTag"
