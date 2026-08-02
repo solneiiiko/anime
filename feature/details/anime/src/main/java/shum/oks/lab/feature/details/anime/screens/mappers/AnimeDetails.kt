@@ -8,6 +8,8 @@
 
 package shum.oks.lab.feature.details.anime.screens.mappers
 
+import kotlinx.collections.immutable.toImmutableList
+import shum.oks.lab.core.ui.formatters.NumberFormatter
 import shum.oks.lab.entity.anime.domain.api.models.AnimeDetails
 import shum.oks.lab.entity.anime.domain.api.models.AnimeGenre
 import shum.oks.lab.entity.anime.domain.api.models.AnimeLicensor
@@ -16,16 +18,19 @@ import shum.oks.lab.entity.anime.domain.api.models.AnimeStudio
 import shum.oks.lab.entity.anime.domain.api.models.AnimeTheme
 import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUi
 import shum.oks.lab.feature.details.anime.screens.models.GenreUi
+import shum.oks.lab.feature.details.anime.screens.models.HeaderBlock
 import shum.oks.lab.feature.details.anime.screens.models.HeaderInfoUi
 import shum.oks.lab.feature.details.anime.screens.models.LicensorUi
 import shum.oks.lab.feature.details.anime.screens.models.ProducerUi
 import shum.oks.lab.feature.details.anime.screens.models.StudioUi
 import shum.oks.lab.feature.details.anime.screens.models.ThemeUi
 
-internal fun AnimeDetails.toUiModel() =
+internal fun AnimeDetails.toUiModel(
+    numberFormatter: NumberFormatter
+) =
     AnimeDetailsUi(
         id = id,
-        headerInfo = toHeaderInfoUi(),
+        headerInfo = toHeaderInfoUi(numberFormatter),
         type = type,
         trailerUrl = trailerUrl,
         duration = duration,
@@ -44,14 +49,30 @@ internal fun AnimeDetails.toUiModel() =
         themes = themes.toThemeUiList()
     )
 
-private fun AnimeDetails.toHeaderInfoUi() =
+private fun AnimeDetails.toHeaderInfoUi(
+    numberFormatter: NumberFormatter
+) =
     HeaderInfoUi(
         title = title,
         imageUrl = imageUrl,
-        type = type,
-        episodes = episodes,
-        members = members,
-        score = score
+        headerBlocks = listOf(
+            HeaderBlock(
+                title = "Score",
+                subtitle = score?.let { numberFormatter.formatScore(it) } ?: "N/A",
+            ),
+            HeaderBlock(
+                title = "Rank",
+                subtitle = rank?.let { "#${numberFormatter.formatCommon(it)}" } ?: "N/A",
+            ),
+            HeaderBlock(
+                title = "Members",
+                subtitle = members?.let { numberFormatter.formatCommon(it) } ?: "N/A",
+            ),
+            HeaderBlock(
+                title = "Favorites",
+                subtitle = favorites?.let { numberFormatter.formatCommon(it) } ?: "N/A",
+            ),
+        ).toImmutableList(),
     )
 
 private fun List<AnimeProducer>.toProducerUiList() =
@@ -61,7 +82,7 @@ private fun List<AnimeProducer>.toProducerUiList() =
             type = item.type,
             name = item.name,
         )
-    }
+    }.toImmutableList()
 
 private fun List<AnimeLicensor>.toLicensorUiList() =
     map { item ->
@@ -70,7 +91,7 @@ private fun List<AnimeLicensor>.toLicensorUiList() =
             type = item.type,
             name = item.name,
         )
-    }
+    }.toImmutableList()
 
 private fun List<AnimeStudio>.toStudioUiList() =
     map { item ->
@@ -79,7 +100,7 @@ private fun List<AnimeStudio>.toStudioUiList() =
             type = item.type,
             name = item.name,
         )
-    }
+    }.toImmutableList()
 
 private fun List<AnimeGenre>.toGenreUiList() =
     map { item ->
@@ -88,7 +109,7 @@ private fun List<AnimeGenre>.toGenreUiList() =
             type = item.type,
             name = item.name,
         )
-    }
+    }.toImmutableList()
 
 private fun List<AnimeTheme>.toThemeUiList() =
     map { item ->
@@ -97,4 +118,4 @@ private fun List<AnimeTheme>.toThemeUiList() =
             type = item.type,
             name = item.name,
         )
-    }
+    }.toImmutableList()

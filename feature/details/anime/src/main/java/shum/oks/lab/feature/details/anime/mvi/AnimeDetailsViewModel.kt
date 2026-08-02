@@ -16,12 +16,14 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import shum.oks.lab.core.mvi.BaseViewModel
+import shum.oks.lab.core.ui.formatters.NumberFormatter
 import shum.oks.lab.entity.anime.domain.api.usecases.GetAnimeDetailsUseCase
 import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiComponentHolder
 import shum.oks.lab.feature.details.anime.screens.mappers.toUiModel
 
 internal class AnimeDetailsViewModel @AssistedInject constructor(
     getAnimeDetailsUseCase: GetAnimeDetailsUseCase,
+    numberFormatter: NumberFormatter,
     @Assisted val animeId: Int,
 ) : BaseViewModel<
     AnimeDetailsUiState,
@@ -39,7 +41,7 @@ internal class AnimeDetailsViewModel @AssistedInject constructor(
                     updateState {
                         AnimeDetailsUiState.Content(
                             loadingState = dataEvent.loadState.toUiModel(),
-                            animeDetailsUi = dataEvent.data.toUiModel(),
+                            animeDetailsUi = dataEvent.data.toUiModel(numberFormatter),
                         )
                     }
                 }

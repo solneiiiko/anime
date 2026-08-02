@@ -8,15 +8,14 @@
 
 package shum.oks.lab.feature.details.anime.di
 
-import dagger.Component
+import dagger.Module
+import dagger.Provides
+import shum.oks.lab.core.ui.formatters.NumberFormatter
 
+@Module
+internal class AnimeDetailsUiModule {
 
-@Component(
-    dependencies = [
-        AnimeDetailsUiDependencies::class,
-    ],
-    modules = [
-        AnimeDetailsUiModule::class,
-    ]
-)
-internal abstract class AnimeDetailsUiComponent : AnimeDetailsUiApi()
+    @Provides
+    fun provideNumberFormatter(): NumberFormatter =
+        NumberFormatter()
+}
