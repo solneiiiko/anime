@@ -9,6 +9,7 @@
 package shum.oks.lab.feature.details.anime.screens.models
 
 import kotlinx.collections.immutable.ImmutableList
+import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.entity.anime.domain.api.models.AnimeType
 
 internal data class AnimeDetailsUi(
@@ -39,6 +40,6 @@ internal data class HeaderInfoUi(
 )
 
 internal data class HeaderBlock(
-    val title: String,
-    val subtitle: String,
+    val title: UiText,
+    val subtitle: UiText,
 )

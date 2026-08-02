@@ -35,6 +35,7 @@ import coil3.request.ImageRequest
 import kotlinx.collections.immutable.toImmutableList
 import shum.oks.lab.core.ui.composable.ErrorImagePlaceholder
 import shum.oks.lab.core.ui.composable.LoadingImagePlaceholder
+import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.core.ui.preview.AnimeThemePreview
 import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.feature.details.anime.screens.models.HeaderBlock
@@ -87,12 +88,12 @@ internal fun ExpandedAnimeHeader(
                     ) {
                         Text(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            text = headerBlock.subtitle,
+                            text = headerBlock.subtitle.asString(),
                             style = MaterialTheme.typography.titleLarge,
                         )
                         Text(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            text = headerBlock.title,
+                            text = headerBlock.title.asString(),
                             style = MaterialTheme.typography.titleSmall,
                         )
                     }
@@ -147,10 +148,22 @@ private fun ExpandedAnimeHeaderPreview() {
                 title = "Anime details very very very very very very very very very very very very",
                 imageUrl = null,
                 headerBlocks = listOf(
-                    HeaderBlock(title = "Score", subtitle = "8.50"),
-                    HeaderBlock(title = "Rank", subtitle = "#1"),
-                    HeaderBlock(title = "Members", subtitle = "1,000"),
-                    HeaderBlock(title = "Favorites", subtitle = "500")
+                    HeaderBlock(
+                        title = UiText.Plain("Score"),
+                        subtitle = UiText.Plain("8.50")
+                    ),
+                    HeaderBlock(
+                        title = UiText.Plain("Rank"),
+                        subtitle = UiText.Plain("#1")
+                    ),
+                    HeaderBlock(
+                        title = UiText.Plain("Members"),
+                        subtitle = UiText.Plain("1,000")
+                    ),
+                    HeaderBlock(
+                        title = UiText.Plain("Favorites"),
+                        subtitle = UiText.Plain("500")
+                    )
                 ).toImmutableList(),
             ),
             modifier = Modifier

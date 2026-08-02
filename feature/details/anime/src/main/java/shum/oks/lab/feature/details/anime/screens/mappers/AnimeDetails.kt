@@ -10,12 +10,14 @@ package shum.oks.lab.feature.details.anime.screens.mappers
 
 import kotlinx.collections.immutable.toImmutableList
 import shum.oks.lab.core.ui.formatters.NumberFormatter
+import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.entity.anime.domain.api.models.AnimeDetails
 import shum.oks.lab.entity.anime.domain.api.models.AnimeGenre
 import shum.oks.lab.entity.anime.domain.api.models.AnimeLicensor
 import shum.oks.lab.entity.anime.domain.api.models.AnimeProducer
 import shum.oks.lab.entity.anime.domain.api.models.AnimeStudio
 import shum.oks.lab.entity.anime.domain.api.models.AnimeTheme
+import shum.oks.lab.feature.details.anime.R
 import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUi
 import shum.oks.lab.feature.details.anime.screens.models.GenreUi
 import shum.oks.lab.feature.details.anime.screens.models.HeaderBlock
@@ -57,20 +59,31 @@ private fun AnimeDetails.toHeaderInfoUi(
         imageUrl = imageUrl,
         headerBlocks = listOf(
             HeaderBlock(
-                title = "Score",
-                subtitle = score?.let { numberFormatter.formatScore(it) } ?: "N/A",
+                title = UiText.StringResource(R.string.anime_details_score_label),
+                subtitle = score.toSubtitle {
+                    UiText.Plain(numberFormatter.formatScore(it))
+                },
             ),
             HeaderBlock(
-                title = "Rank",
-                subtitle = rank?.let { "#${numberFormatter.formatCommon(it)}" } ?: "N/A",
+                title = UiText.StringResource(R.string.anime_details_rank_label),
+                subtitle = rank.toSubtitle {
+                    UiText.StringResource(
+                        R.string.anime_details_rank_value_format,
+                        numberFormatter.formatCommon(it)
+                    )
+                },
             ),
             HeaderBlock(
-                title = "Members",
-                subtitle = members?.let { numberFormatter.formatCommon(it) } ?: "N/A",
+                title = UiText.StringResource(R.string.anime_details_members_label),
+                subtitle = members.toSubtitle {
+                    UiText.Plain(numberFormatter.formatCommon(it))
+                },
             ),
             HeaderBlock(
-                title = "Favorites",
-                subtitle = favorites?.let { numberFormatter.formatCommon(it) } ?: "N/A",
+                title = UiText.StringResource(R.string.anime_details_favorites_label),
+                subtitle = favorites.toSubtitle {
+                    UiText.Plain(numberFormatter.formatCommon(it))
+                },
             ),
         ).toImmutableList(),
     )
@@ -119,3 +132,7 @@ private fun List<AnimeTheme>.toThemeUiList() =
             name = item.name,
         )
     }.toImmutableList()
+
+private fun <T> T?.toSubtitle(
+    format: (T) -> UiText
+): UiText = this?.let { format(it) } ?: UiText.StringResource(R.string.anime_details_not_available)
