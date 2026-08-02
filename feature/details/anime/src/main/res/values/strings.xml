@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2026 Oksana Shumilova.
+  ~ All rights reserved.
+  ~
+  ~ This source code is provided for portfolio and evaluation purposes only.
+  ~ Unauthorized copying, modification, or distribution is prohibited.
+  -->
+
+<resources>
+    <string name="anime_details_score_label">Score</string>
+    <string name="anime_details_rank_label">Rank</string>
+    <string name="anime_details_members_label">Members</string>
+    <string name="anime_details_favorites_label">Favorites</string>
+    <string name="anime_details_not_available">N/A</string>
+    <string name="anime_details_rank_value_format">#%1$s</string>
+</resources>
