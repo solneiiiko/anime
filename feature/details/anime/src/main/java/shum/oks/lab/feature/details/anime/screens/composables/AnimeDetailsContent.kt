@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.details.anime.screens.composables
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,13 +23,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import shum.oks.lab.core.ui.composable.ExpandableText
 import shum.oks.lab.core.ui.composable.toolbar.CollapsingToolbar
 import shum.oks.lab.core.ui.composable.toolbar.Title
 import shum.oks.lab.core.ui.composable.toolbar.TitlePlacement
@@ -112,15 +113,39 @@ internal fun AnimeDetailsContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
+                .padding(
+                    top = 16.dp,
+                    bottom = 24.dp,
+                )
+                .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            repeat(10) { // TODO for scroll https://github.com/solneiiiko/anime/issues/17
+            animeDetailsUi.synopsis?.let {
                 item {
-                    Text(
-                        text = animeDetailsUi.toString(),
+                    ExpandableText(
+                        text = it,
+                        textStyle = MaterialTheme.typography.bodyLarge,
+                        collapsedMaxLines = CollapsedMaxLines,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    )
+                }
+            }
+            animeDetailsUi.background?.let {
+                item {
+                    ExpandableText(
+                        text = it,
+                        textStyle = MaterialTheme.typography.bodyLarge,
+                        collapsedMaxLines = CollapsedMaxLines,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
                     )
                 }
             }
         }
     }
 }
+
+private const val CollapsedMaxLines = 4

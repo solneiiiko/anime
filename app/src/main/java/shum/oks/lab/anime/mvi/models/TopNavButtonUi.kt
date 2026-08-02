@@ -8,12 +8,12 @@
 
 package shum.oks.lab.anime.mvi.models
 
-import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation3.runtime.NavKey
+import shum.oks.lab.core.ui.models.UiText
 
 internal data class TopNavButtonUi(
     val navKey: NavKey,
-    @StringRes val label: Int,
+    val label: UiText,
     val icon: ImageVector,
 )

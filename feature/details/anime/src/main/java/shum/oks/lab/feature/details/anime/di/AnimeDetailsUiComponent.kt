@@ -13,7 +13,10 @@ import dagger.Component
 
 @Component(
     dependencies = [
-        AnimeDetailsUiDependencies::class
+        AnimeDetailsUiDependencies::class,
+    ],
+    modules = [
+        AnimeDetailsUiModule::class,
     ]
 )
 internal abstract class AnimeDetailsUiComponent : AnimeDetailsUiApi()

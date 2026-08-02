@@ -8,7 +8,6 @@
 
 package shum.oks.lab.anime.mvi.mappers
 
-import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
@@ -18,6 +17,7 @@ import kotlinx.collections.immutable.toImmutableList
 import shum.oks.lab.anime.R
 import shum.oks.lab.anime.mvi.models.TopNavButtonUi
 import shum.oks.lab.anime.usecases.models.TopNavButton
+import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.feature.catalog.navigation.CatalogScreenKey
 import shum.oks.lab.feature.favourites.navigation.FavouritesScreenKey
 import shum.oks.lab.feature.settings.navigation.SettingsScreenKey
@@ -45,9 +45,9 @@ private val TopNavButton.icon
         TopNavButton.MORE -> Icons.Outlined.Menu
     }
 
-private val TopNavButton.label: Int
-    @StringRes get() = when (this) {
-        TopNavButton.CATALOG -> R.string.shum_oks_lab_app_top_nav_button_catalog
-        TopNavButton.FAVOURITES -> R.string.shum_oks_lab_app_top_nav_button_favourites
-        TopNavButton.MORE -> R.string.shum_oks_lab_app_top_nav_button_more
+private val TopNavButton.label: UiText
+    get() = when (this) {
+        TopNavButton.CATALOG -> UiText.StringResource(R.string.shum_oks_lab_app_top_nav_button_catalog)
+        TopNavButton.FAVOURITES -> UiText.StringResource(R.string.shum_oks_lab_app_top_nav_button_favourites)
+        TopNavButton.MORE -> UiText.StringResource(R.string.shum_oks_lab_app_top_nav_button_more)
     }
