@@ -37,6 +37,8 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.animation)
+    implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.androidx.compose.material.icons.extended)
 
     api(project(":common:theme"))
 
