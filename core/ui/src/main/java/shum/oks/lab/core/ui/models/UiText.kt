@@ -40,3 +40,13 @@ sealed interface UiText {
         }
     }
 }
+
+@Composable
+fun Iterable<UiText>.joinToString(
+    separator: String,
+): String = buildString {
+    this@joinToString.forEachIndexed { index, item ->
+        if (index > 0) append(separator)
+        append(item.asString())
+    }
+}

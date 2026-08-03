@@ -8,7 +8,6 @@
 
 package shum.oks.lab.feature.details.anime.screens
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,7 +21,7 @@ import shum.oks.lab.feature.details.anime.mvi.AnimeDetailsViewModel
 import shum.oks.lab.feature.details.anime.navigation.AnimeDetailsNavigator
 import shum.oks.lab.feature.details.anime.screens.composables.AnimeDetailsContent
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 internal fun AnimeDetailScreen(
     viewModel: AnimeDetailsViewModel,
