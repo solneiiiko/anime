@@ -33,17 +33,13 @@ internal fun AnimeDetails.toUiModel(
     AnimeDetailsUi(
         id = id,
         headerInfo = toHeaderInfoUi(numberFormatter),
+        metadata = toMetadata(),
         type = type,
         trailerUrl = trailerUrl,
-        duration = duration,
-        rating = rating,
         scoredBy = scoredBy,
-        rank = rank,
         popularity = popularity,
-        favorites = favorites,
         synopsis = synopsis,
         background = background,
-        year = year,
         producers = producers.toProducerUiList(),
         licensors = licensors.toLicensorUiList(),
         studios = studios.toStudioUiList(),
@@ -87,6 +83,14 @@ private fun AnimeDetails.toHeaderInfoUi(
             ),
         ).toImmutableList(),
     )
+
+private fun AnimeDetails.toMetadata() = listOfNotNull<UiText>(
+    UiText.Plain(type.name), // TODO  strings !!!
+    year?.let { UiText.Plain(it.toString()) },
+    episodes?.let { UiText.PluralStringResource(R.plurals.anime_details_episodes_count, it, it) },
+    duration?.let { UiText.Plain(it) },
+    rating?.let { UiText.Plain(it) },  // TODO  strings !!!
+).toImmutableList()
 
 private fun List<AnimeProducer>.toProducerUiList() =
     map { item ->

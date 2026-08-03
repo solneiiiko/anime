@@ -114,33 +114,40 @@ internal fun AnimeDetailsContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
+                    start = 16.dp,
+                    end = 16.dp,
                     top = 16.dp,
                     bottom = 24.dp,
                 )
                 .weight(1f),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            animeDetailsUi.synopsis?.let {
+            item {
+                Metadata(
+                    metadata = animeDetailsUi.metadata,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+            if (animeDetailsUi.synopsis.isNullOrBlank().not()) {
                 item {
                     ExpandableText(
-                        text = it,
+                        text = animeDetailsUi.synopsis,
                         textStyle = MaterialTheme.typography.bodyLarge,
                         collapsedMaxLines = CollapsedMaxLines,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
                     )
                 }
             }
-            animeDetailsUi.background?.let {
+            if (animeDetailsUi.background.isNullOrBlank().not()) {
                 item {
                     ExpandableText(
-                        text = it,
+                        text = animeDetailsUi.background,
                         textStyle = MaterialTheme.typography.bodyLarge,
                         collapsedMaxLines = CollapsedMaxLines,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
                     )
                 }
             }
