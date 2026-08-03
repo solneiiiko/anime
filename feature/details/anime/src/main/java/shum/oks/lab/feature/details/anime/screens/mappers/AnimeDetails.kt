@@ -87,7 +87,7 @@ private fun AnimeDetails.toHeaderInfoUi(
 private fun AnimeDetails.toMetadata() = listOfNotNull<UiText>(
     UiText.Plain(type.name), // TODO  strings !!!
     year?.let { UiText.Plain(it.toString()) },
-    episodes?.let { UiText.Plain(it.toString()) },
+    episodes?.let { UiText.PluralStringResource(R.plurals.anime_details_episodes_count, it, it) },
     duration?.let { UiText.Plain(it) },
     rating?.let { UiText.Plain(it) },  // TODO  strings !!!
 ).toImmutableList()

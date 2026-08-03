@@ -8,8 +8,10 @@
 
 package shum.oks.lab.core.ui.models
 
+import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -32,11 +34,21 @@ sealed interface UiText {
         constructor(@StringRes resId: Int, vararg args: Any) : this(resId, args.toImmutableList())
     }
 
+    data class PluralStringResource(
+        @PluralsRes val resId: Int,
+        val quantity: Int,
+        val args: ImmutableList<Any> = emptyList<Any>().toImmutableList()
+    ) : UiText {
+        constructor(@PluralsRes resId: Int, quantity: Int, vararg args: Any) :
+                this(resId, quantity, args.toImmutableList())
+    }
+
     @Composable
     fun asString(): String {
         return when (this) {
             is Plain -> value
             is StringResource -> stringResource(resId, *args.toTypedArray())
+            is PluralStringResource -> pluralStringResource(resId, quantity, *args.toTypedArray())
         }
     }
 }
