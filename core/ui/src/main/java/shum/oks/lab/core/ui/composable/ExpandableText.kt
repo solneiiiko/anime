@@ -30,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import shum.oks.lab.core.ui.R
@@ -64,12 +65,13 @@ fun ExpandableText(
             text = text,
             maxLines = if (expanded) Int.MAX_VALUE else collapsedMaxLines,
             style = textStyle,
+            textAlign = TextAlign.Justify,
             onTextLayout = { result ->
                 if (!expanded) {
                     hasOverflow = result.hasVisualOverflow
                 }
             },
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
         if (hasOverflow || expanded) {
             val actionText = (if (expanded) showLessText?.asString() else showMoreText.asString())
@@ -77,7 +79,7 @@ fun ExpandableText(
                 TextButton(
                     onClick = { expanded = !expanded },
                     contentPadding = PaddingValues(
-                        horizontal = 0.dp,
+                        horizontal = 2.dp,
                         vertical = 4.dp,
                     ),
                 ) {
