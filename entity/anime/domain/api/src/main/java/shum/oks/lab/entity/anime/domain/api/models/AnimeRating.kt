@@ -6,10 +6,13 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.feature.details.anime.screens.models
+package shum.oks.lab.entity.anime.domain.api.models
 
-internal data class GenreUi(
-    val id: Int,
-    val type: String,
-    val name: String,
-)
+enum class AnimeRating {
+    G,
+    PG,
+    PG_13,
+    R,
+    R_PLUS,
+    RX,
+}
