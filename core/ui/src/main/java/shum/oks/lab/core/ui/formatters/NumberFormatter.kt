@@ -23,9 +23,9 @@ class NumberFormatter {
         return if (absValue >= MILLION_THRESHOLD) {
             FormatType.COMPACT_DECIMAL.formatter
                 .format(value / MILLION_THRESHOLD.toDouble()) + MILLION_SUFFIX
-        } else if (absValue >= THOUSAND_THRESHOLD) {
+        } else if (absValue >= TEN_THOUSAND_THRESHOLD) {
             FormatType.COMPACT_DECIMAL.formatter
-                .format(value / THOUSAND_THRESHOLD.toDouble()) + THOUSAND_SUFFIX
+                .format(value / THOUSAND_DIVISOR) + THOUSAND_SUFFIX
         } else {
             FormatType.COMMON_INT.formatter.format(value)
         }
@@ -43,11 +43,10 @@ class NumberFormatter {
             DecimalFormat(pattern, DecimalFormatSymbols(Locale.US))
         }
     }
-
-    private companion object {
-        const val MILLION_THRESHOLD = 1_000_000
-        const val THOUSAND_THRESHOLD = 10_000
-        const val MILLION_SUFFIX = "M"
-        const val THOUSAND_SUFFIX = "K"
-    }
 }
+
+private const val MILLION_THRESHOLD = 1_000_000
+private const val TEN_THOUSAND_THRESHOLD = 10_000
+private const val THOUSAND_DIVISOR = 1_000.0
+private const val MILLION_SUFFIX = "M"
+private const val THOUSAND_SUFFIX = "K"
