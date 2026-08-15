@@ -14,6 +14,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import shum.oks.lab.core.mvi.BaseViewModel
 import shum.oks.lab.core.ui.formatters.NumberFormatter
@@ -37,13 +40,15 @@ internal class AnimeDetailsViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             getAnimeDetailsUseCase(animeId)
-                .collect { dataEvent ->
-                    updateState {
-                        AnimeDetailsUiState.Content(
-                            loadingState = dataEvent.loadState.toUiModel(),
-                            animeDetailsUi = dataEvent.data.toUiModel(numberFormatter),
-                        )
-                    }
+                .map { dataEvent ->
+                    AnimeDetailsUiState.Content(
+                        loadingState = dataEvent.loadState.toUiModel(),
+                        animeDetailsUi = dataEvent.data.toUiModel(numberFormatter),
+                    )
+                }
+                .flowOn(Dispatchers.Default)
+                .collect { state ->
+                    updateState { state }
                 }
         }
     }

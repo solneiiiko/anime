@@ -8,6 +8,11 @@
 
 package shum.oks.lab.anime.navigation
 
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowSize
@@ -83,9 +88,36 @@ internal fun AppNavDisplay(
             },
             entries = navigationState.toDecoratedEntries(entryProvider),
             modifier = modifier,
+            transitionSpec = {
+                createTransitionContentTransform()
+            },
+            popTransitionSpec = {
+                createPopTransitionContentTransform()
+            },
+            predictivePopTransitionSpec = {
+                createPopTransitionContentTransform()
+            }
         )
     }
 }
+
+private fun createPopTransitionContentTransform(): ContentTransform =
+    slideInHorizontally(
+        initialOffsetX = { -it / 4 },
+        animationSpec = tween(TransitionDurationMillis),
+    ) togetherWith slideOutHorizontally(
+        targetOffsetX = { it },
+        animationSpec = tween(TransitionDurationMillis),
+    )
+
+private fun createTransitionContentTransform(): ContentTransform =
+    slideInHorizontally(
+        initialOffsetX = { it },
+        animationSpec = tween(TransitionDurationMillis),
+    ) togetherWith slideOutHorizontally(
+        targetOffsetX = { -it / 4 },
+        animationSpec = tween(TransitionDurationMillis),
+    )
 
 @Composable
 private fun getNavigationSuiteTypeByWindowSize(): NavigationSuiteType {
@@ -97,3 +129,5 @@ private fun getNavigationSuiteTypeByWindowSize(): NavigationSuiteType {
     else
         NavigationSuiteType.NavigationBar
 }
+
+private const val TransitionDurationMillis = 200

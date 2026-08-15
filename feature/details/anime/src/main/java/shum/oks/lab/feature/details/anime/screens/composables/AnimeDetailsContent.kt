@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.details.anime.screens.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,7 +53,8 @@ internal fun AnimeDetailsContent(
             .fillMaxSize()
             .nestedScroll(
                 scrollBehavior.nestedScrollConnection,
-            ),
+            )
+            .background(MaterialTheme.colorScheme.background),
     ) {
         Box {
             HeaderBackground(
