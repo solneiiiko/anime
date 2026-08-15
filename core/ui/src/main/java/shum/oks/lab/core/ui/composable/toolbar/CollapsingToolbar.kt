@@ -38,8 +38,8 @@ fun CollapsingToolbar(
             collapsedTitle = collapsedTitle,
             navigationIcon = navigationIcon,
             expandedContent = expandedContent,
-            collapsedProgress = scrollBehavior.state.collapsedFraction,
-            heightOffset = scrollBehavior.state.heightOffset,
+            collapsedProgress = { scrollBehavior.state.collapsedFraction },
+            heightOffset = { scrollBehavior.state.heightOffset },
             onHeightOffsetLimitChange = { heightOffsetLimit ->
                 scrollBehavior.state.heightOffsetLimit = heightOffsetLimit
             },

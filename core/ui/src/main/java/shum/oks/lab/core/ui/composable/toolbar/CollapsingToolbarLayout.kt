@@ -29,8 +29,8 @@ import androidx.compose.ui.util.lerp
 internal fun CollapsingToolbarLayout(
     expandedTitle: Title,
     collapsedTitle: Title,
-    collapsedProgress: Float,
-    heightOffset: Float,
+    collapsedProgress: () -> Float,
+    heightOffset: () -> Float,
     modifier: Modifier = Modifier,
     navigationIcon: (@Composable () -> Unit)? = null,
     expandedContent: (@Composable () -> Unit)? = null,
@@ -136,7 +136,7 @@ internal fun CollapsingToolbarLayout(
         val heightOffsetLimit = -(fullToolbarHeightPx - collapsedToolbarHeightPx).toFloat()
         onHeightOffsetLimitChange(heightOffsetLimit)
 
-        val layoutHeightPx = (fullToolbarHeightPx + heightOffset).coerceIn(
+        val layoutHeightPx = (fullToolbarHeightPx + heightOffset()).coerceIn(
                 minimumValue = collapsedToolbarHeightPx.toFloat(),
                 maximumValue = fullToolbarHeightPx.toFloat(),
             )
@@ -157,20 +157,21 @@ internal fun CollapsingToolbarLayout(
             width = constraints.maxWidth,
             height = layoutHeightPx.toInt(),
         ) {
+            val progress = collapsedProgress()
             val titleX = lerp(
                 start = expandedTitleX,
                 stop = collapsedTitleX,
-                fraction = collapsedProgress,
+                fraction = progress,
             )
             val titleY = lerp(
                 start = expandedTitleY,
                 stop = collapsedTitleY,
-                fraction = collapsedProgress,
+                fraction = progress,
             )
             val currentFontSize = lerp(
                 start = expandedFontSize,
                 stop = collapsedFontSize,
-                fraction = collapsedProgress,
+                fraction = progress,
             )
 
             val expandedTitleScale = currentFontSize / expandedFontSize
@@ -184,7 +185,7 @@ internal fun CollapsingToolbarLayout(
                 x = titleX,
                 y = titleY,
             ) {
-                alpha = collapsedProgress
+                alpha = progress
                 scaleX = collapsedTitleScale
                 scaleY = collapsedTitleScale
                 transformOrigin = TransformOrigin(0f, 0f)
@@ -193,7 +194,7 @@ internal fun CollapsingToolbarLayout(
                 x = titleX,
                 y = titleY,
             ) {
-                alpha = 1f - collapsedProgress
+                alpha = 1f - progress
                 scaleX = expandedTitleScale
                 scaleY = expandedTitleScale
                 transformOrigin = TransformOrigin(0f, 0f)
@@ -202,8 +203,8 @@ internal fun CollapsingToolbarLayout(
                 x = 0,
                 y = expandedContentY,
             ) {
-                alpha = expandedContentAlpha(progress = collapsedProgress)
-                translationY = -expandedContentPlaceable.height * collapsedProgress * ExpandedContentTranslationFactor
+                alpha = expandedContentAlpha(progress = progress)
+                translationY = -expandedContentPlaceable.height * progress * ExpandedContentTranslationFactor
             }
         }
     }
@@ -215,7 +216,7 @@ internal fun expandedContentAlpha(
     return (1f - progress / ExpandedContentFadeEnd).coerceIn(0f, 1f)
 }
 
-internal fun MeasureScope.calculateTitlePaddingsPx(
+private fun MeasureScope.calculateTitlePaddingsPx(
     titlePlacement: TitlePlacement,
 ): TitlePaddingPx {
     val titlePaddingValues = when (titlePlacement) {

@@ -49,8 +49,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = collapsedTitle,
-                collapsedProgress = 0f,
-                heightOffset = 0f,
+                collapsedProgress = { 0f },
+                heightOffset = { 0f },
                 onHeightOffsetLimitChange = {}
             )
         }
@@ -63,8 +63,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = collapsedTitle,
-                collapsedProgress = 1f,
-                heightOffset = 0f,
+                collapsedProgress = { 1f },
+                heightOffset = { 0f },
                 onHeightOffsetLimitChange = {}
             )
         }
@@ -78,8 +78,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = collapsedTitle,
-                collapsedProgress = 0f,
-                heightOffset = 0f,
+                collapsedProgress = { 0f },
+                heightOffset = { 0f },
                 onHeightOffsetLimitChange = callback
             )
         }
@@ -92,8 +92,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = collapsedTitle,
-                collapsedProgress = 1f,
-                heightOffset = 0f,
+                collapsedProgress = { 1f },
+                heightOffset = { 0f },
                 navigationIcon = {
                     Box(Modifier.size(48.dp))
                 },
@@ -109,8 +109,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = collapsedTitle,
-                collapsedProgress = 0f,
-                heightOffset = 0f,
+                collapsedProgress = { 0f },
+                heightOffset = { 0f },
                 expandedContent = {
                     Box(Modifier.size(100.dp))
                 },
@@ -130,8 +130,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = zeroStartCollapsedTitle,
-                collapsedProgress = 1f,
-                heightOffset = 0f,
+                collapsedProgress = { 1f },
+                heightOffset = { 0f },
                 navigationIcon = null,
                 onHeightOffsetLimitChange = {}
             )
@@ -153,8 +153,8 @@ class CollapsingToolbarLayoutUiTest {
             CollapsingToolbarLayout(
                 expandedTitle = expandedTitle,
                 collapsedTitle = longTitle,
-                collapsedProgress = 1f,
-                heightOffset = 0f,
+                collapsedProgress = { 1f },
+                heightOffset = { 0f },
                 modifier = Modifier.width(maxWidth),
                 onHeightOffsetLimitChange = {}
             )
