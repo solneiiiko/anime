@@ -13,14 +13,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.lerp
+import androidx.compose.ui.text.style.TextMotion
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.util.lerp
 
@@ -36,11 +36,12 @@ internal fun CollapsingToolbarLayout(
     expandedContent: (@Composable () -> Unit)? = null,
     onHeightOffsetLimitChange: (Float) -> Unit,
 ) {
-    val collapsingTitleScale = lerp(
-        start = expandedTitle.textStyle,
-        stop = collapsedTitle.textStyle,
-        fraction = collapsedProgress
-    )
+    val animatedCollapsedTextStyle = remember(collapsedTitle) {
+        collapsedTitle.textStyle.copy(textMotion = TextMotion.Animated)
+    }
+    val animatedExpandedTextStyle = remember(expandedTitle) {
+        expandedTitle.textStyle.copy(textMotion = TextMotion.Animated)
+    }
     Layout(
         content = {
             Text(
@@ -48,7 +49,7 @@ internal fun CollapsingToolbarLayout(
                     .layoutId(CollapsedTitleLayoutId)
                     .testTag(CollapsedTitleTestTag),
                 text = collapsedTitle.text,
-                style = collapsedTitle.textStyle,
+                style = animatedCollapsedTextStyle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -57,7 +58,7 @@ internal fun CollapsingToolbarLayout(
                     .layoutId(ExpandedTitleLayoutId)
                     .testTag(ExpandedTitleTestTag),
                 text = expandedTitle.text,
-                style = expandedTitle.textStyle,
+                style = animatedExpandedTextStyle,
             )
 
             if (navigationIcon != null) {
@@ -65,7 +66,7 @@ internal fun CollapsingToolbarLayout(
                     modifier = Modifier
                         .wrapContentSize()
                         .layoutId(NavigationIconLayoutId)
-                        .testTag(NavigationIconTestTag)
+                        .testTag(NavigationIconTestTag),
                 ) {
                     navigationIcon()
                 }
@@ -75,10 +76,7 @@ internal fun CollapsingToolbarLayout(
                     modifier = Modifier
                         .wrapContentSize()
                         .layoutId(ExpandedContentLayoutId)
-                        .testTag(ExpandedContentTestTag)
-                        .graphicsLayer {
-                            alpha = expandedContentAlpha(progress = collapsedProgress)
-                        }
+                        .testTag(ExpandedContentTestTag),
                 ) {
                     expandedContent()
                 }
@@ -86,77 +84,98 @@ internal fun CollapsingToolbarLayout(
         },
         modifier = modifier,
     ) { measurables, constraints ->
-        val navigationIconPlaceable = measurables
-            .firstOrNull { it.layoutId == NavigationIconLayoutId }
-            ?.measure(constraints.copy(minWidth = 0))
-
-        val collapsedTitlePaddingPx = calculateTitlePaddingsPx(
-            titlePlacement = collapsedTitle.placement,
-        )
-        val collapsedTitlePlaceable = measurables
-            .first { it.layoutId == CollapsedTitleLayoutId }
-            .measure(
-                constraints.copy(
-                    minWidth = 0,
-                    minHeight = 0,
-                    maxWidth = constraints.maxWidth - (navigationIconPlaceable?.width ?: 0) - collapsedTitlePaddingPx.horizontalPaddingPx
-                )
-            )
-
-        val expandedTitlePaddingPx = calculateTitlePaddingsPx(
-            titlePlacement = expandedTitle.placement,
-        )
-        val expandedTitlePlaceable = measurables
-            .first { it.layoutId == ExpandedTitleLayoutId }
-            .measure(
-                constraints.copy(
-                    minWidth = 0,
-                    minHeight = 0,
-                    maxWidth = constraints.maxWidth - expandedTitlePaddingPx.horizontalPaddingPx,
-                )
-            )
-
-        val expandedContentPlaceable = measurables
-            .firstOrNull { it.layoutId == ExpandedContentLayoutId }
+        val measurablesMap = measurables.associateBy { it.layoutId }
+        val navigationIconPlaceable = measurablesMap[NavigationIconLayoutId]
             ?.measure(
                 constraints.copy(
                     minWidth = 0,
                     minHeight = 0,
+                ),
+            )
+        val collapsedTitlePaddingPx = calculateTitlePaddingsPx(
+            titlePlacement = collapsedTitle.placement,
+        )
+        val collapsedTitlePlaceable = measurablesMap.getValue(CollapsedTitleLayoutId)
+            .measure(
+                constraints.copy(
+                    minWidth = 0,
+                    minHeight = 0,
+                    maxWidth = (
+                        constraints.maxWidth - (navigationIconPlaceable?.width ?: 0)
+                                - collapsedTitlePaddingPx.horizontalPaddingPx
+                    ).coerceAtLeast(0),
+                ),
+            )
+        val expandedTitlePaddingPx = calculateTitlePaddingsPx(
+            titlePlacement = expandedTitle.placement,
+        )
+        val expandedTitlePlaceable = measurablesMap.getValue(ExpandedTitleLayoutId)
+            .measure(
+                constraints.copy(
+                    minWidth = 0,
+                    minHeight = 0,
+                    maxWidth = (constraints.maxWidth - expandedTitlePaddingPx.horizontalPaddingPx)
+                        .coerceAtLeast(0),
                 )
             )
-
+        val expandedContentPlaceable = measurablesMap[ExpandedContentLayoutId]
+            ?.measure(
+                constraints.copy(
+                    minWidth = 0,
+                    minHeight = 0,
+                ),
+            )
         val collapsedToolbarHeightPx = maxOf(
             navigationIconPlaceable?.height ?: 0,
             collapsedTitlePlaceable.height + collapsedTitlePaddingPx.verticalPaddingPx,
         )
 
+        val expandedTitleHeightPx = expandedTitlePlaceable.height + expandedTitlePaddingPx.verticalPaddingPx
+        val fullToolbarHeightPx = collapsedToolbarHeightPx + expandedTitleHeightPx + (expandedContentPlaceable?.height ?: 0)
+
+        val heightOffsetLimit = -(fullToolbarHeightPx - collapsedToolbarHeightPx).toFloat()
+        onHeightOffsetLimitChange(heightOffsetLimit)
+
+        val layoutHeightPx = (fullToolbarHeightPx + heightOffset).coerceIn(
+                minimumValue = collapsedToolbarHeightPx.toFloat(),
+                maximumValue = fullToolbarHeightPx.toFloat(),
+            )
         val navIconX = 0
         val navIconY = (collapsedToolbarHeightPx - (navigationIconPlaceable?.height ?: 0)) / 2
-
         val collapsedTitleX = (navigationIconPlaceable?.width ?: 0) + collapsedTitlePaddingPx.left
         val collapsedTitleY = when (collapsedTitle.placement) {
             is TitlePlacement.CenterVertically -> (collapsedToolbarHeightPx - collapsedTitlePlaceable.height) / 2
             is TitlePlacement.Padded -> collapsedTitlePaddingPx.top
         }
-
         val expandedTitleX = expandedTitlePaddingPx.left
         val expandedTitleY = collapsedToolbarHeightPx + expandedTitlePaddingPx.top
-
-        val expandedTitleHeightPx = expandedTitlePlaceable.height + expandedTitlePaddingPx.verticalPaddingPx
-        val fullToolbarHeightPx = collapsedToolbarHeightPx + expandedTitleHeightPx + (expandedContentPlaceable?.height ?: 0)
-
-        onHeightOffsetLimitChange(-(fullToolbarHeightPx - collapsedToolbarHeightPx).toFloat())
-
-        val layoutHeightPx = (fullToolbarHeightPx + heightOffset)
-            .coerceIn(collapsedToolbarHeightPx.toFloat(), fullToolbarHeightPx.toFloat())
-
-        val titleX = lerp(expandedTitleX, collapsedTitleX, collapsedProgress)
-        val titleY = lerp(expandedTitleY, collapsedTitleY, collapsedProgress)
+        val expandedContentY = collapsedToolbarHeightPx + expandedTitleHeightPx
+        val expandedFontSize = expandedTitle.textStyle.fontSize.value
+        val collapsedFontSize = collapsedTitle.textStyle.fontSize.value
 
         layout(
             width = constraints.maxWidth,
             height = layoutHeightPx.toInt(),
         ) {
+            val titleX = lerp(
+                start = expandedTitleX,
+                stop = collapsedTitleX,
+                fraction = collapsedProgress,
+            )
+            val titleY = lerp(
+                start = expandedTitleY,
+                stop = collapsedTitleY,
+                fraction = collapsedProgress,
+            )
+            val currentFontSize = lerp(
+                start = expandedFontSize,
+                stop = collapsedFontSize,
+                fraction = collapsedProgress,
+            )
+
+            val expandedTitleScale = currentFontSize / expandedFontSize
+            val collapsedTitleScale = currentFontSize / collapsedFontSize
+
             navigationIconPlaceable?.placeRelative(
                 x = navIconX,
                 y = navIconY,
@@ -166,26 +185,25 @@ internal fun CollapsingToolbarLayout(
                 y = titleY,
             ) {
                 alpha = collapsedProgress
-                scaleX = collapsingTitleScale.fontSize.value / collapsedTitle.textStyle.fontSize.value
-                scaleY = collapsingTitleScale.fontSize.value / collapsedTitle.textStyle.fontSize.value
+                scaleX = collapsedTitleScale
+                scaleY = collapsedTitleScale
                 transformOrigin = TransformOrigin(0f, 0f)
             }
-
             expandedTitlePlaceable.placeRelativeWithLayer(
                 x = titleX,
                 y = titleY,
             ) {
                 alpha = 1f - collapsedProgress
-                scaleX = collapsingTitleScale.fontSize.value / expandedTitle.textStyle.fontSize.value
-                scaleY = collapsingTitleScale.fontSize.value / expandedTitle.textStyle.fontSize.value
+                scaleX = expandedTitleScale
+                scaleY = expandedTitleScale
                 transformOrigin = TransformOrigin(0f, 0f)
             }
-
             expandedContentPlaceable?.placeRelativeWithLayer(
                 x = 0,
-                y = collapsedToolbarHeightPx + expandedTitlePlaceable.height + expandedTitlePaddingPx.verticalPaddingPx
+                y = expandedContentY,
             ) {
-                translationY = -expandedContentPlaceable.height * collapsedProgress * 0.3f // TODO 0.12f bigger???
+                alpha = expandedContentAlpha(progress = collapsedProgress)
+                translationY = -expandedContentPlaceable.height * collapsedProgress * ExpandedContentTranslationFactor
             }
         }
     }
@@ -196,8 +214,6 @@ internal fun expandedContentAlpha(
 ): Float {
     return (1f - progress / ExpandedContentFadeEnd).coerceIn(0f, 1f)
 }
-
-internal const val ExpandedContentFadeEnd = 0.75f
 
 internal fun MeasureScope.calculateTitlePaddingsPx(
     titlePlacement: TitlePlacement,
@@ -228,6 +244,9 @@ internal data class TitlePaddingPx(
     val horizontalPaddingPx = left + right
     val verticalPaddingPx = top + bottom
 }
+
+internal const val ExpandedContentFadeEnd = 0.75f
+private const val ExpandedContentTranslationFactor = 0.3f
 
 private const val CollapsedTitleLayoutId = "CollapsedTitleLayoutId"
 private const val ExpandedTitleLayoutId = "ExpandedTitleLayoutId"
