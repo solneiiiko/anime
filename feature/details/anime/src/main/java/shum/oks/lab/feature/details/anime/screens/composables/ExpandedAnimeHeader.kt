@@ -38,7 +38,8 @@ import shum.oks.lab.core.ui.composable.LoadingImagePlaceholder
 import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.core.ui.preview.AnimeThemePreview
 import shum.oks.lab.core.ui.preview.ThemePreviews
-import shum.oks.lab.feature.details.anime.screens.models.HeaderBlock
+import shum.oks.lab.feature.details.anime.R
+import shum.oks.lab.feature.details.anime.screens.models.HeaderBlockUi
 import shum.oks.lab.feature.details.anime.screens.models.HeaderInfoUi
 
 @Composable
@@ -76,7 +77,7 @@ internal fun ExpandedAnimeHeader(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             maxItemsInEachRow = 2,
         ) {
-            headerInfoUi.headerBlocks.forEach { headerBlock ->
+            headerInfoUi.headerBlockUis.forEach { headerBlock ->
                 Surface(
                     modifier = Modifier.weight(0.5f),
                     color = MaterialTheme.colorScheme.surface.copy(alpha = 0.3f),
@@ -147,21 +148,21 @@ private fun ExpandedAnimeHeaderPreview() {
             headerInfoUi = HeaderInfoUi(
                 title = "Anime details very very very very very very very very very very very very",
                 imageUrl = null,
-                headerBlocks = listOf(
-                    HeaderBlock(
-                        title = UiText.Plain("Score"),
+                headerBlockUis = listOf(
+                    HeaderBlockUi(
+                        title = UiText.StringResource(R.string.anime_details_score_title),
                         subtitle = UiText.Plain("8.50")
                     ),
-                    HeaderBlock(
-                        title = UiText.Plain("Rank"),
+                    HeaderBlockUi(
+                        title = UiText.StringResource(R.string.anime_details_rank_title),
                         subtitle = UiText.Plain("#1")
                     ),
-                    HeaderBlock(
-                        title = UiText.Plain("Members"),
+                    HeaderBlockUi(
+                        title = UiText.StringResource(R.string.anime_details_members_title),
                         subtitle = UiText.Plain("1,000")
                     ),
-                    HeaderBlock(
-                        title = UiText.Plain("Favorites"),
+                    HeaderBlockUi(
+                        title = UiText.StringResource(R.string.anime_details_favorites_title),
                         subtitle = UiText.Plain("500")
                     )
                 ).toImmutableList(),
