@@ -79,10 +79,9 @@ internal class NavigationState(
     val backStacks: Map<NavKey, NavBackStack<NavKey>>
 ) {
 
-    /**
-     * The top level route.
-     */
     var topLevelRoute: NavKey by topLevelRoute
+
+    var transitionType by mutableStateOf(NavigationTransitionType.SWITCH_TOP_LEVEL)
 
     /**
      * Convert the navigation state into `NavEntry`s that have been decorated with a
@@ -114,6 +113,15 @@ internal class NavigationState(
         // Only return the entries for the stacks that are currently in use.
         return getTopLevelRoutesInUse()
             .flatMap { decoratedEntries[it] ?: emptyList() }
+    }
+
+    fun getBackAction(): BackAction {
+        val currentStack = backStacks[topLevelRoute] ?: error("Stack for $topLevelRoute not found")
+        return when {
+            currentStack.last() != topLevelRoute -> BackAction.POP
+            topLevelRoute != startRoute -> BackAction.SWITCH_TOP_LEVEL
+            else -> BackAction.EXIT
+        }
     }
 
     /**

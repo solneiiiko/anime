@@ -10,6 +10,8 @@ package shum.oks.lab.anime.navigation
 
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -89,13 +91,24 @@ internal fun AppNavDisplay(
             entries = navigationState.toDecoratedEntries(entryProvider),
             modifier = modifier,
             transitionSpec = {
-                createTransitionContentTransform()
+                if (navigationState.transitionType != NavigationTransitionType.SWITCH_TOP_LEVEL) {
+                    createTransitionContentTransform()
+                } else {
+                    createSwitchTopLevelTransitionContentTransform()
+                }
             },
             popTransitionSpec = {
-                createPopTransitionContentTransform()
+                if (navigationState.transitionType != NavigationTransitionType.SWITCH_TOP_LEVEL) {
+                    createPopTransitionContentTransform()
+                } else {
+                    createSwitchTopLevelTransitionContentTransform()
+                }
             },
             predictivePopTransitionSpec = {
-                createPopTransitionContentTransform()
+                when (navigationState.getBackAction()) {
+                    BackAction.SWITCH_TOP_LEVEL -> createSwitchTopLevelTransitionContentTransform()
+                    BackAction.POP, BackAction.EXIT -> createPopTransitionContentTransform()
+                }
             }
         )
     }
@@ -117,6 +130,12 @@ private fun createTransitionContentTransform(): ContentTransform =
     ) togetherWith slideOutHorizontally(
         targetOffsetX = { -it / 4 },
         animationSpec = tween(TransitionDurationMillis),
+    )
+
+private fun createSwitchTopLevelTransitionContentTransform(): ContentTransform =
+    ContentTransform(
+        fadeIn(animationSpec = tween(TransitionDurationMillis)),
+        fadeOut(animationSpec = tween(TransitionDurationMillis)),
     )
 
 @Composable
