@@ -8,6 +8,7 @@
 
 package shum.oks.lab.feature.details.anime.screens.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,12 +29,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import shum.oks.lab.core.ui.composable.ExpandableText
 import shum.oks.lab.core.ui.composable.toolbar.CollapsingToolbar
 import shum.oks.lab.core.ui.composable.toolbar.Title
 import shum.oks.lab.core.ui.composable.toolbar.TitlePlacement
+import shum.oks.lab.core.ui.preview.AnimeThemePreview
+import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUi
+import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUiPreviewData
+import shum.oks.lab.core.ui.R as CoreUiR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,15 +47,14 @@ internal fun AnimeDetailsContent(
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // TODO UI is not ready https://github.com/solneiiiko/anime/issues/17
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-
     Column(
         modifier = modifier
             .fillMaxSize()
             .nestedScroll(
                 scrollBehavior.nestedScrollConnection,
-            ),
+            )
+            .background(MaterialTheme.colorScheme.background),
     ) {
         Box {
             HeaderBackground(
@@ -79,14 +83,14 @@ internal fun AnimeDetailsContent(
                 ),
                 navigationIcon = {
                     IconButton(
-                        onClick = { onBackClicked() },
+                        onClick = onBackClicked,
                         modifier = Modifier
                             .padding(vertical = 4.dp)
                     ) {
                         Icon(
                             imageVector =
                                 Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(CoreUiR.string.core_ui_accessibility_back),
                         )
                     }
                 },
@@ -104,48 +108,100 @@ internal fun AnimeDetailsContent(
                     )
                 },
                 scrollBehavior = scrollBehavior,
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding()
             )
         }
-
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(
-                    top = 16.dp,
-                    bottom = 24.dp,
-                )
+                .padding(horizontal = 8.dp)
                 .weight(1f),
             verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(
+                top = 16.dp,
+                bottom = 24.dp,
+            ),
         ) {
-            animeDetailsUi.synopsis?.let {
+            item {
+                MetadataRow(
+                    metadata = animeDetailsUi.metadata,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                )
+            }
+            animeDetailsUi.synopsisInfo?.let { synopsisInfo ->
                 item {
-                    ExpandableText(
-                        text = it,
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        collapsedMaxLines = CollapsedMaxLines,
+                    ExpandableTextCard(expandableTextInfoUi = synopsisInfo)
+                }
+            }
+            // TODO Trailer Preview https://github.com/solneiiiko/anime/issues/17
+            animeDetailsUi.genresInfo?.let { genresInfo ->
+                item {
+                    TagsCard(
+                        tagsInfoUi = genresInfo,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
                     )
                 }
             }
-            animeDetailsUi.background?.let {
+            animeDetailsUi.themesInfo?.let { themesInfo ->
                 item {
-                    ExpandableText(
-                        text = it,
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        collapsedMaxLines = CollapsedMaxLines,
+                    TagsCard(
+                        tagsInfoUi = themesInfo,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
                     )
+                }
+            }
+            animeDetailsUi.statisticsInfo?.let { statisticsInfo ->
+                item {
+                    LabeledValuesCard(
+                        labeledValuesInfoUi = statisticsInfo,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
+            }
+            animeDetailsUi.productionInfo?.let { productionInfo ->
+                item {
+                    LabeledValuesCard(
+                        labeledValuesInfoUi = productionInfo,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
+            }
+            animeDetailsUi.producersInfo?.let { producersInfo ->
+                item {
+                    TagsCard(
+                        tagsInfoUi = producersInfo,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
+            }
+            animeDetailsUi.backgroundInfo?.let { backgroundInfo ->
+                item {
+                    ExpandableTextCard(expandableTextInfoUi = backgroundInfo)
                 }
             }
         }
     }
 }
 
-private const val CollapsedMaxLines = 4
+@ThemePreviews
+@Composable
+private fun AnimeDetailsContentPreview() {
+    AnimeThemePreview {
+        AnimeDetailsContent(
+            animeDetailsUi = AnimeDetailsUiPreviewData.animeDetailsUi(),
+            onBackClicked = {
+                // Nothing to do. All right. ^_^__/
+            }
+        )
+    }
+}
+

@@ -22,6 +22,7 @@ import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeCrossRef
 import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeEntity
 import shum.oks.lab.entity.anime.data.api.entities.AnimeType
 import shum.oks.lab.entity.anime.data.impl.models.AnimeListResponse
+import shum.oks.lab.entity.anime.data.impl.models.AnimeRatingResponse
 import shum.oks.lab.entity.anime.data.impl.models.AnimeTypeResponse
 import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeSummaryListResponse
 import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeSummaryResponse
@@ -120,7 +121,7 @@ private fun JikanAnimeSummaryResponse.toAnimeEntity(): AnimeEntity =
         source = source,
         duration = duration,
         rating = rating?.toAnimeRating(),
-        score = score ?: SCORE_DEFAULT_VALUE,
+        score = score,
         scoredBy = scoredBy,
         rank = rank,
         popularity = popularity,
@@ -133,16 +134,22 @@ private fun JikanAnimeSummaryResponse.toAnimeEntity(): AnimeEntity =
         members = members,
     )
 
-private fun String.toAnimeRating(): AnimeRating =
-    AnimeRating.G
-    // TODO AnimeRating https://github.com/solneiiiko/anime/issues/17
+private fun AnimeRatingResponse.toAnimeRating(): AnimeRating =
+    when (this) {
+        AnimeRatingResponse.G -> AnimeRating.G
+        AnimeRatingResponse.PG -> AnimeRating.PG
+        AnimeRatingResponse.PG_13 -> AnimeRating.PG_13
+        AnimeRatingResponse.R -> AnimeRating.R
+        AnimeRatingResponse.R_PLUS -> AnimeRating.R_PLUS
+        AnimeRatingResponse.RX -> AnimeRating.RX
+    }
 
 private fun MyAnimeListNodeResponse.toAnimeEntity(): AnimeEntity =
     AnimeEntity(
         id = anime.id,
         title = anime.title,
         smallImageUrl = anime.mainPicture?.medium,
-        score = anime.score ?: SCORE_DEFAULT_VALUE,
+        score = anime.score,
         type = anime.mediaType?.toAnimeType(),
         episodes = anime.episodes,
         members = anime.members
@@ -160,5 +167,3 @@ private fun AnimeTypeResponse.toAnimeType(): AnimeType =
         AnimeTypeResponse.PV -> AnimeType.PV
         AnimeTypeResponse.TV_SPECIAL -> AnimeType.TV_SPECIAL
     }
-
-private const val SCORE_DEFAULT_VALUE = 0.0

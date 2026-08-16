@@ -8,6 +8,14 @@
 
 package shum.oks.lab.anime.navigation
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowSize
@@ -16,6 +24,7 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
@@ -23,6 +32,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.window.core.layout.WindowSizeClass
 import shum.oks.lab.anime.mvi.models.TopNavButtonUi
+import shum.oks.lab.core.ui.utils.findActivity
 import shum.oks.lab.feature.catalog.navigation.CatalogScreenKey
 import shum.oks.lab.feature.catalog.navigation.catalogEntryProviders
 import shum.oks.lab.feature.details.anime.navigation.animeDetailsProviders
@@ -38,11 +48,26 @@ internal fun AppNavDisplay(
         startRoute = CatalogScreenKey,
         topLevelRoutes = navButtons.map { it.navKey }.toSet()
     )
-    val navigator = remember { Navigator(navigationState) }
-    val catalogNavigator = remember { createCatalogNavigator(navigator) }
-    val animeDetailsNavigator = remember { createAnimeDetailsNavigator(navigator) }
+    val context = LocalContext.current
 
-    val entryProvider = remember {
+    val navigator = remember(navigationState) {
+        Navigator(
+            state = navigationState,
+            onExit = {
+                context.findActivity()?.finish()
+            }
+        )
+    }
+    // It's a crunch for Navigation 3 ... TODO https://github.com/solneiiiko/anime/issues/47
+    BackHandler(
+        enabled = navigationState.getBackAction() == BackAction.EXIT
+    ) {
+        navigator.goBack()
+    }
+    val catalogNavigator = remember(navigator) { createCatalogNavigator(navigator) }
+    val animeDetailsNavigator = remember(navigator) { createAnimeDetailsNavigator(navigator) }
+
+    val entryProvider = remember(catalogNavigator, animeDetailsNavigator) {
         entryProvider {
             settingsEntryProviders()
             catalogEntryProviders(
@@ -75,17 +100,61 @@ internal fun AppNavDisplay(
                     }
                 )
             }
-        }
+        },
+        modifier = modifier,
     ) {
         NavDisplay(
             onBack = {
                 navigator.goBack()
             },
             entries = navigationState.toDecoratedEntries(entryProvider),
-            modifier = modifier,
+            transitionSpec = {
+                if (navigationState.transitionType != NavigationTransitionType.SWITCH_TOP_LEVEL) {
+                    createTransitionContentTransform()
+                } else {
+                    createSwitchTopLevelTransitionContentTransform()
+                }
+            },
+            popTransitionSpec = {
+                if (navigationState.transitionType != NavigationTransitionType.SWITCH_TOP_LEVEL) {
+                    createPopTransitionContentTransform()
+                } else {
+                    createSwitchTopLevelTransitionContentTransform()
+                }
+            },
+            predictivePopTransitionSpec = {
+                when (navigationState.getBackAction()) {
+                    BackAction.SWITCH_TOP_LEVEL -> createSwitchTopLevelTransitionContentTransform()
+                    BackAction.POP, BackAction.EXIT -> createPopTransitionContentTransform()
+                }
+            }
         )
     }
 }
+
+private fun createPopTransitionContentTransform(): ContentTransform =
+    slideInHorizontally(
+        initialOffsetX = { -it / 4 },
+        animationSpec = tween(TransitionDurationMillis),
+    ) togetherWith slideOutHorizontally(
+        targetOffsetX = { it },
+        animationSpec = tween(TransitionDurationMillis),
+    )
+
+private fun createTransitionContentTransform(): ContentTransform =
+    slideInHorizontally(
+        initialOffsetX = { it },
+        animationSpec = tween(TransitionDurationMillis),
+    ) togetherWith slideOutHorizontally(
+        targetOffsetX = { -it / 4 },
+        animationSpec = tween(TransitionDurationMillis),
+    )
+
+private fun createSwitchTopLevelTransitionContentTransform(): ContentTransform =
+    ContentTransform(
+        fadeIn(animationSpec = tween(TransitionDurationMillis)),
+        fadeOut(animationSpec = tween(TransitionDurationMillis)),
+    )
 
 @Composable
 private fun getNavigationSuiteTypeByWindowSize(): NavigationSuiteType {
@@ -97,3 +166,5 @@ private fun getNavigationSuiteTypeByWindowSize(): NavigationSuiteType {
     else
         NavigationSuiteType.NavigationBar
 }
+
+private const val TransitionDurationMillis = 200

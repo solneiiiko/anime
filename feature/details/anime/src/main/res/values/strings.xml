@@ -8,10 +8,46 @@
   -->
 
 <resources>
-    <string name="anime_details_score_label">Score</string>
-    <string name="anime_details_rank_label">Rank</string>
-    <string name="anime_details_members_label">Members</string>
-    <string name="anime_details_favorites_label">Favorites</string>
+    <string name="anime_details_score_title">Score</string>
+    <string name="anime_details_rank_title">Rank</string>
+    <string name="anime_details_members_title">Members</string>
+    <string name="anime_details_favorites_title">Favorites</string>
+    <string name="anime_details_production_title">Production</string>
+    <string name="anime_details_statistics_title">Statistics</string>
+    <string name="anime_details_studios_title">Studios</string>
+    <string name="anime_details_licensors_title">Licensors</string>
+    <string name="anime_details_popularity_title">Popularity</string>
+    <string name="anime_details_scored_by_title">Scored by</string>
+    <string name="anime_details_popularity_value_format">#%1$s</string>
+    <string name="anime_details_producers_title">Producers</string>
+    <string name="anime_details_genres_title">Genres</string>
+    <string name="anime_details_themes_title">Themes</string>
+    <string name="anime_details_synopsis_title">Synopsis</string>
+    <string name="anime_details_background_title">Background</string>
     <string name="anime_details_not_available">N/A</string>
     <string name="anime_details_rank_value_format">#%1$s</string>
+    <string name="anime_details_type_tv">TV</string>
+    <string name="anime_details_type_ova">OVA</string>
+    <string name="anime_details_type_movie">Movie</string>
+    <string name="anime_details_type_special">Special</string>
+    <string name="anime_details_type_ona">ONA</string>
+    <string name="anime_details_type_music">Music</string>
+    <string name="anime_details_type_cm">CM</string>
+    <string name="anime_details_type_pv">PV</string>
+    <string name="anime_details_type_tv_special">TV&#160;Special</string>
+    <string name="anime_details_rating_g">All&#160;Ages</string>
+    <string name="anime_details_rating_pg">Children</string>
+    <string name="anime_details_rating_pg_13">Teens&#160;13&#160;or&#160;older</string>
+    <string name="anime_details_rating_r">17+&#160;(violence&#160;&amp;&#160;profanity)</string>
+    <string name="anime_details_rating_r_plus">Mild&#160;Nudity</string>
+    <string name="anime_details_rating_rx">Hentai</string>
+
+    <plurals name="anime_details_episodes_value_format">
+        <item quantity="one">%1$s&#160;episode</item>
+        <item quantity="other">%1$s&#160;episodes</item>
+    </plurals>
+    <plurals name="anime_details_scored_by_value_format">
+        <item quantity="one">%1$s&#160;user</item>
+        <item quantity="other">%1$s&#160;users</item>
+    </plurals>
 </resources>

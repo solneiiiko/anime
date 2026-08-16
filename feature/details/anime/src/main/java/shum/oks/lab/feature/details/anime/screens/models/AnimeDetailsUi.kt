@@ -10,36 +10,53 @@ package shum.oks.lab.feature.details.anime.screens.models
 
 import kotlinx.collections.immutable.ImmutableList
 import shum.oks.lab.core.ui.models.UiText
-import shum.oks.lab.entity.anime.domain.api.models.AnimeType
 
 internal data class AnimeDetailsUi(
     val id: Int,
     val headerInfo: HeaderInfoUi,
+    val metadata: ImmutableList<UiText>,
+    val synopsisInfo: ExpandableTextInfoUi?,
+    val backgroundInfo: ExpandableTextInfoUi?,
+    val productionInfo: LabeledValuesInfoUi?,
+    val statisticsInfo: LabeledValuesInfoUi?,
     val trailerUrl: String?,
-    val duration: String?,
-    val rating: String?,
-    val scoredBy: Int?,
-    val rank: Int?,
-    val popularity: Int?,
-    val favorites: Int?,
-    val synopsis: String?,
-    val background: String?,
-    val year: Int?,
-    val type: AnimeType,
-    val producers: ImmutableList<ProducerUi>,
-    val licensors: ImmutableList<LicensorUi>,
-    val studios: ImmutableList<StudioUi>,
-    val genres: ImmutableList<GenreUi>,
-    val themes: ImmutableList<ThemeUi>,
+    val producersInfo: TagsInfoUi?,
+    val genresInfo: TagsInfoUi?,
+    val themesInfo: TagsInfoUi?,
 )
 
 internal data class HeaderInfoUi(
     val title: String,
     val imageUrl: String?,
-    val headerBlocks: ImmutableList<HeaderBlock>,
+    val headerBlockUis: ImmutableList<HeaderBlockUi>,
 )
 
-internal data class HeaderBlock(
+internal data class HeaderBlockUi(
     val title: UiText,
     val subtitle: UiText,
+)
+
+internal data class ExpandableTextInfoUi(
+    val title: UiText,
+    val text: String,
+    val collapsedMaxLines: Int,
+)
+
+internal data class LabeledValuesInfoUi(
+    val title: UiText,
+    val rows: ImmutableList<LabeledRowUi>,
+)
+
+internal data class LabeledRowUi(
+    val title: UiText,
+    val text: UiText,
+)
+
+internal data class TagsInfoUi(
+    val title: UiText,
+    val tags: ImmutableList<TagInfoUi>,
+)
+
+internal data class TagInfoUi(
+    val label: String,
 )

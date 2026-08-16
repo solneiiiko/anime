@@ -15,7 +15,7 @@ data class AnimeDetails(
     val trailerUrl: String?,
     val source: String?,
     val duration: String?,
-    val rating: String?,
+    val rating: AnimeRating?,
     val score: Double?,
     val scoredBy: Int?,
     val rank: Int?,

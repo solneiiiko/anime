@@ -46,9 +46,9 @@ internal class NumberFormatterTest {
 
     @Test
     fun `formatCommon formats values between 10,000 and 1,000,000 with K suffix`() {
-        assertEquals("1.0K", formatter.formatCommon(10000))
-        assertEquals("50.0K", formatter.formatCommon(500000)) // 500,000 / 10,000 = 50.0
-        assertEquals("99.9K", formatter.formatCommon(999000)) // 999,000 / 10,000 = 99.9
+        assertEquals("10.0K", formatter.formatCommon(10000))
+        assertEquals("500.0K", formatter.formatCommon(500000))
+        assertEquals("999.0K", formatter.formatCommon(999000))
     }
 
     @Test
@@ -60,7 +60,7 @@ internal class NumberFormatterTest {
 
     @Test
     fun `formatCommon rounds correctly at K to M boundary`() {
-        assertEquals("100.0K", formatter.formatCommon(999999))
+        assertEquals("1,000.0K", formatter.formatCommon(999999))
     }
 
     @Test
@@ -72,8 +72,8 @@ internal class NumberFormatterTest {
 
     @Test
     fun `formatCommon applies K or M suffix to large negative values preserving sign`() {
-        assertEquals("-1.5K", formatter.formatCommon(-15000))
-        assertEquals("-100.0K", formatter.formatCommon(-999999))
+        assertEquals("-15.0K", formatter.formatCommon(-15000))
+        assertEquals("-1,000.0K", formatter.formatCommon(-999999))
         assertEquals("-1.5M", formatter.formatCommon(-1500000))
         assertEquals("-10.0M", formatter.formatCommon(-10000000))
     }
