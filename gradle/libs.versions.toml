@@ -105,3 +105,6 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 androidx-room = { id = "androidx.room", version.ref = "room" }
+anime-application = { id = "shum.oks.lab.anime.application", version = "unspecified" }
+anime-library = { id = "shum.oks.lab.anime.library", version = "unspecified" }
+anime-secrets = { id = "shum.oks.lab.anime.secrets", version = "unspecified" }

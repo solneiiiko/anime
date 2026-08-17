@@ -16,7 +16,20 @@ gradlePlugin {
             id = "shum.oks.lab.anime.secrets"
             implementationClass = "shum.oks.lab.anime.convention.SecretsReaderPlugin"
         }
+        register("AndroidApplicationPlugin") {
+            id = "shum.oks.lab.anime.application"
+            implementationClass = "shum.oks.lab.anime.convention.AndroidApplicationPlugin"
+        }
+        register("AndroidLibraryPlugin") {
+            id = "shum.oks.lab.anime.library"
+            implementationClass = "shum.oks.lab.anime.convention.AndroidLibraryPlugin"
+        }
     }
+}
+
+dependencies {
+    implementation(libs.android.gradlePlugin)
+    implementation(libs.kotlin.gradlePlugin)
 }
 
 repositories {

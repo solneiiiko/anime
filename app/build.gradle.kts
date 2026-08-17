@@ -9,8 +9,8 @@ import shum.oks.lab.anime.convention.getSecret
  */
 
 plugins {
-    id("shum.oks.lab.anime.secrets")
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.anime.application)
+    alias(libs.plugins.anime.secrets)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
@@ -22,19 +22,11 @@ android {
     val productFlavorProduction = "prod"
 
     namespace = "shum.oks.lab.anime"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
 
     defaultConfig {
         applicationId = "shum.oks.lab.anime"
-        minSdk = 26
-        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         val myAnimeListClientId = getSecret("MY_ANIME_LIST_CLIENT_ID") ?: ""
         buildConfigField("String", "MY_ANIME_LIST_CLIENT_ID", "\"$myAnimeListClientId\"")
@@ -61,19 +53,9 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
     }
 }
 

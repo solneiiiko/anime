@@ -1,32 +1,11 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.anime.library)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
 }
 
 android {
     namespace = "shum.oks.lab.common.database"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
-    }
 }
 
 room {

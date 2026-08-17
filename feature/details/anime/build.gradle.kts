@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.anime.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
@@ -7,30 +7,9 @@ plugins {
 
 android {
     namespace = "shum.oks.lab.feature.details.anime"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 
     buildFeatures {
         compose = true
-    }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
     }
 }
 
@@ -45,6 +24,7 @@ dependencies {
 
     api(libs.androidx.navigation3.runtime)
     api(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.compose.material3.adaptive.navigation3)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.foundation)

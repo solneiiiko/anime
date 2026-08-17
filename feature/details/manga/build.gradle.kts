@@ -1,34 +1,13 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.anime.library)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "shum.oks.lab.feature.details.manga"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 
     buildFeatures {
         compose = true
-    }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
     }
 }
 
