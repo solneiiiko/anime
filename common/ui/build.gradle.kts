@@ -34,13 +34,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.runtime)
     implementation(libs.coil.compose)
 
-    implementation(project(":core:ui"))
+    api(project(":core:ui"))
     implementation(project(":common:theme"))
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
 }
