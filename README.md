@@ -89,10 +89,10 @@ The current focus of this project is architecture, scalability, and production-r
 
 
 
-| Theme | Catalog | Details                                                          | Settings |
+| Theme | Catalog | Details                                                          | FullScreenError |
 |---------|---------|------------------------------------------------------------------|--------|
-| Light | <img src="docs/screenshots/catalog_light.png" width="220"> | <img src="docs/screenshots/anime_details_light.png" width="220"> | ^_^__/ |
-| Dark | <img src="docs/screenshots/catalog_dark.png" width="220"> | <img src="docs/screenshots/anime_details_dark.png" width="220"> | ^_^__/ |
+| Light | <img src="docs/screenshots/catalog_light.png" width="220"> | <img src="docs/screenshots/anime_details_light.png" width="220"> | <img src="docs/screenshots/full_screen_error_light.png" width="220"> |
+| Dark | <img src="docs/screenshots/catalog_dark.png" width="220"> | <img src="docs/screenshots/anime_details_dark.png" width="220"> | <img src="docs/screenshots/full_screen_error_dark.png" width="220"> |
 
 
 ## 🗺 Roadmap
