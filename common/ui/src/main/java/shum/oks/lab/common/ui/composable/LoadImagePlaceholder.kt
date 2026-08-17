@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.core.ui.composable
+package shum.oks.lab.common.ui.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import shum.oks.lab.core.ui.R
+import shum.oks.lab.common.ui.R
 import shum.oks.lab.core.ui.modifiers.shimmer
 
 @Composable
@@ -26,7 +26,7 @@ fun LoadingImagePlaceholder(
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(R.drawable.core_ui_image_placeholder),
+            painter = painterResource(R.drawable.common_ui_image_placeholder),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop

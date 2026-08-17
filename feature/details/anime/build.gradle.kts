@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":core:mvi"))
     api(project(":entity:anime:domain:api"))
     implementation(project(":core:ui"))
+    implementation(project(":common:ui"))
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
