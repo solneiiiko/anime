@@ -8,8 +8,8 @@ junitVersion = "1.1.5"
 espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.11.0"
 activityCompose = "1.13.0"
-kotlin = "2.4.0"
-ksp-gradle = "2.3.9"
+kotlin = "2.4.10"
+ksp-gradle = "2.3.11"
 jqwik = "1.9.1"
 composeBom = "2026.06.01"
 room = "2.8.4"
@@ -18,7 +18,6 @@ okhttp = "5.4.0"
 retrofit = "3.0.0"
 kotlinxSerializationJson = "1.11.0"
 material = "1.14.0"
-jetbrainsKotlinJvm = "2.4.0"
 coroutines = "1.11.0"
 composeUi = "1.11.4"
 composeMaterialIconsExtended = "1.7.8"
@@ -104,4 +103,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-gradle" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+androidx-room = { id = "androidx.room", version.ref = "room" }

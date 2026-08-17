@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.androidx.room)
 }
 
 android {
@@ -26,7 +27,17 @@ android {
             it.useJUnitPlatform()
         }
     }
+}
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+/**
+ * TODO Remove when Room Gradle Plugin correctly propagates room.schemaLocation to KSP for this toolchain.
+ * https://issuetracker.google.com/issues/379159770  ????
+ */
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
