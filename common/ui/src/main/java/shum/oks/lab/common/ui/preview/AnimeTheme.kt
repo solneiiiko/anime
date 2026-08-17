@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.core.ui.preview
+package shum.oks.lab.common.ui.preview
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Surface

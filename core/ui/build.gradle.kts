@@ -40,8 +40,6 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.androidx.compose.material.icons.extended)
 
-    api(project(":common:theme"))
-
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.mockk)
     testRuntimeOnly(libs.junit.jupiter.engine)

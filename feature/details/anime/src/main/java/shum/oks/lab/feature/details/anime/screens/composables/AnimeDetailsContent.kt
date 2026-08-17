@@ -31,11 +31,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import shum.oks.lab.common.ui.preview.AnimeThemePreview
+import shum.oks.lab.common.ui.preview.ThemePreviews
 import shum.oks.lab.core.ui.composable.toolbar.CollapsingToolbar
 import shum.oks.lab.core.ui.composable.toolbar.Title
 import shum.oks.lab.core.ui.composable.toolbar.TitlePlacement
-import shum.oks.lab.core.ui.preview.AnimeThemePreview
-import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUi
 import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUiPreviewData
 import shum.oks.lab.core.ui.R as CoreUiR

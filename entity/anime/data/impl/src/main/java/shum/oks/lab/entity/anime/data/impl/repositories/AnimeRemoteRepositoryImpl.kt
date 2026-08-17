@@ -41,7 +41,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override fun observeAnimePagingData(): Flow<PagingData<AnimeSummary>> = flow {
         val appPagingConfig = appConfigRepository.getAppConfig().pagingConfig
-        val catalog = AnimeCatalog.ALL // TODO get from UI
+        val catalog = AnimeCatalog.JIKAN // TODO get from UI
         emitAll(
             Pager(
                 config = PagingConfig(

@@ -14,6 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import shum.oks.lab.common.ui.composable.ButtonInfo
+import shum.oks.lab.common.ui.composable.FullScreenError
+import shum.oks.lab.core.ui.models.UiText
+import shum.oks.lab.feature.catalog.R
 import shum.oks.lab.feature.catalog.navigation.CatalogItemKey
 import shum.oks.lab.feature.catalog.screens.mvi.CatalogUiIntent
 import shum.oks.lab.feature.catalog.screens.mvi.CatalogUiViewModel
@@ -40,8 +44,11 @@ internal fun CatalogScreenContent(
         }
         is LoadState.Error -> {
             FullScreenError(
-                text = refreshState.error.toString(),
-                onRetry = animePagingData::retry,
+                subtitle = refreshState.error.message?.let { message -> UiText.Plain(message) },
+                buttonInfo = ButtonInfo(
+                    text = UiText.StringResource(R.string.catalog_retry),
+                    onClick = animePagingData::retry,
+                ),
             )
         }
         is LoadState.NotLoading -> {

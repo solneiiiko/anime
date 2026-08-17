@@ -15,7 +15,7 @@ import shum.oks.lab.entity.anime.data.impl.models.JikanAnimeSummaryListResponse
 
 internal interface JikanAnimeApi {
 
-    @GET("anime")
+    @GET("top/anime")
     suspend fun getAnimeSummaryList(
         @Query("page") page: Int,
         @Query("limit") limit: Int,
