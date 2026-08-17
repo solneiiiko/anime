@@ -40,6 +40,7 @@ import shum.oks.lab.entity.anime.data.api.entities.AnimeThemeEntity
         AnimeThemeCrossRef::class,
     ],
     version = AppDatabase.VERSION,
+    exportSchema = true,
 )
 internal abstract class AppDatabase : RoomDatabase(),
     AnimeDatabaseDelegate
