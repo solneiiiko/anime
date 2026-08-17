@@ -105,3 +105,11 @@ androidx-room = { id = "androidx.room", version.ref = "room" }
 anime-application = { id = "shum.oks.lab.anime.application", version = "unspecified" }
 anime-library = { id = "shum.oks.lab.anime.library", version = "unspecified" }
 anime-secrets = { id = "shum.oks.lab.anime.secrets", version = "unspecified" }
+anime-compose = { id = "shum.oks.lab.anime.compose", version = "unspecified" }
+
+[bundles]
+androidx-compose = [
+    "androidx-compose-ui",
+    "androidx-compose-material3",
+    "androidx-compose-ui-tooling-preview",
+]

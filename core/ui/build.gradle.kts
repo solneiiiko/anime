@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.anime.library)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.anime.compose)
 }
 
 android {
@@ -9,8 +9,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.compose.animation.core)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.animation)
     implementation(libs.kotlinx.collections.immutable)

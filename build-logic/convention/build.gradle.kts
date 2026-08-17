@@ -24,6 +24,10 @@ gradlePlugin {
             id = "shum.oks.lab.anime.library"
             implementationClass = "shum.oks.lab.anime.convention.AndroidLibraryPlugin"
         }
+        register("AndroidComposePlugin") {
+            id = "shum.oks.lab.anime.compose"
+            implementationClass = "shum.oks.lab.anime.convention.AndroidComposePlugin"
+        }
     }
 }
 
