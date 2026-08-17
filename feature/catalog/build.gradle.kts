@@ -9,9 +9,9 @@
 plugins {
     alias(libs.plugins.anime.library)
     alias(libs.plugins.anime.compose)
+    alias(libs.plugins.anime.di)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,8 +33,6 @@ dependencies {
     implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(project(":core:di"))
-    ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
 
     implementation(project(":common:ui"))

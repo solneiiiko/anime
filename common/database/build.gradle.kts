@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.anime.library)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.anime.di)
     alias(libs.plugins.androidx.room)
 }
 
@@ -22,8 +22,6 @@ ksp {
 dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    implementation(project(":core:di"))
-    ksp(libs.dagger.compiler)
     api(project(":entity:anime:data:api"))
 
     testImplementation(libs.junit.jupiter.api)

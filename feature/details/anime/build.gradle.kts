@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.anime.library)
     alias(libs.plugins.anime.compose)
+    alias(libs.plugins.anime.di)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -20,8 +20,6 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(project(":core:di"))
-    ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
     api(project(":entity:anime:domain:api"))
     implementation(project(":core:ui"))

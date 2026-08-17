@@ -12,8 +12,8 @@ plugins {
     alias(libs.plugins.anime.application)
     alias(libs.plugins.anime.secrets)
     alias(libs.plugins.anime.compose)
+    alias(libs.plugins.anime.di)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -69,8 +69,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.compose.material3.navigation.suite)
 
-    implementation(project(":core:di"))
-    ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
     implementation(project(":core:ui"))
 

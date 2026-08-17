@@ -28,12 +28,17 @@ gradlePlugin {
             id = "shum.oks.lab.anime.compose"
             implementationClass = "shum.oks.lab.anime.convention.AndroidComposePlugin"
         }
+        register("DiPlugin") {
+            id = "shum.oks.lab.anime.di"
+            implementationClass = "shum.oks.lab.anime.convention.DiPlugin"
+        }
     }
 }
 
 dependencies {
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.ksp.gradlePlugin)
 }
 
 repositories {
