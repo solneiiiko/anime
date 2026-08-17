@@ -6,15 +6,10 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-plugins {
-    alias(libs.plugins.anime.library)
-    alias(libs.plugins.anime.compose)
-}
+package shum.oks.lab.anime.convention
 
-android {
-    namespace = "shum.oks.lab.common.theme"
-}
-
-dependencies {
-    api(project(":entity:settings"))
+internal object AndroidConfig {
+    const val MIN_SDK: Int = 26
+    const val TARGET_SDK: Int = 36
+    const val COMPILE_SDK: Int = 37
 }

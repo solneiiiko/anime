@@ -7,54 +7,21 @@
  */
 
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.anime.feature.ui)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "shum.oks.lab.feature.catalog"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
-    }
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
     api(libs.androidx.navigation3.runtime)
     api(libs.androidx.navigation3.ui)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
     implementation(libs.kotlinx.serialization.json)
     
     implementation(libs.androidx.paging.runtime)
@@ -64,8 +31,6 @@ dependencies {
     implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(project(":core:di"))
-    ksp(libs.dagger.compiler)
     implementation(project(":core:mvi"))
 
     implementation(project(":common:ui"))

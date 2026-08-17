@@ -9,7 +9,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.anime.di)
     alias(libs.plugins.kotlin.serialization)
 }
 java {
@@ -23,9 +23,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":core:di"))
-    ksp(libs.dagger.compiler)
-
     api(libs.retrofit)
     implementation(libs.kotlinx.serialization.retrofit)
     implementation(libs.kotlinx.serialization.json)

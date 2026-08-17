@@ -9,7 +9,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.anime.di)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -23,6 +23,4 @@ kotlin {
 
 dependencies {
     api(project(":entity:anime:domain:api"))
-    api(project(":core:di"))
-    ksp(libs.dagger.compiler)
 }

@@ -7,29 +7,14 @@
  */
 
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.anime.library)
 }
 
 android {
     namespace = "shum.oks.lab.core.mvi"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 26
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     api(libs.androidx.lifecycle.viewmodel.compose)
 }
