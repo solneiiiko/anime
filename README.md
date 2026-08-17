@@ -108,8 +108,8 @@ The current focus of this project is architecture, scalability, and production-r
 - [ ] **Details screen**
 - [ ] Favorites
 - [ ] Search by title
-- [ ] Settings
-- [ ] Accessibility improvements (TalkBack)
+- [ ] **Settings**
+- [ ] **Accessibility improvements (TalkBack)**
 - [ ] Localization
 
 ### Engineering
@@ -120,8 +120,9 @@ The current focus of this project is architecture, scalability, and production-r
 - [x] Offline-first data layer
 - [x] Paging 3 & RemoteMediator
 - [x] DataStore Preferences
+- [ ] **Enforce architecture boundaries**
 - [x] GitHub Actions CI
-- [ ] GitHub Actions CI improvements
+- [ ] **GitHub Actions CI improvements**
 - [ ] Screenshot tests
 - [ ] Unit tests
 - [ ] UI tests
