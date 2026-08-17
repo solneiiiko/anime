@@ -83,9 +83,9 @@ The current focus of this project is architecture, scalability, and production-r
 - Placeholders are shown while images are loading
 - Demo of the current state of AnimeDetailsScreen
 
-| Catalog | Details (current state)                                                                                 |
-|---------|---------------------------------------------------------------------------------------------------------|
-| <img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_slow_internet.gif" /> | <img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_anime_details_screen.gif" /> |
+| Catalog | Details (anime)                                                                                 | Settings |
+|---------|---------|---------|
+| <img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_catalog_images_loading_slow_internet.gif" /> | <img width="180" height="400" alt="anime_demo_1" src="docs/gifs/anime_demo_anime_details_screen.gif" /> | ^_^__/ |
 
 
 
