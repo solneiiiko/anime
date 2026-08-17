@@ -32,6 +32,10 @@ gradlePlugin {
             id = "shum.oks.lab.anime.di"
             implementationClass = "shum.oks.lab.anime.convention.DiPlugin"
         }
+        register("FeatureUiPlugin") {
+            id = "shum.oks.lab.anime.feature.ui"
+            implementationClass = "shum.oks.lab.anime.convention.FeatureUiPlugin"
+        }
     }
 }
 

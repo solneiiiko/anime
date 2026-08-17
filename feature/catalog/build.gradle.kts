@@ -7,9 +7,7 @@
  */
 
 plugins {
-    alias(libs.plugins.anime.library)
-    alias(libs.plugins.anime.compose)
-    alias(libs.plugins.anime.di)
+    alias(libs.plugins.anime.feature.ui)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
 }

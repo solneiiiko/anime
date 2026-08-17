@@ -108,6 +108,7 @@ anime-library = { id = "shum.oks.lab.anime.library", version = "unspecified" }
 anime-secrets = { id = "shum.oks.lab.anime.secrets", version = "unspecified" }
 anime-compose = { id = "shum.oks.lab.anime.compose", version = "unspecified" }
 anime-di = { id = "shum.oks.lab.anime.di", version = "unspecified" }
+anime-feature-ui = { id = "shum.oks.lab.anime.feature.ui", version = "unspecified" }
 
 [bundles]
 androidx-compose = [
