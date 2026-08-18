@@ -11,7 +11,6 @@ package shum.oks.lab.anime.convention
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import shum.oks.lab.anime.convention.extensions.libs
@@ -21,33 +20,18 @@ class AndroidComposePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val libs = libs
-            pluginManager.apply(libs.kotlinCompilerPluginId)
+            pluginManager.apply(libs.plugins.kotlin.compose.get().pluginId)
 
             extensions.configure<CommonExtension> {
                 buildFeatures.compose = true
             }
             dependencies {
                 val configurationName = "implementation"
-                add(configurationName, platform( libs.composeBom))
-                add(configurationName, libs.composeBundle)
+                add(configurationName, platform(libs.androidx.compose.bom))
+                add(configurationName, libs.bundles.androidx.compose)
 
-                add("debugImplementation", libs.uiTooling)
+                add("debugImplementation", libs.androidx.compose.ui.tooling)
             }
         }
     }
 }
-
-private val VersionCatalog.kotlinCompilerPluginId: String
-    get() = findPlugin("kotlin-compose")
-        .get()
-        .get()
-        .pluginId
-
-private val VersionCatalog.composeBom
-    get() = findLibrary("androidx-compose-bom").get()
-
-private val VersionCatalog.composeBundle
-    get() = findBundle("androidx-compose").get()
-
-private val VersionCatalog.uiTooling
-    get() = findLibrary("androidx-compose-ui-tooling").get()
