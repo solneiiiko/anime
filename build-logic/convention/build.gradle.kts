@@ -36,6 +36,10 @@ gradlePlugin {
             id = "shum.oks.lab.anime.feature.ui"
             implementationClass = "shum.oks.lab.anime.convention.FeatureUiPlugin"
         }
+        register("KotlinLibraryPlugin") {
+            id = "shum.oks.lab.anime.kotlin.library"
+            implementationClass = "shum.oks.lab.anime.convention.KotlinLibraryPlugin"
+        }
     }
 }
 
