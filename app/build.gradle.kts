@@ -60,12 +60,12 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.material)
     implementation(libs.kotlinx.collections.immutable)
 
+    implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.compose.material3.navigation.suite)
 
@@ -82,15 +82,12 @@ dependencies {
     implementation(project(":feature:settings"))
     implementation(project(":feature:catalog"))
     implementation(project(":feature:favourites"))
-    implementation(project(":feature:details:manga"))
     implementation(project(":feature:details:anime"))
 
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

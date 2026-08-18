@@ -9,14 +9,12 @@ android {
 
 dependencies {
     implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.kotlinx.collections.immutable)
 
     api(libs.androidx.navigation3.runtime)
-    api(libs.androidx.navigation3.ui)
 
     implementation(libs.androidx.foundation)
-    implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":core:mvi"))
     api(project(":entity:anime:domain:api"))
@@ -26,9 +24,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
-    testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
 }

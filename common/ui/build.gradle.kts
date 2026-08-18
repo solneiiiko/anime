@@ -9,7 +9,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.compose.foundation)
-    implementation(libs.coil.compose)
+    implementation(libs.androidx.compose.ui.tooling.preview)
 
     api(project(":core:ui"))
     implementation(project(":common:theme"))

@@ -12,7 +12,7 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.animation)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.core)
 
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.mockk)

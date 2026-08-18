@@ -10,7 +10,7 @@ package shum.oks.lab.feature.catalog.screens.inlinetextcontent
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.StarRate
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
 internal enum class CatalogInlineContentType(
@@ -19,7 +19,7 @@ internal enum class CatalogInlineContentType(
 ) {
     STAR_RATE(
         id = "star_rate",
-        icon = Icons.Rounded.StarRate),
+        icon = Icons.Rounded.Star),
     MEMBERS(
         id = "members",
         icon = Icons.Rounded.Person

@@ -18,12 +18,7 @@ android {
 
 dependencies {
     api(libs.androidx.navigation3.runtime)
-    api(libs.androidx.navigation3.ui)
 
-    implementation(libs.kotlinx.serialization.json)
-    testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
 }
