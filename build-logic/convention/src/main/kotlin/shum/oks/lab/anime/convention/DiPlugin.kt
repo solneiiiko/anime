@@ -11,6 +11,9 @@ package shum.oks.lab.anime.convention
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import shum.oks.lab.anime.convention.extensions.api
+import shum.oks.lab.anime.convention.extensions.implementation
+import shum.oks.lab.anime.convention.extensions.ksp
 import shum.oks.lab.anime.convention.extensions.libs
 
 class DiPlugin : Plugin<Project> {
@@ -20,10 +23,9 @@ class DiPlugin : Plugin<Project> {
             val libs = libs
             pluginManager.apply(libs.plugins.ksp.get().pluginId)
             dependencies {
-                val configurationName = "implementation"
-                add(configurationName, project(":core:di"))
-                add("api", libs.dagger)
-                add("ksp", libs.dagger.compiler)
+                implementation(project(":core:di"))
+                api(libs.dagger)
+                ksp(libs.dagger.compiler)
             }
         }
     }
