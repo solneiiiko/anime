@@ -18,13 +18,8 @@ android {
 
 dependencies {
     implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.core)
     api(libs.androidx.navigation3.runtime)
-    api(libs.androidx.navigation3.ui)
-
-    implementation(libs.kotlinx.serialization.json)
-    
-    implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
 
     implementation(libs.coil.compose)
@@ -34,12 +29,9 @@ dependencies {
     implementation(project(":core:mvi"))
 
     implementation(project(":common:ui"))
-    api(project(":common:theme"))
+    implementation(project(":entity:settings"))
     api(project(":entity:anime:domain:api"))
 
-    testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
 }

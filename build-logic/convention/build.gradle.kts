@@ -36,10 +36,20 @@ gradlePlugin {
             id = "shum.oks.lab.anime.feature.ui"
             implementationClass = "shum.oks.lab.anime.convention.FeatureUiPlugin"
         }
+        register("KotlinLibraryPlugin") {
+            id = "shum.oks.lab.anime.kotlin.library"
+            implementationClass = "shum.oks.lab.anime.convention.KotlinLibraryPlugin"
+        }
     }
 }
 
 dependencies {
+    /**
+     * Makes generated version catalog (.toml) accessors available
+     *  to convention plugin implementation classes.
+     *  https://github.com/gradle/gradle/issues/15383
+     */
+    implementation(files((libs).javaClass.superclass.protectionDomain.codeSource.location))
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.ksp.gradlePlugin)

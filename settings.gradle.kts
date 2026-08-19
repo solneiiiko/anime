@@ -21,6 +21,11 @@ pluginManagement {
     }
 }
 plugins {
+    id("com.autonomousapps.build-health") version "3.18.0"
+    id("org.jetbrains.kotlin.jvm") version "2.4.10" apply false
+    id("org.jetbrains.kotlin.plugin.parcelize") version "2.4.10" apply false
+    id("com.android.application") version "9.3.0" apply false
+    id("com.android.library") version "9.3.0" apply false
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 dependencyResolutionManagement {
@@ -38,10 +43,12 @@ include(":core:di")
 include(":core:network")
 include(":core:mvi")
 include(":core:ui")
+include(":core:domain")
 
 include(":common:database")
 include(":common:network")
 include(":common:theme")
+include(":common:ui")
 
 include(":entity:anime:data:api")
 include(":entity:anime:data:impl")
@@ -55,5 +62,3 @@ include(":feature:settings")
 include(":feature:favourites")
 include(":feature:details:anime")
 include(":feature:details:manga")
-include(":core:domain")
-include(":common:ui")
