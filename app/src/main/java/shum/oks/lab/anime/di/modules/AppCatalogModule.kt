@@ -29,7 +29,7 @@ import shum.oks.lab.feature.catalog.di.CatalogUiDependencies
 import javax.inject.Provider
 
 @Module
-internal class CatalogModule {
+internal class AppCatalogModule {
 
     @Provides
     fun provideCatalogUiDependenciesProvider(

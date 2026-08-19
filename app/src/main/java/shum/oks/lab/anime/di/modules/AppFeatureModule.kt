@@ -12,7 +12,7 @@ import dagger.Module
 
 @Module(
     includes = [
-        CatalogModule::class,
+        AppCatalogModule::class,
         AnimeModule::class,
     ]
 )

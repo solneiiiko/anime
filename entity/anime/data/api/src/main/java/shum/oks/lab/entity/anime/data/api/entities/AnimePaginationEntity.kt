@@ -16,8 +16,8 @@ import shum.oks.lab.entity.anime.data.api.converters.AnimeCatalogConverter
 @Entity(
     tableName = AnimePaginationEntity.TABLE_NAME,
     primaryKeys = [
-        AnimePaginationEntity.Column.ANIME_ID,
-        AnimePaginationEntity.Column.CATALOG
+        AnimePaginationEntity.Column.CATALOG,
+        AnimePaginationEntity.Column.ANIME_ID
     ]
 )
 @TypeConverters(AnimeCatalogConverter::class)

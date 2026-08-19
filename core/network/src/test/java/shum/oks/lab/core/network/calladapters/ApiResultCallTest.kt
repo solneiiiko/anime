@@ -77,10 +77,10 @@ internal class ApiResultCallTest {
     }
 
     @Provide
-    fun okCodes(): Arbitrary<Int> = Arbitraries.of(204, 205)
+    fun codesWithoutBody(): Arbitrary<Int> = Arbitraries.of(204, 205)
     @Property
     fun `should map any response body is null (No Content) to Failure with UnknownException`(
-        @ForAll("okCodes") okCode: Int
+        @ForAll("codesWithoutBody") okCode: Int
     ) = runBlocking {
         server.enqueue(
             MockResponse()
@@ -126,7 +126,11 @@ internal class ApiResultCallTest {
     fun `should map any 5xx error code to ApiServerException`(
         @ForAll("serverErrorCodes") code: Int
     ) = runBlocking {
-        server.enqueue(MockResponse().setResponseCode(code).setBody(SERVER_ERROR_BODY_MESSAGE))
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(code)
+                .setBody(SERVER_ERROR_BODY_MESSAGE)
+        )
 
         val result = service.getData()
         assertTrue(result is ApiResult.Failure)
@@ -153,7 +157,7 @@ internal class ApiResultCallTest {
     }
 }
 
-data class ErrorCase(
+internal data class ErrorCase(
     val code: Int,
     val bodyMessage: String,
     val apiClientExceptionCode: ApiClientException.Code

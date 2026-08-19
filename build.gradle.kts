@@ -102,7 +102,7 @@ dependencyAnalysis {
 }
 
 private val ProviderConvertible<MinimalExternalModuleDependency>.moduleId: String
-    get() = asProvider().get().module.toString()
+    get() = asProvider().moduleId
 
 private val Provider<MinimalExternalModuleDependency>.moduleId: String
     get() = get().module.toString()
