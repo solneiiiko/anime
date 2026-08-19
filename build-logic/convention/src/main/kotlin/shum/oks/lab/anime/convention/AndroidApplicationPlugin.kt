@@ -13,6 +13,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import shum.oks.lab.anime.convention.extensions.configureAndroidCommon
+import shum.oks.lab.anime.convention.extensions.libs
 
 class AndroidApplicationPlugin : Plugin<Project> {
 
@@ -20,8 +21,8 @@ class AndroidApplicationPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("com.android.application")
             extensions.configure<ApplicationExtension> {
-                configureAndroidCommon()
-                defaultConfig.targetSdk = AndroidConfig.TARGET_SDK
+                configureAndroidCommon(libs.versions)
+                defaultConfig.targetSdk = libs.versions.targetSdk.get().toInt()
             }
         }
     }
