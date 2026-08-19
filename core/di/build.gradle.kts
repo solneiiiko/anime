@@ -1,7 +1,6 @@
 plugins {
     id("java-library")
     alias(libs.plugins.anime.kotlin.library)
-    alias(libs.plugins.ksp)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
