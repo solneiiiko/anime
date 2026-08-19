@@ -18,6 +18,9 @@ plugins {
 dependencyAnalysis {
     issues {
         all {
+            onAny {
+                severity("fail")
+            }
             onUsedTransitiveDependencies {
                 severity("ignore")
             }
