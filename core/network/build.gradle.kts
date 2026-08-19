@@ -14,14 +14,14 @@ tasks.withType<Test> {
 }
 
 dependencies {
-    implementation(libs.retrofit)
+    api(libs.retrofit)
 
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
 
     testImplementation(libs.jqwik.api)
-    testImplementation(libs.jqwik.kotlin)
+    testRuntimeOnly(libs.jqwik.kotlin)
     testRuntimeOnly(libs.jqwik.engine)
 
     testImplementation(libs.mockwebserver)

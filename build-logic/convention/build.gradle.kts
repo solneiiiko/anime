@@ -49,7 +49,7 @@ dependencies {
      *  to convention plugin implementation classes.
      *  https://github.com/gradle/gradle/issues/15383
      */
-    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(files((libs).javaClass.superclass.protectionDomain.codeSource.location))
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.ksp.gradlePlugin)

@@ -19,14 +19,12 @@ java {
 
 dependencies {
     api(libs.retrofit)
-    implementation(libs.kotlinx.serialization.retrofit)
     implementation(libs.kotlinx.serialization.json)
-
     api(libs.androidx.datastore.preferences)
 
     implementation(project(":core:network"))
 
-    implementation(project(":entity:anime:data:api"))
+    api(project(":entity:anime:data:api"))
     api(project(":entity:anime:domain:api"))
     api(project(":entity:config:domain:api"))
 }

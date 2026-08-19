@@ -9,7 +9,5 @@ java {
 }
 
 dependencies {
-    api(libs.dagger)
     implementation(libs.androidx.annotation.jvm)
-    ksp(libs.dagger.compiler)
 }

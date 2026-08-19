@@ -14,6 +14,7 @@ dependencies {
 
     api(libs.androidx.navigation3.runtime)
 
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.foundation)
 
     implementation(project(":core:mvi"))

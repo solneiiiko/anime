@@ -13,6 +13,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import shum.oks.lab.anime.convention.extensions.api
 import shum.oks.lab.anime.convention.extensions.debugImplementation
 import shum.oks.lab.anime.convention.extensions.implementation
 import shum.oks.lab.anime.convention.extensions.libs
@@ -29,8 +30,8 @@ class AndroidComposePlugin : Plugin<Project> {
             }
             dependencies {
                 implementation(platform(libs.androidx.compose.bom))
-                implementation(libs.bundles.androidx.compose)
-
+                implementation(libs.androidx.compose.material3)
+                api(libs.androidx.compose.ui)
                 debugImplementation(libs.androidx.compose.ui.tooling)
             }
         }

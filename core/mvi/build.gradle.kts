@@ -15,6 +15,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    api(libs.androidx.lifecycle.viewmodel.compose)
+    api(libs.androidx.lifecycle.viewmodel.ktx)
 }

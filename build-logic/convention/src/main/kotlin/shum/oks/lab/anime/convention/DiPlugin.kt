@@ -12,7 +12,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import shum.oks.lab.anime.convention.extensions.api
-import shum.oks.lab.anime.convention.extensions.implementation
 import shum.oks.lab.anime.convention.extensions.ksp
 import shum.oks.lab.anime.convention.extensions.libs
 
@@ -23,7 +22,7 @@ class DiPlugin : Plugin<Project> {
             val libs = libs
             pluginManager.apply(libs.plugins.ksp.get().pluginId)
             dependencies {
-                implementation(project(":core:di"))
+                api(project(":core:di"))
                 api(libs.dagger)
                 ksp(libs.dagger.compiler)
             }
