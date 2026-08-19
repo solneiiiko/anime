@@ -30,8 +30,6 @@ internal class AppDataStoreModule {
                 context.preferencesDataStoreFile(PREFERENCES_FILE_NAME)
             },
         )
-
-    companion object {
-        const val PREFERENCES_FILE_NAME = "shum_oks_lab_anime_app_preferences"
-    }
 }
+
+private const val PREFERENCES_FILE_NAME = "shum_oks_lab_anime_app_preferences"

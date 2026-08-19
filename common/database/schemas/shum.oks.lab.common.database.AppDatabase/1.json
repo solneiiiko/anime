@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "76d641b642ea9e4e49bac804741cf6eb",
+    "identityHash": "4b49d1b8c22f3fcc635f6ff256de75b0",
     "entities": [
       {
         "tableName": "anime",
@@ -115,7 +115,7 @@
       },
       {
         "tableName": "anime_pagination",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `prev_page` INTEGER, `next_page` INTEGER, `catalog` TEXT NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`id`, `catalog`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `prev_page` INTEGER, `next_page` INTEGER, `catalog` TEXT NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`catalog`, `id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -149,8 +149,8 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "id",
-            "catalog"
+            "catalog",
+            "id"
           ]
         }
       },
@@ -637,7 +637,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '76d641b642ea9e4e49bac804741cf6eb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4b49d1b8c22f3fcc635f6ff256de75b0')"
     ]
   }
 }
