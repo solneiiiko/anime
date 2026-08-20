@@ -13,7 +13,7 @@ import java.io.File
 
 internal fun Lint.configureLint(
     checkDependencies: Boolean = false,
-    lintConfig: File? = null,
+    lintConfig: File,
 ) {
     apply {
         abortOnError = true

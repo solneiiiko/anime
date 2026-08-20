@@ -16,6 +16,7 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import shum.oks.lab.anime.convention.extensions.configureLint
+import shum.oks.lab.anime.convention.extensions.lintConfig
 
 class KotlinLibraryPlugin : Plugin<Project> {
 
@@ -31,7 +32,7 @@ class KotlinLibraryPlugin : Plugin<Project> {
                 }
             }
             extensions.configure<Lint> {
-                configureLint()
+                configureLint(lintConfig = target.lintConfig)
             }
         }
     }
