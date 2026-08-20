@@ -13,7 +13,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import shum.oks.lab.anime.convention.extensions.configureAndroidCommon
+import shum.oks.lab.anime.convention.extensions.configureLint
 import shum.oks.lab.anime.convention.extensions.libs
+import shum.oks.lab.anime.convention.extensions.lintConfig
 
 class AndroidApplicationPlugin : Plugin<Project> {
 
@@ -21,11 +23,18 @@ class AndroidApplicationPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("com.android.application")
             extensions.configure<ApplicationExtension> {
-                configureAndroidCommon(libs.versions)
+                configureAndroidCommon(
+                    versions = libs.versions,
+                )
                 defaultConfig.apply {
                     targetSdk = libs.versions.targetSdk.get().toInt()
                     versionName = libs.versions.appVersionName.get()
                 }
+                lint.configureLint(
+                    checkDependencies = true,
+                    lintConfig = target.lintConfig,
+                )
+
             }
         }
     }

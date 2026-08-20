@@ -13,7 +13,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import shum.oks.lab.anime.convention.extensions.configureAndroidCommon
+import shum.oks.lab.anime.convention.extensions.configureLint
 import shum.oks.lab.anime.convention.extensions.libs
+import shum.oks.lab.anime.convention.extensions.lintConfig
 
 class AndroidLibraryPlugin : Plugin<Project> {
 
@@ -21,7 +23,12 @@ class AndroidLibraryPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("com.android.library")
             extensions.configure<LibraryExtension> {
-                configureAndroidCommon(libs.versions)
+                configureAndroidCommon(
+                    versions = libs.versions,
+                )
+                lint.configureLint(
+                    lintConfig = target.lintConfig,
+                )
             }
         }
     }
