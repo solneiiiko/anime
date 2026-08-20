@@ -63,7 +63,8 @@ internal fun CatalogListContent(
 
         when (val append = pagingItems.loadState.append) {
             is LoadState.Loading -> {
-                repeat(3) { // TODO https://github.com/solneiiiko/anime/issues/31 count of placeholders should be equal to page size
+                // TODO https://github.com/solneiiiko/anime/issues/31 count of placeholders should be equal to page size
+                repeat(3) {
                     item {
                         CatalogPlaceholderCard()
                     }

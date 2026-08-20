@@ -46,7 +46,8 @@ internal class Navigator(
             }
             BackAction.POP -> {
                 state.transitionType = NavigationTransitionType.BACKWARD
-                val currentStack = state.backStacks[state.topLevelRoute] ?: error("Stack for ${state.topLevelRoute} not found")
+                val currentStack = state.backStacks[state.topLevelRoute]
+                    ?: error("Stack for ${state.topLevelRoute} not found")
                 currentStack.removeLastOrNull()
             }
             BackAction.EXIT -> {

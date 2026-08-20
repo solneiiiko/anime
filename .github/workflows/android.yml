@@ -9,6 +9,7 @@ env:
 
 jobs:
   internal:
+    name: Internal
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +42,7 @@ jobs:
           if-no-files-found: warn
 
   prod:
+    name: Production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -92,6 +94,7 @@ jobs:
           ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.parallel=false \
               :app:lintInternalDebug \
               :app:lintProdRelease \
+              detekt  \
               buildHealth --continue
 
       - name: Upload code quality reports
@@ -101,5 +104,6 @@ jobs:
           name: code-quality-reports
           path: |
             app/build/reports/lint-results-*
+            **/build/reports/detekt/**
             build/reports/dependency-analysis/build-health-report.txt
           if-no-files-found: warn

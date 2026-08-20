@@ -40,6 +40,10 @@ gradlePlugin {
             id = "shum.oks.lab.anime.kotlin.library"
             implementationClass = "shum.oks.lab.anime.convention.KotlinLibraryPlugin"
         }
+        register("DetektPlugin") {
+            id = "shum.oks.lab.anime.detekt"
+            implementationClass = "shum.oks.lab.anime.convention.DetektPlugin"
+        }
     }
 }
 
@@ -53,6 +57,7 @@ dependencies {
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.ksp.gradlePlugin)
+    implementation(libs.detekt.gradlePlugin)
 }
 
 repositories {

@@ -11,6 +11,7 @@ package shum.oks.lab.anime.convention
 import com.android.build.api.dsl.Lint
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
@@ -22,6 +23,8 @@ class KotlinLibraryPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("org.jetbrains.kotlin.jvm")
             pluginManager.apply("com.android.lint")
+            apply<DetektPlugin>()
+
             extensions.configure<KotlinJvmProjectExtension> {
                 compilerOptions {
                     jvmTarget.set(JvmTarget.JVM_11)

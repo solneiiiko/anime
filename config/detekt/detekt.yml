@@ -1,0 +1,29 @@
+style:
+  MagicNumber:
+    active: false
+  ReturnCount:
+    active: false
+
+complexity:
+  LongParameterList:
+    active: false
+  LongMethod:
+    allowedLines: 60
+    ignoreAnnotated:
+      - Composable
+  TooManyFunctions:
+    ignoreAnnotated:
+      - Dao
+
+comments:
+  UndocumentedPublicClass:
+    active: false
+  UndocumentedPublicFunction:
+    active: false
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated:
+      - Composable
+  TopLevelPropertyNaming:
+    constantPattern: '([A-Z][A-Za-z0-9]*)|([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*)'
