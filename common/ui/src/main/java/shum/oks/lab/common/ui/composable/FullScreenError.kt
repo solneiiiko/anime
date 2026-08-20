@@ -38,10 +38,10 @@ import shum.oks.lab.core.ui.models.UiText
 
 @Composable
 fun FullScreenError(
-    title: UiText = UiText.StringResource(R.string.common_ui_error_something_went_wrong),
-    subtitle: UiText? = null,
     buttonInfo: ButtonInfo,
     modifier: Modifier = Modifier,
+    title: UiText = UiText.StringResource(R.string.common_ui_error_something_went_wrong),
+    subtitle: UiText? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(

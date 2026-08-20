@@ -16,5 +16,8 @@ import androidx.compose.ui.Modifier
 fun MangaDetailScreen(
     modifier: Modifier = Modifier,
 ) {
-    Text("I'm MANGA DETAIL")
+    Text(
+        text = "I'm MANGA DETAIL",
+        modifier = modifier,
+    )
 }

@@ -1,4 +1,8 @@
 [versions]
+minSdk = "26"
+targetSdk = "37"
+compileSdk = "37"
+appVersionName = "0.1.0"
 agp = "9.3.0"
 dagger = "2.60"
 junit-jupiter = "5.11.0"
@@ -32,6 +36,7 @@ coil3 = "3.5.0"
 animationCore = "1.11.4"
 foundation = "1.11.4"
 mockk = "1.14.11"
+detekt = "2.0.0-alpha.6"
 
 [libraries]
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
@@ -92,9 +97,11 @@ mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "ksp-gradle" }
+detekt-gradlePlugin = { group = "dev.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-gradle" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -109,3 +116,4 @@ anime-compose = { id = "shum.oks.lab.anime.compose", version = "unspecified" }
 anime-di = { id = "shum.oks.lab.anime.di", version = "unspecified" }
 anime-feature-ui = { id = "shum.oks.lab.anime.feature.ui", version = "unspecified" }
 anime-kotlin-library = { id = "shum.oks.lab.anime.kotlin.library", version = "unspecified" }
+anime-detekt = { id = "shum.oks.lab.anime.detekt", version = "unspecified" }

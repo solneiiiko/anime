@@ -9,14 +9,16 @@
 package shum.oks.lab.anime.convention.extensions
 
 import com.android.build.api.dsl.CommonExtension
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.JavaVersion
-import shum.oks.lab.anime.convention.AndroidConfig
 
-internal fun CommonExtension.configureAndroidCommon() {
-    compileSdk = AndroidConfig.COMPILE_SDK
+internal fun CommonExtension.configureAndroidCommon(
+    versions: LibrariesForLibs.VersionAccessors,
+) {
+    compileSdk = versions.compileSdk.get().toInt()
 
     defaultConfig.apply {
-        minSdk = AndroidConfig.MIN_SDK
+        minSdk = versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

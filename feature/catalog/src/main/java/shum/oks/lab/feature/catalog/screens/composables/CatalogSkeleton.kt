@@ -47,7 +47,7 @@ internal fun CatalogSkeleton(
             .padding(horizontal = 16.dp)
             .fillMaxSize(),
     ) {
-        items(count = MAX_SKELETON_ITEMS) {
+        items(count = MaxSkeletonItems) {
             CatalogSkeletonItem(itemHeight)
         }
     }
@@ -98,4 +98,4 @@ private fun CatalogSkeletonPreview() {
     }
 }
 
-private const val MAX_SKELETON_ITEMS = 40
+private const val MaxSkeletonItems = 40

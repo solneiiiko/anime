@@ -49,6 +49,7 @@ internal data class RelatedEntities(
     val themesCrossRefs: List<AnimeThemeCrossRef> = emptyList(),
 )
 
+@Suppress("CyclomaticComplexMethod")
 internal fun AnimeListResponse.toRelatedEntities(): RelatedEntities =
     when (this) {
         is JikanAnimeSummaryListResponse -> {

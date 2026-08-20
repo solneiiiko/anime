@@ -45,6 +45,5 @@ abstract class BaseViewModel<
 
     override fun onCleared() {
         onClearedCallback?.invoke()
-        super.onCleared()
     }
 }

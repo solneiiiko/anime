@@ -130,8 +130,10 @@ internal fun CollapsingToolbarLayout(
             collapsedTitlePlaceable.height + collapsedTitlePaddingPx.verticalPaddingPx,
         )
 
-        val expandedTitleHeightPx = expandedTitlePlaceable.height + expandedTitlePaddingPx.verticalPaddingPx
-        val fullToolbarHeightPx = collapsedToolbarHeightPx + expandedTitleHeightPx + (expandedContentPlaceable?.height ?: 0)
+        val expandedTitleHeightPx = expandedTitlePlaceable.height +
+                expandedTitlePaddingPx.verticalPaddingPx
+        val fullToolbarHeightPx = collapsedToolbarHeightPx +
+                expandedTitleHeightPx + (expandedContentPlaceable?.height ?: 0)
 
         val heightOffsetLimit = -(fullToolbarHeightPx - collapsedToolbarHeightPx).toFloat()
         onHeightOffsetLimitChange(heightOffsetLimit)
@@ -144,8 +146,12 @@ internal fun CollapsingToolbarLayout(
         val navIconY = (collapsedToolbarHeightPx - (navigationIconPlaceable?.height ?: 0)) / 2
         val collapsedTitleX = (navigationIconPlaceable?.width ?: 0) + collapsedTitlePaddingPx.left
         val collapsedTitleY = when (collapsedTitle.placement) {
-            is TitlePlacement.CenterVertically -> (collapsedToolbarHeightPx - collapsedTitlePlaceable.height) / 2
-            is TitlePlacement.Padded -> collapsedTitlePaddingPx.top
+            is TitlePlacement.CenterVertically -> {
+                (collapsedToolbarHeightPx - collapsedTitlePlaceable.height) / 2
+            }
+            is TitlePlacement.Padded -> {
+                collapsedTitlePaddingPx.top
+            }
         }
         val expandedTitleX = expandedTitlePaddingPx.left
         val expandedTitleY = collapsedToolbarHeightPx + expandedTitlePaddingPx.top
@@ -204,7 +210,8 @@ internal fun CollapsingToolbarLayout(
                 y = expandedContentY,
             ) {
                 alpha = expandedContentAlpha(progress = progress)
-                translationY = -expandedContentPlaceable.height * progress * ExpandedContentTranslationFactor
+                translationY = -expandedContentPlaceable.height *
+                        progress * ExpandedContentTranslationFactor
             }
         }
     }

@@ -9,6 +9,7 @@ env:
 
 jobs:
   internal:
+    name: Internal
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,9 +29,7 @@ jobs:
           ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.parallel=false \
             assembleInternal \
             test \
-            testInternalUnitTest \
-            lintInternalDebug \
-            lintInternalRelease
+            testInternalUnitTest
 
       - name: Upload internal reports
         if: always()
@@ -43,6 +42,7 @@ jobs:
           if-no-files-found: warn
 
   prod:
+    name: Production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,9 +61,7 @@ jobs:
         run: |
           ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.parallel=false \
             assembleProd \
-            testProdDebugUnitTest \
-            lintProdDebug \
-            lintProdRelease
+            testProdDebugUnitTest
 
       - name: Upload prod reports
         if: always()
@@ -75,7 +73,8 @@ jobs:
             **/build/reports/tests/**
           if-no-files-found: warn
 
-  dependency-health:
+  code-quality:
+    name: Code Quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -90,15 +89,21 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Dependency health check
+      - name: Run code quality checks
         run: |
-          ./gradlew --no-daemon buildHealth
+          ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.parallel=false \
+              :app:lintInternalDebug \
+              :app:lintProdRelease \
+              detekt  \
+              buildHealth --continue
 
-      - name: Upload dependency analysis reports
+      - name: Upload code quality reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: dependency-analysis-reports
+          name: code-quality-reports
           path: |
+            app/build/reports/lint-results-*
+            **/build/reports/detekt/**
             build/reports/dependency-analysis/build-health-report.txt
           if-no-files-found: warn
