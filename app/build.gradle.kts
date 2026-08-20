@@ -17,16 +17,11 @@ plugins {
 }
 
 android {
-    val flavourDimensionEnvironment = "environment"
-    val productFlavorInternal = "internal"
-    val productFlavorProduction = "prod"
-
     namespace = "shum.oks.lab.anime"
 
     defaultConfig {
         applicationId = "shum.oks.lab.anime"
         versionCode = 1
-        versionName = "1.0"
 
         val myAnimeListClientId = getSecret("MY_ANIME_LIST_CLIENT_ID") ?: ""
         buildConfigField("String", "MY_ANIME_LIST_CLIENT_ID", "\"$myAnimeListClientId\"")
@@ -40,6 +35,9 @@ android {
         }
     }
 
+    val flavourDimensionEnvironment = "environment"
+    val productFlavorInternal = "internal"
+    val productFlavorProduction = "prod"
     flavorDimensions += listOf(flavourDimensionEnvironment)
     productFlavors {
         create(productFlavorProduction) {

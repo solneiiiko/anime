@@ -22,7 +22,10 @@ class AndroidApplicationPlugin : Plugin<Project> {
             pluginManager.apply("com.android.application")
             extensions.configure<ApplicationExtension> {
                 configureAndroidCommon(libs.versions)
-                defaultConfig.targetSdk = libs.versions.targetSdk.get().toInt()
+                defaultConfig.apply {
+                    targetSdk = libs.versions.targetSdk.get().toInt()
+                    versionName = libs.versions.appVersionName.get()
+                }
             }
         }
     }
