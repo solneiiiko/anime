@@ -14,10 +14,12 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import shum.oks.lab.anime.FakeAppConfigRepository
+import shum.oks.lab.anime.config.Environment
 import shum.oks.lab.common.database.di.CommonDatabaseComponentHolder
 import shum.oks.lab.common.network.di.CommonNetworkComponentHolder
 import shum.oks.lab.core.di.DependenciesProvider
 import shum.oks.lab.entity.anime.data.api.AnimeDatabaseDelegate
+import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 import shum.oks.lab.entity.anime.data.impl.di.EntityAnimeDataImplComponentHolder
 import shum.oks.lab.entity.anime.data.impl.di.EntityAnimeDataImplDependencies
 import shum.oks.lab.entity.anime.domain.api.repositories.AnimeRepository
@@ -53,6 +55,7 @@ internal class AppCatalogModule {
     fun provideAnimeListDataImplDependenciesProvider(
         fakeAppConfigRepositoryProvider: Provider<FakeAppConfigRepository>,
         dataStoreProvider: Provider<DataStore<Preferences>>,
+        environment: Environment,
     ): DependenciesProvider<EntityAnimeDataImplDependencies> = {
         object : EntityAnimeDataImplDependencies {
             override val jikanRetrofit: Retrofit
@@ -69,6 +72,9 @@ internal class AppCatalogModule {
 
             override val preferencesDataStore: DataStore<Preferences>
                 get() = dataStoreProvider.get()
+
+            override val defaultAnimeCatalog: AnimeCatalog
+                get() = environment.defaultAnimeCatalog
         }
     }
 }
