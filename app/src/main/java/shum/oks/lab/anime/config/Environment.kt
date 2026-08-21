@@ -6,10 +6,13 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime
+package shum.oks.lab.anime.config
 
+import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 
-internal object Environment {
+internal interface Environment {
 
-    const val ENABLE_LOGGING = true
+    val networkLoggingEnabled: Boolean
+
+    val defaultAnimeCatalog: AnimeCatalog
 }

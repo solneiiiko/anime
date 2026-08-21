@@ -12,6 +12,7 @@ import dagger.Module
 
 @Module(
     includes = [
+        AppConfigModule::class,
         AppDatabaseModule::class,
         AppNetworkModule::class,
         AppSettingsModule::class,

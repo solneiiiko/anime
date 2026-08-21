@@ -36,12 +36,12 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
     private val localDataSource: AnimeLocalDataSource,
     private val appConfigRepository: AppConfigRepository,
     private val animePreferencesDataStore: AnimePreferencesDataStore,
+    private val defaultCatalog: AnimeCatalog, // TODO get from UI
 ) : AnimeRepository {
 
     @OptIn(ExperimentalPagingApi::class)
     override fun observeAnimePagingData(): Flow<PagingData<AnimeSummary>> = flow {
         val appPagingConfig = appConfigRepository.getAppConfig().pagingConfig
-        val catalog = AnimeCatalog.JIKAN // TODO get from UI
         emitAll(
             Pager(
                 config = PagingConfig(
@@ -53,7 +53,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
                     } else {
                         RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH
                     },
-                    catalog = catalog,
+                    catalog = defaultCatalog,
                     afterRefresh = {
                         animePreferencesDataStore.apply {
                             setLastRefreshTime(System.currentTimeMillis())
@@ -61,7 +61,7 @@ internal class AnimeRemoteRepositoryImpl @Inject constructor(
                         }
                     }
                 ),
-                pagingSourceFactory = { localDataSource.pagingSource(catalog = catalog) }
+                pagingSourceFactory = { localDataSource.pagingSource(catalog = defaultCatalog) }
             ).flow.map { pagingData ->
                 pagingData.map { it.toAnimeModel() }
             }

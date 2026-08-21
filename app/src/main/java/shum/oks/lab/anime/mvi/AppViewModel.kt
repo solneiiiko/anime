@@ -14,12 +14,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import shum.oks.lab.anime.mvi.mappers.toTopNavButtonUiList
 import shum.oks.lab.anime.usecases.GetAppSettingUseCase
+import shum.oks.lab.anime.usecases.GetTopNavButtonsUseCase
 import shum.oks.lab.core.mvi.BaseViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
 internal class AppViewModel @Inject constructor(
     private val getAppSettingsUseCase: GetAppSettingUseCase,
+    private val getTopNavButtonsUseCase: GetTopNavButtonsUseCase
 ) : BaseViewModel<
     AppUiState,
     AppUiIntent,
@@ -48,7 +50,7 @@ internal class AppViewModel @Inject constructor(
                     AppUiState.Success(
                         themeMode = themeMode,
                         themeContrast = themeContrast,
-                        navigationButtons = topNavButtons.toTopNavButtonUiList(),
+                        navigationButtons = getTopNavButtonsUseCase().toTopNavButtonUiList(),
                     )
                 }
             }

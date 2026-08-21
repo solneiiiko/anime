@@ -12,7 +12,6 @@ import dagger.Module
 import dagger.Provides
 import shum.oks.lab.anime.usecases.AppSettings
 import shum.oks.lab.anime.usecases.GetAppSettingUseCase
-import shum.oks.lab.anime.usecases.models.TopNavButton
 import shum.oks.lab.entity.settings.theme.models.ThemeContrast
 import shum.oks.lab.entity.settings.theme.models.ThemeMode
 
@@ -26,7 +25,6 @@ internal class AppSettingsModule {
             AppSettings(
                 themeMode = ThemeMode.SYSTEM,
                 themeContrast = ThemeContrast.STANDARD,
-                topNavButtons = TopNavButton.entries,
             )
     }
 }
