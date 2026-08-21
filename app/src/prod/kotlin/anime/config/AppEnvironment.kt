@@ -6,14 +6,11 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di.modules
+package shum.oks.lab.anime.config
 
-import dagger.Module
+import shum.oks.lab.anime.BuildConfig
 
-@Module(
-    includes = [
-        AppCatalogModule::class,
-        AppAnimeModule::class,
-    ]
-)
-internal interface AppFeatureModule
+internal object AppEnvironment : Environment{
+
+    override val networkLoggingEnabled: Boolean = BuildConfig.DEBUG
+}

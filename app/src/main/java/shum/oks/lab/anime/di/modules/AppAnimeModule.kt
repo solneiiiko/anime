@@ -16,7 +16,7 @@ import shum.oks.lab.entity.anime.domain.impl.di.EntityAnimeDomainImplComponentHo
 import shum.oks.lab.feature.details.anime.di.AnimeDetailsUiDependencies
 
 @Module
-internal class AnimeModule {
+internal class AppAnimeModule {
 
     @Provides
     fun provideAnimeUiDependenciesProvider(

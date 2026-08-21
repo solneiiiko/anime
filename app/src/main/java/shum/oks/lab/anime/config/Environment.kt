@@ -6,9 +6,9 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime
+package shum.oks.lab.anime.config
 
-internal object Environment {
+internal interface Environment {
 
-    val ENABLE_LOGGING = BuildConfig.DEBUG
+    val networkLoggingEnabled: Boolean
 }

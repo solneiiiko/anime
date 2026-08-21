@@ -6,10 +6,12 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime
+package shum.oks.lab.anime.config
 
+/**
+ * FeatureFlags intentionally ignore the server configuration
+ */
+internal object AppFeatureFlags : FeatureFlags {
 
-internal object Environment {
-
-    const val ENABLE_LOGGING = true
+    override val favouritesEnabled: Boolean = true
 }

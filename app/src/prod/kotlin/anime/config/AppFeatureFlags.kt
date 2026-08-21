@@ -6,14 +6,12 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.anime.di.modules
+package shum.oks.lab.anime.config
 
-import dagger.Module
+/**
+ * FeatureFlags intentionally ignore the server configuration
+ */
+internal object AppFeatureFlags : FeatureFlags {
 
-@Module(
-    includes = [
-        AppCatalogModule::class,
-        AppAnimeModule::class,
-    ]
-)
-internal interface AppFeatureModule
+    override val favouritesEnabled: Boolean = false
+}
