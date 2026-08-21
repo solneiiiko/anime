@@ -10,7 +10,7 @@ package shum.oks.lab.anime.config
 
 import shum.oks.lab.entity.anime.data.api.entities.AnimeCatalog
 
-internal object AppEnvironment : Environment{
+internal object AppEnvironment : Environment {
 
     override val networkLoggingEnabled: Boolean = true
 
