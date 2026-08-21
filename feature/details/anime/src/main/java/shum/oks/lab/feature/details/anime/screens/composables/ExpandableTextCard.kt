@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import shum.oks.lab.core.ui.composable.ExpandableText
 import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.common.ui.preview.AnimeThemePreview
-import shum.oks.lab.common.ui.preview.ThemePreviews
+import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.feature.details.anime.R
 import shum.oks.lab.feature.details.anime.screens.models.ExpandableTextInfoUi
 

@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import shum.oks.lab.common.ui.preview.AnimeThemePreview
-import shum.oks.lab.common.ui.preview.ThemePreviews
+import shum.oks.lab.core.ui.preview.ThemePreviews
 
 @Composable
 internal fun InfoCard(

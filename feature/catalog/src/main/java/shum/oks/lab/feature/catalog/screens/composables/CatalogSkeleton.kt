@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import shum.oks.lab.core.ui.modifiers.shimmer
 import shum.oks.lab.common.ui.preview.AnimeThemePreview
-import shum.oks.lab.common.ui.preview.ThemePreviews
+import shum.oks.lab.core.ui.preview.ThemePreviews
 
 @Composable
 internal fun CatalogSkeleton(
@@ -89,7 +89,7 @@ private fun CatalogSkeletonItem(
 @ThemePreviews
 @Composable
 private fun CatalogSkeletonPreview() {
-    AnimeThemePreview() {
+    AnimeThemePreview {
         CatalogSkeleton(
             modifier = Modifier.fillMaxSize(),
             minCellSize = 150.dp,

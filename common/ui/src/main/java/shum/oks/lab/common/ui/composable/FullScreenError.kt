@@ -33,8 +33,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import shum.oks.lab.common.ui.R
 import shum.oks.lab.common.ui.preview.AnimeThemePreview
-import shum.oks.lab.common.ui.preview.ThemePreviews
 import shum.oks.lab.core.ui.models.UiText
+import shum.oks.lab.core.ui.preview.ThemePreviews
 
 @Composable
 fun FullScreenError(
