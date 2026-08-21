@@ -29,7 +29,7 @@
 
 ## 🔑 API Key
 
-This project requires a MyAnimeList API key to get data.
+This project requires a MyAnimeList API key to get data (the ```prod``` variant).
 
 You can obtain your API key here:
 - [API key help](https://help.myanimelist.net/hc/en-us/articles/900003108823-API)
@@ -37,6 +37,9 @@ You can obtain your API key here:
 and add your API key to `local.properties` as `MY_ANIME_LIST_CLIENT_ID=your_api_key` or gradle params as `-PMY_ANIME_LIST_CLIENT_ID=your_api_key` 
   
 *The key is stored locally and is not included in the repository.*
+
+**If you don't want to obtain a MyAnimeList API key**, you can build the ```internal``` variant instead. It uses the Jikan API as the data source.
+The Jikan API provides more complete data, but it is less stable and may occasionally be unavailable.
 
 ## 🛠 Tech Stack
 
