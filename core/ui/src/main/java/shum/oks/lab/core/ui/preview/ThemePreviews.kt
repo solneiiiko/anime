@@ -6,20 +6,19 @@
  * Unauthorized copying, modification, or distribution is prohibited.
  */
 
-package shum.oks.lab.common.ui.preview
+package shum.oks.lab.core.ui.preview
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
     name = "Dark Mode",
     showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Preview(
     name = "Light Mode",
     showBackground = true,
-    uiMode = UI_MODE_NIGHT_NO,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 annotation class ThemePreviews

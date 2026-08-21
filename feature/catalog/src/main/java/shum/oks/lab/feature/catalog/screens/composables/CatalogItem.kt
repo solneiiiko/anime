@@ -32,7 +32,7 @@ import coil3.request.ImageRequest
 import shum.oks.lab.common.ui.composable.ErrorImagePlaceholder
 import shum.oks.lab.common.ui.composable.LoadingImagePlaceholder
 import shum.oks.lab.common.ui.preview.AnimeThemePreview
-import shum.oks.lab.common.ui.preview.ThemePreviews
+import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.entity.settings.theme.models.ThemeContrast
 import shum.oks.lab.feature.catalog.navigation.CatalogItemKey
 import shum.oks.lab.feature.catalog.screens.inlinetextcontent.CatalogInlineContentType

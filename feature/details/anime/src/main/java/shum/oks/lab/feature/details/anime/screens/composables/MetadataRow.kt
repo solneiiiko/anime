@@ -17,7 +17,7 @@ import kotlinx.collections.immutable.ImmutableList
 import shum.oks.lab.core.ui.models.UiText
 import shum.oks.lab.core.ui.models.joinToString
 import shum.oks.lab.common.ui.preview.AnimeThemePreview
-import shum.oks.lab.common.ui.preview.ThemePreviews
+import shum.oks.lab.core.ui.preview.ThemePreviews
 import shum.oks.lab.feature.details.anime.screens.models.AnimeDetailsUiPreviewData
 
 @Composable

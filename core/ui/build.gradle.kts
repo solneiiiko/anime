@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.androidx.compose.animation)
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.ui.tooling.preview)
 
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.mockk)
